@@ -1,9 +1,26 @@
-import React from 'react'
+import { Link } from 'react-router-dom';
 
-const CarsList = () => {
+const CarList = ({ cars }) => {
+  if (!cars || cars.length === 0) {
+    return <p>No cars available at the moment.</p>;
+  }
+
   return (
-    <div>CarsList</div>
-  )
-}
+    <div>
+      <h2>All Cars</h2>
+      <ul>
+        {cars.map((car) => (
+          <li key={car._id}>
+            <h3>{car.brand} {car.model}</h3>
+            <p>Year: {car.year}</p>
+            <p>Price per day: ${car.pricePerDay}</p>
+            <p>Status: {car.availability}</p>
+            <Link to={`/cars/${car._id}`}>View Details</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
-export default CarsList
+export default CarList;
