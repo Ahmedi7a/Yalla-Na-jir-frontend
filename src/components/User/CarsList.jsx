@@ -11,6 +11,13 @@ const CarList = ({ cars }) => {
       <ul>
         {cars.map((car) => (
           <li key={car._id}>
+             {car.images && (
+              <img
+                src={car.images}
+                alt={'car'}
+                style={{ width: '200px', height: 'auto', objectFit: 'cover' }}
+              />
+            )}
             <h3>{car.brand} {car.model}</h3>
             <p>Year: {car.year}</p>
             <p>Price per day: ${car.pricePerDay}</p>

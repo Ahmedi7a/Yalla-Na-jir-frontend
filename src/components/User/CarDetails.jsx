@@ -9,7 +9,6 @@ const CarDetails = () => {
   const { carId } = useParams();
   const [car, setCar] = useState(null);
   const [rentalData, setRentalData] = useState({ startDate: '', endDate: '' });
-  const [message, setMessage] = useState('');
   const [totalPrice, setTotalPrice] = useState(null);
 
   useEffect(() => {
@@ -29,7 +28,6 @@ const CarDetails = () => {
     if (rentalData.startDate && rentalData.endDate && car) {
       const start = new Date(rentalData.startDate);
       const end = new Date(rentalData.endDate);
-
       const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
 
       if (days > 0) {
@@ -56,12 +54,16 @@ const CarDetails = () => {
 
     try {
       await rentalService.createRentalRequest(carId, rentalData);
-      setMessage('Rental request submitted!');
+      toast.success('Rental request submitted successfully!');
+      setRentalData({ startDate: '', endDate: '' });
+      setTotalPrice(null);
     } catch (err) {
       console.log(err);
-      setMessage('Error submitting rental request.');
+      toast.error('Error submitting rental request.');
     }
   };
+
+  const today = new Date().toISOString().split('T')[0];
 
   if (!car) return <p>Loading car details...</p>;
 
@@ -81,6 +83,7 @@ const CarDetails = () => {
             name="startDate"
             value={rentalData.startDate}
             onChange={handleChange}
+            min={today}
             required
           />
         </div>
@@ -91,6 +94,7 @@ const CarDetails = () => {
             name="endDate"
             value={rentalData.endDate}
             onChange={handleChange}
+            min={rentalData.startDate || today}
             required
           />
         </div>
@@ -101,8 +105,6 @@ const CarDetails = () => {
 
         <button type="submit">Rent Car</button>
       </form>
-
-      {message && <p>{message}</p>}
 
       <ToastContainer />
     </div>
