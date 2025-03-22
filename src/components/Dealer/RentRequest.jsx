@@ -5,7 +5,7 @@ import * as carService from '../../services/carService'
 function RentRequests() {
   const [rentals, setRentals] = useState([])
 
-  // Fetch rental requests for dealer's cars
+  // Fetch all rental requests for this dealer
   useEffect(() => {
     const fetchDealerRentals = async () => {
       try {
@@ -20,11 +20,12 @@ function RentRequests() {
   }, [])
 
   // Update rental status
-  const handleUpdateStatus = async (rentalId, newStatus, carId) => {
+  const handleUpdateStatus = async (rentalId, newStatus, carId = null) => {
     try {
-      const updatedRental = await rentalService.updateRentalStatus(rentalId, newStatus)
+      // Update rental status on backend
+      await rentalService.updateRentalStatus(rentalId, newStatus)
 
-      // If rental is rejected, set the car status back to available
+      // If rejected, make car available again
       if (newStatus === 'rejected' && carId) {
         try {
           await carService.update(carId, { availability: 'available' })
@@ -34,16 +35,21 @@ function RentRequests() {
         }
       }
 
-      // Update local rental state
-      setRentals((prevRentals) =>
-        prevRentals.map((r) => (r._id === rentalId ? updatedRental : r))
-      )
+      // If completed, remove the rental
+      if (newStatus === 'completed') {
+        await handleDeleteRental(rentalId)
+        return
+      }
+
+      const updatedRentals = await rentalService.getDealerRentals()
+      setRentals(updatedRentals)
+
     } catch (error) {
       console.error('Error updating rental status:', error)
     }
   }
 
-  // Delete rental
+  // Delete rental request
   const handleDeleteRental = async (rentalId) => {
     try {
       await rentalService.deleteRental(rentalId)
@@ -81,21 +87,35 @@ function RentRequests() {
                 <td>${rental.totalPrice}</td>
                 <td>{rental.status}</td>
                 <td>
-                  {rental.status !== 'approved' && (
-                    <button onClick={() => handleUpdateStatus(rental._id, 'approved', rental.carId?._id)}>
-                      Approve
-                    </button>
+                  {rental.status === 'pending' && (
+                    <>
+                      <button
+                        onClick={() =>
+                          handleUpdateStatus(rental._id, 'approved', rental.carId?._id)
+                        }
+                      >
+                        Approve
+                      </button>
+                      <button
+                        onClick={() =>
+                          handleUpdateStatus(rental._id, 'rejected', rental.carId?._id)
+                        }
+                      >
+                        Reject
+                      </button>
+                    </>
                   )}
-                  {rental.status !== 'rejected' && (
-                    <button onClick={() => handleUpdateStatus(rental._id, 'rejected', rental.carId?._id)}>
-                      Reject
-                    </button>
-                  )}
-                  {rental.status !== 'completed' && (
-                    <button onClick={() => handleUpdateStatus(rental._id, 'completed')}>
+
+                  {rental.status === 'approved' && (
+                    <button
+                      onClick={() =>
+                        handleUpdateStatus(rental._id, 'completed')
+                      }
+                    >
                       Complete
                     </button>
                   )}
+
                   <button onClick={() => handleDeleteRental(rental._id)}>
                     Delete
                   </button>
