@@ -15,7 +15,10 @@ import AdminDashboard from './components/Dashboard/AdminDashboard';
 import DealerDashboard from './components/Dashboard/DealerDashboard';
 // =============================
 // user
-
+import CarList from './components/User/CarsList';
+import CarDetails from './components/User/CarDetails';
+import MyRentals from './components/User/MyRentals';
+import DealerRequest from './components/User/DealerRequest';
 
 // ==================================
 // dealer
@@ -108,10 +111,14 @@ const App = () => {
            
           </>
         )}
-        {/* ahmed */}
+        
         {user && user.role === 'user' && (
           <>
             <Route path="/" element={<UserDashboard user={user} cars={cars} />} />
+            <Route path="cars" element={<CarList cars={cars} />} />
+            <Route path="cars/:carId" element={<CarDetails />} />
+            <Route path="my-rentals" element={<MyRentals />} />
+            <Route path="become-dealer" element={<DealerRequest />} />
           </>
         )}
 
