@@ -25,6 +25,7 @@ import DealerRequest from './components/User/DealerRequest';
 import CarCreate from './components/Dealer/CarCreate';
 import CarDealerDetails from './components/Dealer/CarDealerDetails';
 import DealerCarsList from './components/Dealer/DealerCarsList';
+import RentRequest from './components/Dealer/RentRequest';
 // ===================================
 //admin
 
@@ -114,6 +115,8 @@ const App = () => {
             <Route path="/dealer/cars/new" element={<CarCreate handleAddCar={handleAddCar} />}/>
             <Route path="/dealer/cars/:carId/edit" element={<CarCreate handleUpdateCar={handleUpdateCar} />}/>
             <Route path="/dealer/cars/:carId" element={<CarDealerDetails handleDeleteCar={handleDeleteCar} />} />
+            <Route path="/dealer/requests" element={<RentRequest />} />
+            
           </>
         )}
         
