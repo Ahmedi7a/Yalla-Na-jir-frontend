@@ -1,38 +1,75 @@
-import { Link } from 'react-router-dom';
-import { AuthedUserContext } from '../../App';
-import { useContext } from 'react';
+import { Link } from "react-router-dom";
+import "./NavBar.css";
+import { AuthedUserContext } from "../../App";
+import { useContext } from "react";
 
 const NavBar = ({ handleSignout }) => {
   const user = useContext(AuthedUserContext);
   return (
-    <>
-      {user ? (
-        <nav>
-          <ul>
-            <li>Welcome, {user.username}</li>
+    <nav className="navbar">
+      <div className="logo">
+        <Link to="/">Yalla Na'jir</Link>
+      </div>
+
+      <ul className="nav-links">
+        {!user && (
+          <>
             <li>
-              <Link to="/">Dashboard</Link>
-            </li>
-            <li>
-              <Link to="" onClick={handleSignout}>
-                Sign Out
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      ) : (
-        <nav>
-          <ul>
-            <li>
-              <Link to="/signin">Sign In</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
               <Link to="/signup">Sign Up</Link>
             </li>
-          </ul>
-        </nav>
-      )}
-    </>
+            <li>
+              <Link to="/signin">Sign In</Link>
+            </li>
+          </>
+        )}
+
+        {user && user.role === "admin" && (
+          <>
+            <li>
+              <Link to="/">Dashboard</Link>
+            </li>
+            <li>
+              <button onClick={handleSignout}>Sign Out</button>
+            </li>
+          </>
+        )}
+
+        {user && user.role === "dealer" && (
+          <>
+            <li>
+              <Link to="/">Dashboard</Link>
+            </li>
+            <li>
+              <button onClick={handleSignout}>Sign Out</button>
+            </li>
+          </>
+        )}
+
+        {user && user.role === "user" && (
+          <>
+            <li>
+              <Link to="/">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/cars">Cars</Link>
+            </li>
+            <li>
+              <Link to="/my-rentals">My Rentals</Link>
+            </li>
+            <li>
+              <Link to="/become-dealer">Become a Dealer</Link>
+            </li>
+            <li>
+              <button onClick={handleSignout}>Sign Out</button>
+            </li>
+          </>
+        )}
+      </ul>
+    </nav>
   );
 };
+
 export default NavBar;
