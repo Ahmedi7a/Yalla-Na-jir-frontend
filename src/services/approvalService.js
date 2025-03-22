@@ -81,10 +81,40 @@ const downgradeDealer = async (userId) => {
   }
 };
 
+
+const getApprovedDealers = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/approved-dealers`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getAllUsers = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/all-users`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    return res.json();
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   requestDealer,
   updateApprovalStatus,
   getPendingDealerRequests,
   deleteApprovalRequest,
   downgradeDealer,
+  getApprovedDealers,
+  getAllUsers,
 };
