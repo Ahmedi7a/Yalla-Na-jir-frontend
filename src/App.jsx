@@ -58,7 +58,6 @@ const App = () => {
           </>
         )}
 
-        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </AuthedUserContext.Provider>
   )
