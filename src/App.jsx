@@ -18,21 +18,42 @@ const App = () => {
   };
 
   return (
-    <>
-      <AuthedUserContext.Provider value={user}>
-        <NavBar user={user} handleSignout={handleSignout} />
-        <Routes>
-          {user ? (
-            <Route path="/" element={<Dashboard user={user} />} />
-          ) : (
-            <Route path="/" element={<Landing />} />
-          )}
-          <Route path="/signup" element={<SignupForm setUser={setUser} />} />
-          <Route path="/signin" element={<SigninForm setUser={setUser} />} />
-        </Routes>
-      </AuthedUserContext.Provider>
-    </>
-  );
-};
+    <AuthedUserContext.Provider value={user}>
+      <NavBar user={user} handleSignout={handleSignout} />
 
+      <Routes>
+        {!user && (
+          <>
+            <Route path="/" element={<Landing />} />
+            <Route path="/signup" element={<SignupForm setUser={setUser} />} />
+            <Route path="/signin" element={<SigninForm setUser={setUser} />} />
+          </>
+        )}
+
+        
+        {user && user.role === 'admin' && (
+          <>
+            <Route path="/" element={<AdminDashboard user={user} />} />
+            
+          </>
+        )}
+
+        {user && user.role === 'dealer' && (
+          <>
+            <Route path="/" element={<DealerDashboard user={user} />} />
+           
+          </>
+        )}
+
+        {user && user.role === 'user' && (
+          <>
+            <Route path="/" element={<UserDashboard user={user} />} />
+          </>
+        )}
+
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </AuthedUserContext.Provider>
+  )
+}
 export default App;
