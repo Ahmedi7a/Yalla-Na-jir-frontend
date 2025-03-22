@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import * as carService from '../../services/carService'
 
-function CarDetail() {
+function CarDealerDetails(props) {
   const { carId } = useParams()
   const [car, setCar] = useState(null)
 
@@ -22,9 +22,18 @@ function CarDetail() {
       <p>Year: {car.year}</p>
       <p>Price per day: ${car.pricePerDay}</p>
       <p>Status: {car.availability}</p>
-      <Link to="/dealer/cars/rentals">Back to Cars</Link>
+      <Link to={`/dealer/cars/${car._id}/edit`} style={{ marginRight: '1rem' }}>
+        Edit
+      </Link>
+
+      <button onClick={()=>props.handleDeleteCar(carId)} style={{ marginRight: '1rem' }}>
+        Delete
+      </button>
+
+      <Link to="/dealer/cars">Back to Cars</Link>
+      
     </div>
   )
 }
 
-export default CarDetail
+export default CarDealerDetails

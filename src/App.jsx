@@ -1,5 +1,5 @@
 import { useState, createContext, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route ,useNavigate } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import Landing from './components/Landing/Landing';
 import SignupForm from './components/SignupForm/SignupForm';
@@ -23,7 +23,7 @@ import DealerRequest from './components/User/DealerRequest';
 // ==================================
 // dealer
 import CarCreate from './components/Dealer/CarCreate';
-import CarDetails from './components/Dealer/CarDetails';
+import CarDealerDetails from './components/Dealer/CarDealerDetails';
 import DealerCarsList from './components/Dealer/DealerCarsList';
 // ===================================
 //admin
@@ -35,6 +35,8 @@ export const AuthedUserContext = createContext(null);
 const App = () => {
   const [user, setUser] = useState(authService.getUser()); // using the method from authservice
   const [cars, setCars] = useState([]);
+  const nav=useNavigate();
+
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -60,6 +62,7 @@ const App = () => {
     const newCar = await carService.create(formData)
     // Update local state with newly created car
     setCars([...cars, newCar])
+    nav('/dealer/cars/rentals');
   }
 
   const handleUpdateCar = async (carId, formData) => {
@@ -67,6 +70,18 @@ const App = () => {
     // Replace old car in state with updatedCar
     const updatedCars = cars.map((c) => (c._id === carId ? updatedCar : c))
     setCars(updatedCars)
+    nav('/dealer/cars/rentals')
+
+  }
+
+  const handleDeleteCar = async (carId) => {
+    try {
+      const deleteCar=await carService.deleteCar(carId)
+      setCars(cars.filter((car) => car._id !== deleteCar._id))
+      nav('/dealer/cars/rentals')
+    } catch (error) {
+      console.error('Error deleting car:', error)
+    }
   }
 
 
@@ -95,20 +110,10 @@ const App = () => {
         {user && user.role === 'dealer' && (
           <>
             <Route path="/" element={<DealerDashboard user={user} cars={cars} />} />
-          
             <Route path ="/dealer/cars/rentals" element={<DealerCarsList user={user} cars={cars} />} />
-
             <Route path="/dealer/cars/new" element={<CarCreate handleAddCar={handleAddCar} />}/>
-       
             <Route path="/dealer/cars/:carId/edit" element={<CarCreate handleUpdateCar={handleUpdateCar} />}/>
-            
-            <Route path="/dealer/cars/:carId" element={<CarDetails />} />
-
-       
-      
-        
-      
-           
+            <Route path="/dealer/cars/:carId" element={<CarDealerDetails handleDeleteCar={handleDeleteCar} />} />
           </>
         )}
         

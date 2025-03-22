@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import * as carService from "../../services/carService";
 
+
 const CreateCar = (props) => {
   const { carId } = useParams();
 
@@ -133,7 +134,7 @@ const CreateCar = (props) => {
             <button type="submit" className="btn btn-primary flex-grow-1">
               {carId ? "Update" : "Submit"}
             </button>
-            <Link to="/cars" className="btn btn-secondary flex-grow-1">
+            <Link to="/dealer/cars/rentals" className="btn btn-secondary flex-grow-1">
               Go Back
             </Link>
           </div>
