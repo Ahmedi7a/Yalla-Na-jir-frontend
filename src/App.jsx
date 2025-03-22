@@ -13,7 +13,19 @@ import * as rentalService from  '../src/services/rentalService';
 import UserDashboard from './components/Dashboard/UserDashboard';
 import AdminDashboard from './components/Dashboard/AdminDashboard';
 import DealerDashboard from './components/Dashboard/DealerDashboard';
+// =============================
+// user
 
+
+// ==================================
+// dealer
+
+
+// ===================================
+//admin
+
+
+//====================================
 export const AuthedUserContext = createContext(null);
 
 const App = () => {
