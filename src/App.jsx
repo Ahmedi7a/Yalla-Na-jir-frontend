@@ -19,8 +19,9 @@ import DealerDashboard from './components/Dashboard/DealerDashboard';
 
 // ==================================
 // dealer
-
-
+import CarCreate from './components/Dealer/CarCreate';
+import CarDetails from './components/Dealer/CarDetails';
+import DealerCarsList from './components/Dealer/DealerCarsList';
 // ===================================
 //admin
 
@@ -51,6 +52,22 @@ const App = () => {
   };
 
 
+
+  const handleAddCar = async (formData) => {
+    const newCar = await carService.create(formData)
+    // Update local state with newly created car
+    setCars([...cars, newCar])
+  }
+
+  const handleUpdateCar = async (carId, formData) => {
+    const updatedCar = await carService.update(carId, formData)
+    // Replace old car in state with updatedCar
+    const updatedCars = cars.map((c) => (c._id === carId ? updatedCar : c))
+    setCars(updatedCars)
+  }
+
+
+
   return (
     <AuthedUserContext.Provider value={user}>
       <NavBar user={user} handleSignout={handleSignout} />
@@ -75,6 +92,19 @@ const App = () => {
         {user && user.role === 'dealer' && (
           <>
             <Route path="/" element={<DealerDashboard user={user} cars={cars} />} />
+          
+            <Route path ="/dealer/cars/rentals" element={<DealerCarsList user={user} cars={cars} />} />
+
+            <Route path="/dealer/cars/new" element={<CarCreate handleAddCar={handleAddCar} />}/>
+       
+            <Route path="/dealer/cars/:carId/edit" element={<CarCreate handleUpdateCar={handleUpdateCar} />}/>
+            
+            <Route path="/dealer/cars/:carId" element={<CarDetails />} />
+
+       
+      
+        
+      
            
           </>
         )}
