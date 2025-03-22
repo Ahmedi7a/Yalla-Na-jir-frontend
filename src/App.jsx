@@ -2,10 +2,17 @@ import { useState, createContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import Landing from './components/Landing/Landing';
-import Dashboard from './components/Dashboard/Dashboard';
 import SignupForm from './components/SignupForm/SignupForm';
 import SigninForm from './components/SigninForm/SigninForm';
+// ==========================
 import * as authService from '../src/services/authService'; // import the authservice
+import * as carService from  '../src/services/carService';
+import * as approvalService from  '../src/services/approvalService';
+import * as rentalService from  '../src/services/rentalService';
+// =============================
+import UserDashboard from './components/Dashboard/UserDashboard';
+import AdminDashboard from './components/Dashboard/AdminDashboard';
+import DealerDashboard from './components/Dashboard/DealerDashboard';
 
 export const AuthedUserContext = createContext(null);
 
