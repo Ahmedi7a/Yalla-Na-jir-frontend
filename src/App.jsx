@@ -1,4 +1,4 @@
-import { useState, createContext } from 'react';
+import { useState, createContext, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import Landing from './components/Landing/Landing';
@@ -18,11 +18,26 @@ export const AuthedUserContext = createContext(null);
 
 const App = () => {
   const [user, setUser] = useState(authService.getUser()); // using the method from authservice
+  const [cars, setCars] = useState([]);
+
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const carsData = await carService.index();
+        setCars(carsData);
+      } catch (error) {
+        console.error('Error fetching cars:', error);
+      }
+    };
+
+    if (user) fetchCars();
+  }, [user]);
 
   const handleSignout = () => {
     authService.signout();
     setUser(null);
   };
+
 
   return (
     <AuthedUserContext.Provider value={user}>
@@ -40,21 +55,21 @@ const App = () => {
         
         {user && user.role === 'admin' && (
           <>
-            <Route path="/" element={<AdminDashboard user={user} />} />
+            <Route path="/" element={<AdminDashboard user={user} cars={cars} />} />
             
           </>
         )}
 
         {user && user.role === 'dealer' && (
           <>
-            <Route path="/" element={<DealerDashboard user={user} />} />
+            <Route path="/" element={<DealerDashboard user={user} cars={cars} />} />
            
           </>
         )}
 
         {user && user.role === 'user' && (
           <>
-            <Route path="/" element={<UserDashboard user={user} />} />
+            <Route path="/" element={<UserDashboard user={user} cars={cars} />} />
           </>
         )}
 
