@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AcceptRequest from '../Admin/AcceptRequest';
 import DealerList from '../Admin/DealerList';
 import UserList from '../Admin/UserList';
-import RentalList from '../Admin/RentalList';
+
 
 
 //styling
@@ -72,11 +72,6 @@ const AdminDashboard = ({ user }) => {
   <section className="admin-section">
     <h2>All Users</h2>
     <UserList users={users} />
-  </section>
-
-  <section className="admin-section">
-    <h2>All Rentals</h2>
-    <RentalList rentals={rentals} />
   </section>
 </div>
 
