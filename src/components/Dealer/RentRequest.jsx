@@ -1,80 +1,79 @@
-import { useState, useEffect } from 'react'
-import * as rentalService from '../../services/rentalService'
-import * as carService from '../../services/carService'
+import { useState, useEffect } from 'react';
+import * as rentalService from '../../services/rentalService';
+import * as carService from '../../services/carService';
 
 function RentRequests() {
-  const [rentals, setRentals] = useState([])
+  const [rentals, setRentals] = useState([]);
 
   // Fetch rental requests on mount
   useEffect(() => {
     const fetchDealerRentals = async () => {
       try {
-        const data = await rentalService.getDealerRentals()
-        setRentals(data)
+        const data = await rentalService.getDealerRentals();
+        setRentals(data);
       } catch (error) {
-        console.error('Error fetching dealer rentals:', error)
+        console.error('Error fetching dealer rentals:', error);
       }
-    }
+    };
 
-    fetchDealerRentals()
-  }, [])
+    fetchDealerRentals();
+  }, []);
 
-  // Update rental status (locally)
   const handleUpdateStatus = async (rentalId, newStatus, carId = null) => {
     try {
-      await rentalService.updateRentalStatus(rentalId, newStatus)
+        // Update rental status in the backend
+        const response = await rentalService.updateRentalStatus(rentalId, newStatus);
 
-      // If rejected, update car availability
-      if (newStatus === 'rejected' && carId) {
-        try {
-          await carService.update(carId, { availability: 'available' })
-          console.log(`Car ${carId} set to available`)
-        } catch (err) {
-          console.error('Error updating car availability:', err)
+        // If approved, log that the car is now rented
+        if (newStatus === 'approved' && carId) {
+            console.log(`Car ${carId} set to rented after approval.`);
         }
-      }
 
-      // If completed, remove rental from state
-      if (newStatus === 'completed') {
-        setRentals((prev) => prev.filter((r) => r._id !== rentalId))
-        return
-      }
+        // If completed or rejected, log that the car is now available
+        if (['completed', 'rejected'].includes(newStatus) && carId) {
+            console.log(`Car ${carId} set to available after ${newStatus}.`);
+        }
 
-      // Otherwise, update the rental status in state
-      setRentals((prevRentals) =>
-        prevRentals.map((r) =>
-          r._id === rentalId ? { ...r, status: newStatus } : r
-        )
-      )
+        // If completed, remove rental from state
+        if (newStatus === 'completed') {
+            setRentals((prev) => prev.filter((r) => r._id !== rentalId));
+            return;
+        }
+
+        // Otherwise, update rental in state with data from backend
+        setRentals((prevRentals) =>
+            prevRentals.map((r) =>
+                r._id === rentalId ? response.rental : r
+            )
+        );
     } catch (error) {
-      console.error('Error updating rental status:', error)
+        console.error('Error updating rental status:', error);
     }
-  }
+};
 
-  // Delete rental (and set car availability back to 'available')
   const handleDeleteRental = async (rentalId) => {
     try {
-      const rental = rentals.find((r) => r._id === rentalId)
+      const rental = rentals.find((r) => r._id === rentalId);
 
-      // Always set car availability to 'available'
+      // Update car availability to 'available' before deleting the rental
       if (rental?.carId?._id) {
         try {
-          await carService.update(rental.carId._id, { availability: 'available' })
-          console.log(`Car ${rental.carId._id} set to available after rental deletion.`)
+          await carService.update(rental.carId._id, { availability: 'available' });
+          console.log(`Car ${rental.carId._id} set to available after rental deletion.`);
         } catch (err) {
-          console.error('Error setting car to available:', err)
+          console.error('Error setting car to available:', err);
         }
       }
 
       // Delete the rental
-      await rentalService.deleteRental(rentalId)
+      await rentalService.deleteRental(rentalId);
 
-      // Remove from state
-      setRentals((prev) => prev.filter((r) => r._id !== rentalId))
+      // Remove rental from state
+      setRentals((prev) => prev.filter((r) => r._id !== rentalId));
     } catch (error) {
-      console.error('Error deleting rental:', error)
+      console.error('Error deleting rental:', error);
     }
-  }
+  };
 
   return (
     <div>
@@ -148,7 +147,7 @@ function RentRequests() {
         <p>No rental requests found.</p>
       )}
     </div>
-  )
+  );
 }
 
-export default RentRequests
+export default RentRequests;
