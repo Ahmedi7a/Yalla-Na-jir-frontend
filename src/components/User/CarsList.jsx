@@ -36,11 +36,11 @@ const CarList = ({ cars }) => {
       <ul>
         {sortedCars.map((car) => (
           <li key={car._id}>
-            {car.images && (
+            {car.image?.url && (
               <img
-                src={car.images}
-                alt="car"
-                style={{ width: '200px', height: 'auto', objectFit: 'cover' }}
+                src={car.image.url}
+                alt={`${car.brand} ${car.model}`}
+                style={{ width: '200px', height: 'auto', borderRadius: '8px', marginBottom: '10px' }}
               />
             )}
             <h3>{car.brand} {car.model}</h3>
