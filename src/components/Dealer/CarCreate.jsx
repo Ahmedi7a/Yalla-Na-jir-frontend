@@ -13,8 +13,10 @@ const CreateCar = (props) => {
     year: "",
     pricePerDay: "",
     location: "",
-    images: "",
   });
+  
+  const [imageFile, setImageFile] = useState(null); // 🔹 new state for image file
+  
 
   // Handle form input changes
   const handleChange = (e) => {
@@ -24,9 +26,19 @@ const CreateCar = (props) => {
   // Handle submit: if carId exists, we update; otherwise, create new
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    const data = new FormData();
+
+    for (const key in formData) {
+      data.append(key, formData[key]);
+    }
+    if (imageFile) {
+      data.append('image', imageFile);
+    }
+    
     carId
-      ? props.handleUpdateCar(carId, formData)
-      : props.handleAddCar(formData);
+      ? props.handleUpdateCar(carId, data)
+      : props.handleAddCar(data);
+    
   };
 
   // If editing an existing car, fetch the car data and populate the form
@@ -117,18 +129,44 @@ const CreateCar = (props) => {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="images" className="form-label">
-              Image URL:
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              name="images"
-              id="images"
-              value={formData.images}
-              onChange={handleChange}
-            />
-          </div>
+  <label htmlFor="image" className="form-label">Upload Image:</label>
+  <input
+    type="file"
+    className="form-control"
+    name="image"
+    id="image"
+    accept="image/*"
+    onChange={(e) => setImageFile(e.target.files[0])}
+    required={!carId} // image required only when creating
+  />
+
+  {/* New image preview */}
+  {imageFile && (
+    <div className="mt-3">
+      {/* <p>New Image Preview:</p> */}
+      <img
+        src={URL.createObjectURL(imageFile)}
+        alt="New preview"
+        style={{ width: '35px', height: '35px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ccc' }}
+      />
+            <small style={{ marginLeft: '8px' }}>This is the new uploaded photo</small>
+    </div>
+  )}
+
+  {/* Current image (only if editing and no new file selected) */}
+  {!imageFile && carId && formData.image?.url && (
+    <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+      <img
+        src={formData.image.url}
+        alt="Current"
+        style={{ width: '35px', height: '35px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ccc' }}
+      />
+      <small style={{ marginLeft: '8px' }}>This is the current photo</small>
+    </div>
+  )}
+</div>
+
+
 
           <div className="d-flex gap-3">
             <button type="submit" className="btn btn-primary flex-grow-1">

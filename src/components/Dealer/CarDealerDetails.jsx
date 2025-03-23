@@ -18,6 +18,13 @@ function CarDealerDetails(props) {
 
   return (
     <div>
+            {car.image?.url && (
+        <img 
+          src={car.image.url} 
+          alt={`${car.brand} ${car.model}`} 
+          style={{ width: '200px', height: 'auto', borderRadius: '8px', marginBottom: '10px' }} 
+        />
+      )}
       <h2>{car.brand} {car.model}</h2>
       <p>Year: {car.year}</p>
       <p>Price per day: ${car.pricePerDay}</p>
