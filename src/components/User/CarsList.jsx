@@ -1,11 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import * as carService from '../../services/carService';
 
-const CarList = ({ cars }) => {
-
+const CarList = () => {
+  const [cars, setCars] = useState([]);
   const [sorting, setSorting] = useState('all');
-  const sortedCars = [...cars];
 
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const allCars = await carService.index();
+        setCars(allCars);
+      } catch (error) {
+        console.error('Error fetching cars:', error);
+      }
+    };
+
+    fetchCars(); 
+
+    const interval = setInterval(fetchCars, 5000); // poll every 5s
+    return () => clearInterval(interval);
+  }, []);
+
+  
+  const sortedCars = [...cars];
   if (sorting === 'lowToHigh') {
     sortedCars.sort((a, b) => a.pricePerDay - b.pricePerDay);
   } else if (sorting === 'highToLow') {
@@ -44,7 +62,7 @@ const CarList = ({ cars }) => {
               />
             )}
             <h3>{car.brand} {car.model}</h3>
-            <h4>Dealer:{car.dealerId.username}</h4>
+            <h4>Dealer: {car.dealerId?.username || 'Unknown'}</h4>
             <p>Year: {car.year}</p>
             <p>Price per day: ${car.pricePerDay}</p>
             <p>Status: {car.availability}</p>
