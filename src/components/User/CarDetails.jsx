@@ -143,7 +143,7 @@ const CarDetails = () => {
   <ul>
     {car.reviews.map((review) => (
       <li key={review._id}>
-        <p><strong>{review.user?.userId || 'Anonymous'}</strong> - {new Date(review.createdAt).toLocaleDateString()}</p>
+        <p><strong>{review.userId.username || 'Anonymous'}</strong> - {new Date(review.createdAt).toLocaleDateString()}</p>
         <p><strong>Rating:</strong> {review.rating}/5</p>
         <p>{review.comment}</p>
         <hr />
