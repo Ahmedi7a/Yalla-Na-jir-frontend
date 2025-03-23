@@ -1,43 +1,21 @@
-import { useEffect, useState } from 'react';
-import * as approvalService from '../../services/approvalService';
+import '../Admin/AdminStyles.css';
 
-const AcceptRequest = () => {
-  const [requests, setRequests] = useState([]);
-
-  useEffect(() => {
-    const fetchRequests = async () => {
-      const data = await approvalService.getPendingDealerRequests(); // get all pending approvals
-      setRequests(data);
-    };
-    fetchRequests();
-  }, []);
-
-  const handleApprove = async (id) => {
-    await approvalService.updateApprovalStatus(id, 'approved');
-    setRequests(requests.filter(req => req._id !== id));
-  };
-
-  const handleReject = async (id) => {
-    await approvalService.updateApprovalStatus(id, 'rejected');
-    setRequests(requests.filter(req => req._id !== id));
-  };
-
-  return (
-    <div>
-      {requests.length === 0 ? (
-        <p>No pending requests.</p>
-      ) : (
-        requests.map((req) => (
-          <div key={req._id}>
-            <p>{req.userId?.username || 'Unknown User'}</p>
-            <button onClick={() => handleApprove(req._id)}>Approve</button>
-            <button onClick={() => handleReject(req._id)}>Reject</button>
+const AcceptRequest = ({ requests, onApprove, onReject }) => (
+  <div>
+    {requests.length === 0 ? (
+      <p>No pending requests.</p>
+    ) : (
+      requests.map((req) => (
+        <div key={req._id} className="admin-item">
+          <span>{req.userId?.username || 'Unknown User'}</span>
+          <div className="admin-buttons">
+            <button onClick={() => onApprove(req._id)}>Approve</button>
+            <button className="danger" onClick={() => onReject(req._id)}>Reject</button>
           </div>
-        ))
-        
-      )}
-    </div>
-  );
-};
+        </div>
+      ))
+    )}
+  </div>
+);
 
 export default AcceptRequest;

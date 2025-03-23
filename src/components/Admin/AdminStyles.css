@@ -1,0 +1,52 @@
+.admin-dashboard {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: auto;
+  }
+  
+  .admin-dashboard h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+  
+  .admin-section {
+    margin-bottom: 3rem;
+  }
+  
+  .admin-section h2 {
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    color: #444;
+  }
+  
+  .admin-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9f9f9;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.75rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  .admin-buttons button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .admin-buttons button.danger {
+    background-color: #dc3545;
+  }
+  
+  .admin-buttons button.warning {
+    background-color: #fd7e14;
+  }
+  
