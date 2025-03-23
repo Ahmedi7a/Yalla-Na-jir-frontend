@@ -5,7 +5,7 @@ import * as carService from '../../services/carService'
 function RentRequests() {
   const [rentals, setRentals] = useState([])
 
-  // Fetch all rental requests for this dealer
+  // Fetch rental requests on mount
   useEffect(() => {
     const fetchDealerRentals = async () => {
       try {
@@ -19,13 +19,12 @@ function RentRequests() {
     fetchDealerRentals()
   }, [])
 
-  // Update rental status
+  // Update rental status (locally)
   const handleUpdateStatus = async (rentalId, newStatus, carId = null) => {
     try {
-      // Update rental status on backend
       await rentalService.updateRentalStatus(rentalId, newStatus)
 
-      // If rejected, make car available again
+      // If rejected, update car availability
       if (newStatus === 'rejected' && carId) {
         try {
           await carService.update(carId, { availability: 'available' })
@@ -35,27 +34,43 @@ function RentRequests() {
         }
       }
 
-      // If completed, remove the rental
+      // If completed, remove rental from state
       if (newStatus === 'completed') {
-        await handleDeleteRental(rentalId)
+        setRentals((prev) => prev.filter((r) => r._id !== rentalId))
         return
       }
 
-      const updatedRentals = await rentalService.getDealerRentals()
-      setRentals(updatedRentals)
-
+      // Otherwise, update the rental status in state
+      setRentals((prevRentals) =>
+        prevRentals.map((r) =>
+          r._id === rentalId ? { ...r, status: newStatus } : r
+        )
+      )
     } catch (error) {
       console.error('Error updating rental status:', error)
     }
   }
 
-  // Delete rental request
+  // Delete rental (and set car availability back to 'available')
   const handleDeleteRental = async (rentalId) => {
     try {
+      const rental = rentals.find((r) => r._id === rentalId)
+
+      // Always set car availability to 'available'
+      if (rental?.carId?._id) {
+        try {
+          await carService.update(rental.carId._id, { availability: 'available' })
+          console.log(`Car ${rental.carId._id} set to available after rental deletion.`)
+        } catch (err) {
+          console.error('Error setting car to available:', err)
+        }
+      }
+
+      // Delete the rental
       await rentalService.deleteRental(rentalId)
-      setRentals((prevRentals) =>
-        prevRentals.filter((r) => r._id !== rentalId)
-      )
+
+      // Remove from state
+      setRentals((prev) => prev.filter((r) => r._id !== rentalId))
     } catch (error) {
       console.error('Error deleting rental:', error)
     }
@@ -87,6 +102,7 @@ function RentRequests() {
                 <td>${rental.totalPrice}</td>
                 <td>{rental.status}</td>
                 <td>
+                  {/* Show Approve/Reject only when status is pending */}
                   {rental.status === 'pending' && (
                     <>
                       <button
@@ -106,6 +122,7 @@ function RentRequests() {
                     </>
                   )}
 
+                  {/* Show Complete if approved */}
                   {rental.status === 'approved' && (
                     <button
                       onClick={() =>
@@ -116,9 +133,12 @@ function RentRequests() {
                     </button>
                   )}
 
-                  <button onClick={() => handleDeleteRental(rental._id)}>
-                    Delete
-                  </button>
+                  {/* Show Delete only if approved or rejected */}
+                  {['approved', 'rejected'].includes(rental.status) && (
+                    <button onClick={() => handleDeleteRental(rental._id)}>
+                      Delete
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
