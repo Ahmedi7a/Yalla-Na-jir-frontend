@@ -51,29 +51,29 @@ function RentRequests() {
     }
 };
 
-  const handleDeleteRental = async (rentalId) => {
-    try {
-      const rental = rentals.find((r) => r._id === rentalId);
+  // const handleDeleteRental = async (rentalId) => {
+  //   try {
+  //     const rental = rentals.find((r) => r._id === rentalId);
 
-      // Update car availability to 'available' before deleting the rental
-      if (rental?.carId?._id) {
-        try {
-          await carService.update(rental.carId._id, { availability: 'available' });
-          console.log(`Car ${rental.carId._id} set to available after rental deletion.`);
-        } catch (err) {
-          console.error('Error setting car to available:', err);
-        }
-      }
+  //     // Update car availability to 'available' before deleting the rental
+  //     if (rental?.carId?._id) {
+  //       try {
+  //         await carService.update(rental.carId._id, { availability: 'available' });
+  //         console.log(`Car ${rental.carId._id} set to available after rental deletion.`);
+  //       } catch (err) {
+  //         console.error('Error setting car to available:', err);
+  //       }
+  //     }
 
-      // Delete the rental
-      await rentalService.deleteRental(rentalId);
+  //     // Delete the rental
+  //     await rentalService.deleteRental(rentalId);
 
-      // Remove rental from state
-      setRentals((prev) => prev.filter((r) => r._id !== rentalId));
-    } catch (error) {
-      console.error('Error deleting rental:', error);
-    }
-  };
+  //     // Remove rental from state
+  //     setRentals((prev) => prev.filter((r) => r._id !== rentalId));
+  //   } catch (error) {
+  //     console.error('Error deleting rental:', error);
+  //   }
+  // };
 
   return (
     <div>
@@ -94,7 +94,7 @@ function RentRequests() {
           <tbody>
             {rentals.map((rental) => (
               <tr key={rental._id}>
-                <td>{rental.userId?.username || rental.userId}</td>
+                <td>{rental.userId?.username}</td>
                 <td>{rental.carId?.brand} {rental.carId?.model}</td>
                 <td>{new Date(rental.startDate).toLocaleDateString()}</td>
                 <td>{new Date(rental.endDate).toLocaleDateString()}</td>
@@ -132,12 +132,12 @@ function RentRequests() {
                     </button>
                   )}
 
-                  {/* Show Delete only if approved or rejected */}
+                  {/* Show Delete only if approved or rejected
                   {['approved', 'rejected'].includes(rental.status) && (
                     <button onClick={() => handleDeleteRental(rental._id)}>
                       Delete
                     </button>
-                  )}
+                  )} */}
                 </td>
               </tr>
             ))}
