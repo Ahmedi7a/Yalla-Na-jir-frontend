@@ -44,6 +44,7 @@ const CarList = ({ cars }) => {
               />
             )}
             <h3>{car.brand} {car.model}</h3>
+            <h4>Dealer:{car.dealerId.username}</h4>
             <p>Year: {car.year}</p>
             <p>Price per day: ${car.pricePerDay}</p>
             <p>Status: {car.availability}</p>
