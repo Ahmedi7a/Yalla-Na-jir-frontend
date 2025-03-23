@@ -26,8 +26,14 @@ function DealerDashboard() {
 
     if (user?.role === 'dealer') {
       fetchDealerCars()
+
+      // Set up polling to fetch data every 5 seconds
+      const interval = setInterval(fetchDealerCars, 5000)
+
+      // Cleanup interval on component unmount
+      return () => clearInterval(interval)
     }
-  }, [user])
+  }, [user]) // Only depends on `user`
 
   return (
     <main>
@@ -42,7 +48,6 @@ function DealerDashboard() {
               <p>Price per day: ${car.pricePerDay}</p>
               <p>Status: {car.availability}</p>
               <Link to={`/dealer/cars/${car._id}`}>View Details</Link>
-             
             </li>
           ))}
         </ul>
