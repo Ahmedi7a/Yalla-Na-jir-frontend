@@ -42,15 +42,23 @@ function DealerDashboard() {
       <div>
         <h2>My Cars</h2>
         <ul>
-          {cars.map((car) => (
-            <li key={car._id}>
-              <h3>{car.brand} {car.model}</h3>
-              <p>Price per day: ${car.pricePerDay}</p>
-              <p>Status: {car.availability}</p>
-              <Link to={`/dealer/cars/${car._id}`}>View Details</Link>
-            </li>
-          ))}
-        </ul>
+  {cars.map((car) => (
+    <li key={car._id}>
+      {car.image?.url && (
+        <img 
+          src={car.image.url} 
+          alt={`${car.brand} ${car.model}`} 
+          style={{ width: '200px', height: 'auto', borderRadius: '8px', marginBottom: '10px' }} 
+        />
+      )}
+      <h3>{car.brand} {car.model}</h3>
+      <p>Price per day: ${car.pricePerDay}</p>
+      <p>Status: {car.availability}</p>
+      <Link to={`/dealer/cars/${car._id}`}>View Details</Link>
+    </li>
+  ))}
+</ul>
+
       </div>
     </main>
   )

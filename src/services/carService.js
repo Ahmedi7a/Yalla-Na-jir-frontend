@@ -27,15 +27,16 @@ const create = async (carFormData) => {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json',
+        // 🚫 Do NOT set 'Content-Type' here when using FormData
       },
-      body: JSON.stringify(carFormData),
+      body: carFormData, // ✅ Send FormData directly
     });
     return res.json();
   } catch (error) {
     console.log(error);
   }
 };
+
 
 // Update car
 const update = async (carId, carFormData) => {
@@ -44,15 +45,16 @@ const update = async (carId, carFormData) => {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json',
+        // 🚫 Skip 'Content-Type' if sending FormData
       },
-      body: JSON.stringify(carFormData),
+      body: carFormData,
     });
     return res.json();
   } catch (error) {
     console.log(error);
   }
 };
+
 
 // Delete car
 const deleteCar = async (carId) => {
