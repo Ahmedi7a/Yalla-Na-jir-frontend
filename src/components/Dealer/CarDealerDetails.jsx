@@ -37,7 +37,7 @@ function CarDealerDetails(props) {
         Delete
       </button>
 
-      <Link to="/dealer/cars">Back to Cars</Link>
+      <Link to="/dealer/cars/rentals">Back to Cars</Link>
       
     </div>
   )
