@@ -16,12 +16,24 @@ function RentRequests() {
       }
     };
 
+    // Fetch rentals initially
     fetchDealerRentals();
+
+    // Set up polling to fetch rentals every 5 seconds
+    const interval = setInterval(fetchDealerRentals, 5000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   const handleUpdateStatus = async (rentalId, newStatus, carId = null) => {
     try {
       const updatedRental = await rentalService.updateRentalStatus(rentalId, newStatus);
+
+      if (newStatus === 'approved' && carId) {
+        await carService.update(carId, { availability: 'rented' });
+        console.log(`Car ${carId} set to rented after approval.`);
+      }
 
       if (newStatus === 'rejected' && carId) {
         await carService.update(carId, { availability: 'available' });
@@ -114,8 +126,6 @@ function RentRequests() {
                       Complete
                     </button>
                   )}
-
-                 
                 </td>
               </tr>
             ))}

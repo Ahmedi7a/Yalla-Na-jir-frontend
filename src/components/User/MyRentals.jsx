@@ -14,7 +14,14 @@ const MyRentals = () => {
       }
     };
 
+    // Fetch rentals initially
     fetchMyRentals();
+
+    // Set up polling to fetch rentals every 5 seconds
+    const interval = setInterval(fetchMyRentals, 5000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   return (
