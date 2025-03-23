@@ -17,12 +17,28 @@ const ReviewForm = ({ handleAddReview }) => {
     <form onSubmit={handleSubmit}>
       <label htmlFor="text">Your review:</label>
       <textarea
-        name="text"
-        id="text"
-        value={formData.text}
+        name="comment"
+        id="comment"
+        value={formData.comment}
         onChange={handleChange}
         required
       />
+      <label htmlFor="rating">Rating:</label>
+      <select
+        name="rating"
+        id="rating"
+        value={formData.rating}
+        onChange={handleChange}
+        required
+      >
+        <option value="">-- Select a rating --</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <br />
       <button type="submit">Submit Review</button>
     </form>
   );
