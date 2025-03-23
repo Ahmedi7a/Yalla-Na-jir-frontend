@@ -46,22 +46,29 @@ const CarDetails = () => {
 
   const handleRent = async (e) => {
     e.preventDefault();
-
+  
     if (car.availability !== 'available') {
       toast.error('This car is not available for rental.');
       return;
     }
-
+  
     try {
       await rentalService.createRentalRequest(carId, rentalData);
       toast.success('Rental request submitted successfully!');
+      
       setRentalData({ startDate: '', endDate: '' });
-      setTotalPrice(null);
+      setTotalPrice(null);  
+
+      //to refresh
+      const updatedCar = await carService.show(carId);
+      setCar(updatedCar);
+  
     } catch (err) {
-      console.log(err);
+      console.error(err);
       toast.error('Error submitting rental request.');
     }
   };
+  
 
   const today = new Date().toISOString().split('T')[0];
 

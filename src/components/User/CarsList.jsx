@@ -1,6 +1,17 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const CarList = ({ cars }) => {
+
+  const [sorting, setSorting] = useState('all');
+  const sortedCars = [...cars];
+
+  if (sorting === 'lowToHigh') {
+    sortedCars.sort((a, b) => a.pricePerDay - b.pricePerDay);
+  } else if (sorting === 'highToLow') {
+    sortedCars.sort((a, b) => b.pricePerDay - a.pricePerDay);
+  }
+
   if (!cars || cars.length === 0) {
     return <p>No cars available at the moment.</p>;
   }
@@ -8,13 +19,27 @@ const CarList = ({ cars }) => {
   return (
     <div>
       <h2>All Cars</h2>
+
+      <div style={{ marginBottom: '1rem' }}>
+        <label htmlFor="sort">Sort by Price: </label>
+        <select
+          id="sort"
+          value={sorting}
+          onChange={(e) => setSorting(e.target.value)}
+        >
+          <option value="all">Default</option>
+          <option value="lowToHigh">Low to High</option>
+          <option value="highToLow">High to Low</option>
+        </select>
+      </div>
+
       <ul>
-        {cars.map((car) => (
+        {sortedCars.map((car) => (
           <li key={car._id}>
-             {car.images && (
+            {car.images && (
               <img
                 src={car.images}
-                alt={'car'}
+                alt="car"
                 style={{ width: '200px', height: 'auto', objectFit: 'cover' }}
               />
             )}
