@@ -1,74 +1,86 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { motion, useAnimation } from "framer-motion";
-import { AuthedUserContext } from "../../App";
 import "./NavBar.css";
 
-const NavBar = ({ handleSignout }) => {
-  const user = useContext(AuthedUserContext);
-  const [scrolled, setScrolled] = useState(false);
-  const controls = useAnimation();
+const NavBar = ({ user, handleSignout }) => {
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
-      setScrolled(isScrolled);
+  const toggleNavbar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
 
-      controls.start({
-        y: isScrolled ? 0 : -100, // only animate position
-        transition: { type: "spring", stiffness: 100, damping: 20 }
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [controls]);
-//navbar-transparent
   return (
-    <motion.nav
-      className={`navbar fixed-top ${scrolled ? "navbar-dark bg-dark shadow-sm" : "bg-dark"}`}
-      initial={{ y: 0 }}
-      animate={{ y: 0, transition: { type: "spring", stiffness: 100, damping: 20 } }}
-      style={{ zIndex: 999 }}
+    <nav
+      className={`navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light ${
+        isCollapsed ? "" : "scrolled awake"
+      }`}
+      id="ftco-navbar"
+      style={{ marginBottom: "0px" }}
     >
-      <div className="container d-flex justify-content-between align-items-center py-2">
-        <Link className="navbar-brand fw-bold" to="/">Yalla Na'jir</Link>
-        <ul className="nav gap-3">
-          {!user && (
-            <>
-              <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/signup">Sign Up</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/signin">Sign In</Link></li>
-            </>
-          )}
-          {user?.role === "admin" && (
-            <>
-              <li className="nav-item"><Link className="nav-link" to="/">Dashboard</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/admin/rentals">Rental List</Link></li>
-              <li className="nav-item"><button onClick={handleSignout} className="btn btn-link nav-link">Sign Out</button></li>
-            </>
-          )}
-          {user?.role === "dealer" && (
-            <>
-              <li className="nav-item"><Link className="nav-link" to="/">Dashboard</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/dealer/cars/rentals">My Cars & Rentals</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/dealer/cars/new">Add Car</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/dealer/requests">Rental Requests</Link></li>
-              <li className="nav-item"><button onClick={handleSignout} className="btn btn-link nav-link">Sign Out</button></li>
-            </>
-          )}
-          {user?.role === "user" && (
-            <>
-              <li className="nav-item"><Link className="nav-link" to="/">Dashboard</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/cars">Cars</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/my-rentals">My Rentals</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/become-dealer">Become a Dealer</Link></li>
-              <li className="nav-item"><button onClick={handleSignout} className="btn btn-link nav-link">Sign Out</button></li>
-            </>
+      <div className="container d-flex justify-content-between align-items-center">
+        <Link className="navbar-brand" to="/">
+          Car<span>Book</span>
+        </Link>
+        <button
+          className="navbar-toggler collapsed"
+          type="button"
+          onClick={toggleNavbar}
+          aria-controls="ftco-nav"
+          aria-expanded={!isCollapsed}
+          aria-label="Toggle navigation"
+        >
+          <span className="oi oi-menu"></span> Menu
+        </button>
+
+        <div
+          className={`navbar-collapse collapse ${!isCollapsed ? "show" : ""} justify-content-center`}
+          id="ftco-nav"
+        >
+          <ul className="navbar-nav">
+            {!user && (
+              <>
+                <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/about">About</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/services">Services</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/pricing">Pricing</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/cars">Cars</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/blog">Blog</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/contact">Contact</Link></li>
+              </>
+            )}
+            {user?.role === "admin" && (
+              <>
+                <li className="nav-item"><Link className="nav-link" to="/">Dashboard</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/admin/rentals">Rental List</Link></li>
+              </>
+            )}
+            {user?.role === "dealer" && (
+              <>
+                <li className="nav-item"><Link className="nav-link" to="/">Dashboard</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/dealer/cars/rentals">My Cars & Rentals</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/dealer/cars/new">Add Car</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/dealer/requests">Rental Requests</Link></li>
+              </>
+            )}
+            {user?.role === "user" && (
+              <>
+                <li className="nav-item"><Link className="nav-link" to="/">Dashboard</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/cars">Cars</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/my-rentals">My Rentals</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/become-dealer">Become a Dealer</Link></li>
+              </>
+            )}
+          </ul>
+        </div>
+        <ul className="navbar-nav ml-auto d-flex align-items-center">
+          {!user ? (
+            <li className="nav-item"><Link className="nav-link" to="/signin">Sign In</Link></li>
+          ) : (
+            <li className="nav-item"><button onClick={handleSignout} className="btn btn-link nav-link">Sign Out</button></li>
           )}
         </ul>
       </div>
-    </motion.nav>
+    </nav>
   );
 };
 

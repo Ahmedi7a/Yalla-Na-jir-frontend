@@ -24,6 +24,29 @@ const Dashboard = () => {
     fetchCars();
   }, []);
 
+  const teamMembers = [
+    {
+      name: "Sayed Haider",
+      role: "Software Developer",
+      image: "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
+    },
+    {
+      name: "Ahmed Abdulla",
+      role: "Software Developer",
+      image: "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
+    },
+    {
+      name: "Mahmood Almajed",
+      role: "Software Developer",
+      image: "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
+    },
+    {
+      name: "Abbas Hussain",
+      role: "Software Developer",
+      image: "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
+    },
+  ];
+  
   return (
     <><div className="hero-video-wrapper">
     <video
@@ -51,10 +74,10 @@ const Dashboard = () => {
           <div
             className="col-md-6 d-flex justify-content-center align-items-center"
             style={{
-              backgroundImage: `url('https://media.istockphoto.com/id/507754074/photo/creative-brainstorming.jpg?s=612x612&w=0&k=20&c=ajUUKu6_FjL6ZsD-J1D626vU2N2u9jVRIwSrJmzU7u8=')`,
+              backgroundImage: `url('https://img.freepik.com/premium-photo/front-view-generic-brandless-moder-car_110488-502.jpg?semt=ais_hybrid')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              minHeight: '400px',
+              minHeight: '500px',
             }}
           ></div>
 
@@ -190,6 +213,30 @@ const Dashboard = () => {
         ) : (
           <p className="text-center text-muted">Loading featured vehicles...</p>
         )}
+
+<section className="py-5 bg-light">
+      <div className="container text-center">
+        <h2 className="mb-5 fw-bold">Our Team</h2>
+        <div className="row justify-content-center g-4">
+          {teamMembers.map((member, index) => (
+            <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={index}>
+              <div className="card h-100 shadow-sm border-0 rounded-4 text-center p-3">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="rounded-circle mx-auto mb-3"
+                  width="100"
+                  height="100"
+                />
+                <h5 className="fw-semibold mb-1">{member.name}</h5>
+                <p className="text-muted small">{member.role}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
       </main></>
   );
 };
