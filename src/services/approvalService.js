@@ -18,7 +18,6 @@ const requestDealer = async () => {
   }
 };
 
-
 const updateApprovalStatus = async (approvalId, status) => {
   try {
     const res = await fetch(`${BASE_URL}/${approvalId}/status`, {
@@ -35,7 +34,6 @@ const updateApprovalStatus = async (approvalId, status) => {
   }
 };
 
-
 const getPendingDealerRequests = async () => {
   try {
     const res = await fetch(`${BASE_URL}/pending-dealer-requests`, {
@@ -48,7 +46,6 @@ const getPendingDealerRequests = async () => {
     console.log(error);
   }
 };
-
 
 const deleteApprovalRequest = async (approvalId) => {
   try {
@@ -65,7 +62,6 @@ const deleteApprovalRequest = async (approvalId) => {
   }
 };
 
-
 const downgradeDealer = async (userId) => {
   try {
     const res = await fetch(`${BASE_URL}/downgrade-dealer/${userId}`, {
@@ -80,7 +76,6 @@ const downgradeDealer = async (userId) => {
     console.log(error);
   }
 };
-
 
 const getApprovedDealers = async () => {
   try {
@@ -103,7 +98,6 @@ const getAllUsers = async () => {
       },
     });
     return res.json();
-
   } catch (error) {
     console.log(error);
   }
