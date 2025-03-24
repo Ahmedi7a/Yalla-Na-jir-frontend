@@ -18,7 +18,7 @@ const CarList = () => {
 
     fetchCars(); 
 
-    const interval = setInterval(fetchCars, 5000); // poll every 5s
+    const interval = setInterval(fetchCars, 2000); 
     return () => clearInterval(interval);
   }, []);
 
