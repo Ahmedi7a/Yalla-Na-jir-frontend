@@ -10,7 +10,43 @@ import * as carService from "../../services/carService";
 // import './Dashboard.css'
 import { motion } from 'framer-motion';
 
-
+const testimonials = [
+  {
+    name: "Michael Brown",
+    text: "Carbook made renting a car effortless! The process was smooth, and I found the perfect car in minutes.",
+    image: "https://randomuser.me/api/portraits/men/32.jpg",
+  },
+  {
+    name: "Emily Johnson",
+    text: "Amazing service! The platform is easy to use, and I appreciate the security measures in place.",
+    image: "https://randomuser.me/api/portraits/women/44.jpg",
+  },
+  {
+    name: "James Wilson",
+    text: "A great experience! The car options were excellent, and the booking process was seamless.",
+    image: "https://randomuser.me/api/portraits/men/55.jpg",
+  },
+  {
+    name: "Sophia Martinez",
+    text: "Booking was quick and hassle-free. Highly recommend this platform for car rentals!",
+    image: "https://randomuser.me/api/portraits/women/22.jpg",
+  },
+  {
+    name: "Daniel Anderson",
+    text: "I found exactly what I was looking for. Great selection and a user-friendly interface!",
+    image: "https://randomuser.me/api/portraits/men/67.jpg",
+  },
+  {
+    name: "Olivia Thomas",
+    text: "This platform made my trip planning so much easier. The rental process was smooth!",
+    image: "https://randomuser.me/api/portraits/women/36.jpg",
+  },
+  {
+    name: "William Harris",
+    text: "Simple, fast, and reliable. I’ll definitely be using Carbook again in the future!",
+    image: "https://randomuser.me/api/portraits/men/88.jpg",
+  },
+];
 
 
 const Dashboard = () => {
@@ -87,8 +123,8 @@ const Dashboard = () => {
     <><motion.div
   className="hero-video-wrapper"
   initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  transition={{ duration: 1 }}
+  animate={{ opacity: 3 }}
+  transition={{ duration: 2 }}
 >
   <video
     className="hero-video"
@@ -294,7 +330,50 @@ const Dashboard = () => {
 </section> */}
 
 
+<br />
+     <section className="py-5">
+      <div className="container" >
+        <div className="row justify-content-center mb-5">
+          <div className="col-md-7 text-center">
+            <span className="text-uppercase text-muted">Testimonial</span>
+            <h2 className="fw-bold">Happy Clients</h2>
+          </div>
+        </div>
 
+        <Swiper
+          modules={[Pagination, Navigation, Autoplay]}
+          spaceBetween={30}
+          slidesPerView={1}
+          // navigation
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 5000 }}
+          breakpoints={{
+            768: { slidesPerView: 2 },
+            992: { slidesPerView: 3 },
+          }}
+        >
+          {testimonials.map((item, index) => (
+            <SwiperSlide key={index}>
+              <div className="testimony-wrap text-center p-4 bg-white rounded-4 shadow-sm h-100 mx-2">
+                <div
+                  className="user-img mb-3 mx-auto rounded-circle"
+                  style={{
+                    width: 100,
+                    height: 100,
+                    backgroundImage: `url(${item.image})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                ></div>
+                <p className="mb-3 fst-italic small px-3">"{item.text}"</p>
+                <h6 className="fw-semibold mb-0">{item.name}</h6>
+                <span className="text-muted small">{item.role}</span>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </section>
 
       </main></>
   );
