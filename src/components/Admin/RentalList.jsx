@@ -8,17 +8,24 @@ const RentalList = ({ rentals: propRentals }) => {
 
   useEffect(() => {
     const fetchRentals = async () => {
-      if (!propRentals) {
+      try {
         const data = await rentalService.getAllRentals();
         setRentals(data);
+      } catch (error) {
+        console.error('Error fetching rentals:', error);
       }
     };
+
     fetchRentals();
-  }, [propRentals]);
+
+    const interval = setInterval(fetchRentals, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const filteredRentals = filterStatus === 'all'
     ? rentals
-    : rentals.filter(r => r.status === filterStatus);
+    : rentals.filter((r) => r.status === filterStatus);
 
   return (
     <div className="admin-dashboard">
@@ -43,7 +50,8 @@ const RentalList = ({ rentals: propRentals }) => {
         <div key={r._id} className="admin-item">
           <p style={{ margin: 0 }}>
             <strong>{r.userId?.username || 'Unknown User'}</strong> rented{' '}
-            <strong>{r.carId?.brand} {r.carId?.model}</strong>
+            <strong>{r.carId?.brand} {r.carId?.model}</strong> from{' '}
+            <strong>{r.carId?.dealerId?.username || 'Unknown Dealer'}</strong>
           </p>
           <small>Status: {r.status}</small>
         </div>

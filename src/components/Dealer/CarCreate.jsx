@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import * as carService from "../../services/carService";
 
 const brandModelMap = {
@@ -33,6 +34,13 @@ const CreateCar = (props) => {
     (_, i) => currentYear - i
   );
 
+  const mapContainerStyle = {
+    width: "100%",
+    height: "300px",
+  };
+
+  const center = { lat: 26.2235, lng: 50.5876};
+
   const [formData, setFormData] = useState({
     brand: "",
     model: "",
@@ -42,6 +50,11 @@ const CreateCar = (props) => {
   });
 
   const [imageFile, setImageFile] = useState(null);
+  const [marker, setMarker] = useState(null);
+
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY, // Replace this!
+  });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -50,6 +63,13 @@ const CreateCar = (props) => {
   const handleBrandChange = (e) => {
     const brand = e.target.value;
     setFormData({ ...formData, brand, model: "" });
+  };
+
+  const handleMapClick = (e) => {
+    const lat = e.latLng.lat();
+    const lng = e.latLng.lng();
+    setMarker({ lat, lng });
+    setFormData({ ...formData, location: `${lat}, ${lng}` });
   };
 
   const handleSubmit = (evt) => {
@@ -70,6 +90,10 @@ const CreateCar = (props) => {
     const fetchCar = async () => {
       const carData = await carService.show(carId);
       setFormData(carData);
+      if (carData.location) {
+        const [lat, lng] = carData.location.split(",").map(Number);
+        setMarker({ lat, lng });
+      }
     };
     if (carId) fetchCar();
   }, [carId]);
@@ -99,7 +123,7 @@ const CreateCar = (props) => {
               ))}
             </select>
           </div>
-
+  
           <div className="mb-3">
             <label htmlFor="model" className="form-label">
               Model:
@@ -122,7 +146,7 @@ const CreateCar = (props) => {
                 ))}
             </select>
           </div>
-
+  
           <div className="mb-3">
             <label htmlFor="year" className="form-label">
               Year:
@@ -142,7 +166,7 @@ const CreateCar = (props) => {
               ))}
             </select>
           </div>
-
+  
           <div className="mb-3">
             <label htmlFor="pricePerDay" className="form-label">
               Price Per Day:
@@ -157,21 +181,34 @@ const CreateCar = (props) => {
               required
             />
           </div>
-
+  
           <div className="mb-3">
-            <label htmlFor="location" className="form-label">
-              Location:
-            </label>
+            <label className="form-label">Location (select on map):</label>
+            {isLoaded ? (
+              <GoogleMap
+                mapContainerStyle={{ width: "100%", height: "300px" }}
+                zoom={10}
+                center={marker || { lat: 26.2235, lng: 50.5876 }}
+                onClick={handleMapClick}
+              >
+                {marker && <Marker position={marker} />}
+              </GoogleMap>
+            ) : (
+              <div>Loading Map...</div>
+            )}
             <input
               type="text"
-              className="form-control"
+              className="form-control mt-2"
               name="location"
               id="location"
               value={formData.location}
               onChange={handleChange}
+              placeholder="Click on the map to set location"
+              readOnly
+              required
             />
           </div>
-
+  
           <div className="mb-3">
             <label htmlFor="image" className="form-label">
               Upload Image:
@@ -185,31 +222,60 @@ const CreateCar = (props) => {
               onChange={(e) => setImageFile(e.target.files[0])}
               required={!carId}
             />
-
+  
             {imageFile && (
               <div className="mt-3">
                 <img
                   src={URL.createObjectURL(imageFile)}
                   alt="New preview"
-                  style={{ width: "35px", height: "35px", objectFit: "cover", borderRadius: "4px", border: "1px solid #ccc" }}
+                  style={{
+                    width: "35px",
+                    height: "35px",
+                    objectFit: "cover",
+                    borderRadius: "4px",
+                    border: "1px solid #ccc",
+                  }}
                 />
-                <small style={{ marginLeft: "8px" }}>This is the new uploaded photo</small>
+                <small style={{ marginLeft: "8px" }}>
+                  This is the new uploaded photo
+                </small>
               </div>
             )}
-
+  
             {!imageFile && carId && formData.image?.url && (
-              <div style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>
-                <img src={formData.image.url} alt="Current" style={{ width: "35px", height: "35px", objectFit: "cover", borderRadius: "4px", border: "1px solid #ccc" }} />
-                <small style={{ marginLeft: "8px" }}>This is the current photo</small>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginTop: "10px",
+                }}
+              >
+                <img
+                  src={formData.image.url}
+                  alt="Current"
+                  style={{
+                    width: "35px",
+                    height: "35px",
+                    objectFit: "cover",
+                    borderRadius: "4px",
+                    border: "1px solid #ccc",
+                  }}
+                />
+                <small style={{ marginLeft: "8px" }}>
+                  This is the current photo
+                </small>
               </div>
             )}
           </div>
-
+  
           <div className="d-flex gap-3">
             <button type="submit" className="btn btn-primary flex-grow-1">
               {carId ? "Update" : "Submit"}
             </button>
-            <Link to="/dealer/cars/rentals" className="btn btn-secondary flex-grow-1">
+            <Link
+              to="/dealer/cars/rentals"
+              className="btn btn-secondary flex-grow-1"
+            >
               Go Back
             </Link>
           </div>
