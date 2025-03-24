@@ -18,7 +18,7 @@ const MyRentals = () => {
     };
 
     fetchMyRentals();
-    const interval = setInterval(fetchMyRentals, 5000);
+    const interval = setInterval(fetchMyRentals, 2000);
     return () => clearInterval(interval);
   }, []);
 
