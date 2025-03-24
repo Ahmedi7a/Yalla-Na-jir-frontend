@@ -3,13 +3,10 @@ import AcceptRequest from '../Admin/AcceptRequest';
 import DealerList from '../Admin/DealerList';
 import UserList from '../Admin/UserList';
 
-
-
-//styling
+// styling
 import '../Admin/AdminStyles.css';
 
-
-//services
+// services
 import * as approvalService from '../../services/approvalService';
 import * as rentalService from '../../services/rentalService';
 
@@ -25,7 +22,7 @@ const AdminDashboard = ({ user }) => {
         approvalService.getPendingDealerRequests(),
         approvalService.getApprovedDealers(),
         approvalService.getAllUsers(),
-        rentalService.getAllRentals()
+        rentalService.getAllRentals(),
       ]);
       setRequests(reqs);
       setDealers(dealerData);
@@ -38,6 +35,10 @@ const AdminDashboard = ({ user }) => {
 
   useEffect(() => {
     fetchData();
+
+    const intervalId = setInterval(fetchData, 2000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleApprove = async (id) => {
@@ -57,24 +58,23 @@ const AdminDashboard = ({ user }) => {
 
   return (
     <div className="admin-dashboard">
-  <h1>Welcome, Admin {user?.username}</h1>
+      <h1>Welcome, Admin {user?.username}</h1>
 
-  <section className="admin-section">
-    <h2>Pending Dealer Requests</h2>
-    <AcceptRequest requests={requests} onApprove={handleApprove} onReject={handleReject} />
-  </section>
+      <section className="admin-section">
+        <h2>Pending Dealer Requests</h2>
+        <AcceptRequest requests={requests} onApprove={handleApprove} onReject={handleReject} />
+      </section>
 
-  <section className="admin-section">
-    <h2>Approved Dealers</h2>
-    <DealerList dealers={dealers} onDowngrade={handleDowngrade} />
-  </section>
+      <section className="admin-section">
+        <h2>Approved Dealers</h2>
+        <DealerList dealers={dealers} onDowngrade={handleDowngrade} />
+      </section>
 
-  <section className="admin-section">
-    <h2>All Users</h2>
-    <UserList users={users} />
-  </section>
-</div>
-
+      <section className="admin-section">
+        <h2>All Users</h2>
+        <UserList users={users} />
+      </section>
+    </div>
   );
 };
 
