@@ -11,8 +11,9 @@ const DealerRequest = () => {
     setLoading(true);
     try {
       const response = await approvalService.requestDealer();
-
-      if (response?.status === 'pending') {
+      
+      // If the dealer request is successfully created, backend returns a 201 with approval data.
+      if (response && response.approval) {
         toast.success('Your dealer request has been sent!');
         setSubmitted(true);
       } else if (response?.error) {
@@ -32,7 +33,6 @@ const DealerRequest = () => {
   return (
     <div>
       <h2>Become a Dealer</h2>
-
       {submitted ? (
         <p>Your request has been sent and is pending admin approval.</p>
       ) : (
@@ -43,7 +43,6 @@ const DealerRequest = () => {
           </button>
         </>
       )}
-
       <ToastContainer />
     </div>
   );

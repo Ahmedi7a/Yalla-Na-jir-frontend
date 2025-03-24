@@ -13,10 +13,12 @@
     "@react-google-maps/api": "^2.20.6",
     "axios": "^1.8.4",
     "bootstrap": "^5.3.3",
+    "framer-motion": "^12.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.30.0",
-    "react-toastify": "^11.0.5"
+    "react-toastify": "^11.0.5",
+    "swiper": "^11.2.6"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
