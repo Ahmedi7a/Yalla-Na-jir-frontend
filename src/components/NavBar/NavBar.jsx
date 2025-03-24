@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./NavBar.css";
+import "./NavBar.css"; // Optional: put styles here if needed
 
 const NavBar = ({ user, handleSignout }) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -9,13 +9,17 @@ const NavBar = ({ user, handleSignout }) => {
     setIsCollapsed(!isCollapsed);
   };
 
+  useEffect(() => {
+    const navbarHeight = document.getElementById("ftco-navbar").offsetHeight;
+    document.body.style.paddingTop = `${navbarHeight}px`;
+  }, []);
+
   return (
     <nav
-      className={`navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light ${
+      className={`navbar navbar-expand-lg navbar-dark bg-dark fixed-top ftco_navbar ftco-navbar-light ${
         isCollapsed ? "" : "scrolled awake"
       }`}
       id="ftco-navbar"
-      style={{ marginBottom: "0px" }}
     >
       <div className="container d-flex justify-content-between align-items-center">
         <Link className="navbar-brand" to="/">
