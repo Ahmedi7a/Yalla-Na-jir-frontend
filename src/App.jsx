@@ -9,6 +9,7 @@ import * as authService from '../src/services/authService'; // import the authse
 import * as carService from  '../src/services/carService';
 import * as approvalService from  '../src/services/approvalService';
 import * as rentalService from  '../src/services/rentalService';
+import Footer from './components/Footer/Footer';
 // =============================
 import UserDashboard from './components/Dashboard/UserDashboard';
 import AdminDashboard from './components/Dashboard/AdminDashboard';
@@ -134,6 +135,7 @@ const App = () => {
         )}
 
       </Routes>
+      <Footer />
     </AuthedUserContext.Provider>
   )
 }

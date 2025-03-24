@@ -22,24 +22,14 @@ const brandModelMap = {
   Dodge: ["Charger", "Challenger", "Durango"],
   GMC: ["Sierra", "Yukon", "Terrain"],
   Porsche: ["911", "Cayenne", "Macan"],
-  LandRover: ["Range Rover", "Discovery", "Defender"]
+  LandRover: ["Range Rover", "Discovery", "Defender"],
 };
 
 const CreateCar = (props) => {
   const { carId } = useParams();
 
   const currentYear = new Date().getFullYear();
-  const yearOptions = Array.from(
-    { length: currentYear - 1999 },
-    (_, i) => currentYear - i
-  );
-
-  const mapContainerStyle = {
-    width: "100%",
-    height: "300px",
-  };
-
-  const center = { lat: 26.2235, lng: 50.5876};
+  const yearOptions = Array.from({ length: currentYear - 1999 }, (_, i) => currentYear - i);
 
   const [formData, setFormData] = useState({
     brand: "",
@@ -52,8 +42,15 @@ const CreateCar = (props) => {
   const [imageFile, setImageFile] = useState(null);
   const [marker, setMarker] = useState(null);
 
+  const mapContainerStyle = {
+    width: "100%",
+    height: "300px",
+  };
+
+  const center = { lat: 26.2235, lng: 50.5876 };
+
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY, // Replace this!
+    googleMapsApiKey: import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
   const handleChange = (e) => {
@@ -72,16 +69,11 @@ const CreateCar = (props) => {
     setFormData({ ...formData, location: `${lat}, ${lng}` });
   };
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const data = new FormData();
-
-    for (const key in formData) {
-      data.append(key, formData[key]);
-    }
-    if (imageFile) {
-      data.append("image", imageFile);
-    }
+    for (const key in formData) data.append(key, formData[key]);
+    if (imageFile) data.append("image", imageFile);
 
     carId ? props.handleUpdateCar(carId, data) : props.handleAddCar(data);
   };
@@ -99,189 +91,151 @@ const CreateCar = (props) => {
   }, [carId]);
 
   return (
-    <>
-      <h1 className="text-center">{carId ? "Edit Car" : "Add New Car"}</h1>
-      <div className="form-div">
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="brand" className="form-label">
-              Brand:
-            </label>
-            <select
-              className="form-control"
-              name="brand"
-              id="brand"
-              value={formData.brand}
-              onChange={handleBrandChange}
-              required
-            >
-              <option value="">Select Brand</option>
-              {Object.keys(brandModelMap).map((brand) => (
-                <option key={brand} value={brand}>
-                  {brand}
-                </option>
-              ))}
-            </select>
-          </div>
-  
-          <div className="mb-3">
-            <label htmlFor="model" className="form-label">
-              Model:
-            </label>
-            <select
-              className="form-control"
-              name="model"
-              id="model"
-              value={formData.model}
-              onChange={handleChange}
-              required
-              disabled={!formData.brand}
-            >
-              <option value="">Select Model</option>
-              {formData.brand &&
-                brandModelMap[formData.brand].map((model) => (
-                  <option key={model} value={model}>
-                    {model}
-                  </option>
-                ))}
-            </select>
-          </div>
-  
-          <div className="mb-3">
-            <label htmlFor="year" className="form-label">
-              Year:
-            </label>
-            <select
-              className="form-control"
-              name="year"
-              id="year"
-              value={formData.year}
-              onChange={handleChange}
-              required
-            >
-              {yearOptions.map((year) => (
-                <option key={year} value={year}>
-                  {year}
-                </option>
-              ))}
-            </select>
-          </div>
-  
-          <div className="mb-3">
-            <label htmlFor="pricePerDay" className="form-label">
-              Price Per Day:
-            </label>
-            <input
-              type="number"
-              className="form-control"
-              name="pricePerDay"
-              id="pricePerDay"
-              value={formData.pricePerDay}
-              onChange={handleChange}
-              required
-            />
-          </div>
-  
-          <div className="mb-3">
-            <label className="form-label">Location (select on map):</label>
-            {isLoaded ? (
-              <GoogleMap
-                mapContainerStyle={{ width: "100%", height: "300px" }}
-                zoom={10}
-                center={marker || { lat: 26.2235, lng: 50.5876 }}
-                onClick={handleMapClick}
-              >
-                {marker && <Marker position={marker} />}
-              </GoogleMap>
-            ) : (
-              <div>Loading Map...</div>
-            )}
-            <input
-              type="text"
-              className="form-control mt-2"
-              name="location"
-              id="location"
-              value={formData.location}
-              onChange={handleChange}
-              placeholder="Click on the map to set location"
-              readOnly
-              required
-            />
-          </div>
-  
-          <div className="mb-3">
-            <label htmlFor="image" className="form-label">
-              Upload Image:
-            </label>
-            <input
-              type="file"
-              className="form-control"
-              name="image"
-              id="image"
-              accept="image/*"
-              onChange={(e) => setImageFile(e.target.files[0])}
-              required={!carId}
-            />
-  
-            {imageFile && (
-              <div className="mt-3">
-                <img
-                  src={URL.createObjectURL(imageFile)}
-                  alt="New preview"
-                  style={{
-                    width: "35px",
-                    height: "35px",
-                    objectFit: "cover",
-                    borderRadius: "4px",
-                    border: "1px solid #ccc",
-                  }}
-                />
-                <small style={{ marginLeft: "8px" }}>
-                  This is the new uploaded photo
-                </small>
+    <div className="container-fluid py-5" style={{ backgroundColor: "#f5f8fa", minHeight: "100vh" }}>
+      <div className="container">
+        <div className="text-center mb-5">
+          <h1 className="fw-bold text-dark">{carId ? "Edit Car" : "Add New Car"}</h1>
+          <p className="text-muted">{carId ? "Update your car's listing below." : "Fill in the car details to create a new listing."}</p>
+        </div>
+
+        <div className="card shadow border-0 rounded-4 p-4 bg-white">
+          <form onSubmit={handleSubmit}>
+
+            <div className="row g-3">
+              <div className="col-md-6">
+                <label htmlFor="brand" className="form-label">Brand</label>
+                <select
+                  className="form-select"
+                  name="brand"
+                  value={formData.brand}
+                  onChange={handleBrandChange}
+                  required
+                >
+                  <option value="">Select Brand</option>
+                  {Object.keys(brandModelMap).map((brand) => (
+                    <option key={brand} value={brand}>{brand}</option>
+                  ))}
+                </select>
               </div>
-            )}
-  
-            {!imageFile && carId && formData.image?.url && (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginTop: "10px",
-                }}
-              >
-                <img
-                  src={formData.image.url}
-                  alt="Current"
-                  style={{
-                    width: "35px",
-                    height: "35px",
-                    objectFit: "cover",
-                    borderRadius: "4px",
-                    border: "1px solid #ccc",
-                  }}
-                />
-                <small style={{ marginLeft: "8px" }}>
-                  This is the current photo
-                </small>
+
+              <div className="col-md-6">
+                <label htmlFor="model" className="form-label">Model</label>
+                <select
+                  className="form-select"
+                  name="model"
+                  value={formData.model}
+                  onChange={handleChange}
+                  required
+                  disabled={!formData.brand}
+                >
+                  <option value="">Select Model</option>
+                  {formData.brand &&
+                    brandModelMap[formData.brand].map((model) => (
+                      <option key={model} value={model}>{model}</option>
+                    ))}
+                </select>
               </div>
-            )}
-          </div>
-  
-          <div className="d-flex gap-3">
-            <button type="submit" className="btn btn-primary flex-grow-1">
-              {carId ? "Update" : "Submit"}
-            </button>
-            <Link
-              to="/dealer/cars/rentals"
-              className="btn btn-secondary flex-grow-1"
-            >
-              Go Back
-            </Link>
-          </div>
-        </form>
+
+              <div className="col-md-4">
+                <label htmlFor="year" className="form-label">Year</label>
+                <select
+                  className="form-select"
+                  name="year"
+                  value={formData.year}
+                  onChange={handleChange}
+                  required
+                >
+                  {yearOptions.map((year) => (
+                    <option key={year} value={year}>{year}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="col-md-8">
+                <label htmlFor="pricePerDay" className="form-label">Price Per Day ($)</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  name="pricePerDay"
+                  value={formData.pricePerDay}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="col-12">
+                <label className="form-label">Location (click on map)</label>
+                {isLoaded ? (
+                  <GoogleMap
+                    mapContainerStyle={mapContainerStyle}
+                    zoom={10}
+                    center={marker || center}
+                    onClick={handleMapClick}
+                  >
+                    {marker && <Marker position={marker} />}
+                  </GoogleMap>
+                ) : (
+                  <div className="text-muted">Loading Map...</div>
+                )}
+                <input
+                  type="text"
+                  className="form-control mt-2"
+                  name="location"
+                  value={formData.location}
+                  readOnly
+                  required
+                />
+              </div>
+
+              <div className="col-12">
+                <label htmlFor="image" className="form-label">Upload Car Image</label>
+                <input
+                  type="file"
+                  className="form-control"
+                  name="image"
+                  accept="image/*"
+                  onChange={(e) => setImageFile(e.target.files[0])}
+                  required={!carId}
+                />
+                <div className="mt-3 d-flex align-items-center gap-3">
+                  {imageFile && (
+                    <>
+                      <img
+                        src={URL.createObjectURL(imageFile)}
+                        alt="Preview"
+                        className="rounded border"
+                        style={{ width: 40, height: 40, objectFit: "cover" }}
+                      />
+                      <small className="text-success">New uploaded image</small>
+                    </>
+                  )}
+                  {!imageFile && carId && formData.image?.url && (
+                    <>
+                      <img
+                        src={formData.image.url}
+                        alt="Current"
+                        className="rounded border"
+                        style={{ width: 40, height: 40, objectFit: "cover" }}
+                      />
+                      <small className="text-muted">Current image</small>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="d-flex flex-column flex-md-row gap-3 mt-4">
+              <button type="submit" className="btn btn-primary px-4 py-2 w-100 w-md-auto">
+                {carId ? "Update Car" : "Add Car"}
+              </button>
+              <Link to="/dealer/cars/rentals" className="btn btn-outline-danger px-4 py-2 w-100 w-md-auto">
+                Cancel / Go Back
+              </Link>
+            </div>
+          </form>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
