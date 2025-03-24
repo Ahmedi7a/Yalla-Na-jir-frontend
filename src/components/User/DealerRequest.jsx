@@ -35,7 +35,7 @@ const DealerRequest = () => {
         <div className="row align-items-center g-5">
           <div className="col-md-6">
             <h2 className="fw-bold text-dark mb-3">Become a Dealer</h2>
-            <hr className="mb-4" style={{ width: '60px', border: '2px solid #0d6efd' }} />
+            <hr className="mb-4" style={{ width: '60px', border: '2px solid rgb(203, 193, 0)' }} />
             <p className="text-muted fs-5">
               Join Vera and unlock exclusive tools and support to boost your business. Our dealer program is built to empower partners with powerful digital solutions and personalized service.
             </p>
@@ -74,7 +74,7 @@ const DealerRequest = () => {
                   <p className="text-light">Click the button below to submit your request.</p>
                   <div className="d-grid">
                     <button
-                      className="btn btn-primary btn-lg"
+                      className="btn btn-warning btn-lg"
                       onClick={handleRequest}
                       disabled={loading}
                     >

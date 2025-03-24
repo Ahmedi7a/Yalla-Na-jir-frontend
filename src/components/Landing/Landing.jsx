@@ -137,7 +137,7 @@ const Dashboard = () => {
     Your browser does not support the video tag.
   </video>
   <div className="hero-overlay-content">
-    <h1 className="display-4 fw-bold text-white">Find Your Perfect Car</h1>
+    <h1 className="display-4 fw-bold text-warning">Find Your Perfect Car</h1>
     <p className="lead text-white">Cars for sale and rent near you</p>
   </div>
 </motion.div>
@@ -156,7 +156,7 @@ const Dashboard = () => {
     <div className="d-flex justify-content-between align-items-center mb-4">
       <h2 className="fw-bold">Explore Our Premium Brands</h2>
       <span className="text-primary" style={{ cursor: "pointer" }}>
-        <a href="/signin">Show All Brands</a> <span aria-hidden>↗</span>
+      <a href="/cars" className="btn btn-warning" style={{textDecoration: "none"}}>Show All Brands  ↗</a> 
       </span>
     </div>
     <div className="row g-4">
@@ -206,7 +206,7 @@ const Dashboard = () => {
             borderTopRightRadius: "20px",
               borderBottomRightRadius: "20px",}}>
             <div className="p-md-5 px-4 py-5">
-              <span className="text-uppercase text-primary fw-semibold">About us</span>
+              <span className="text-uppercase text-warning fw-semibold">About us</span>
               <h2 className="mb-4 mt-2">Welcome to Carbook</h2>
 
               <p>
@@ -218,7 +218,7 @@ const Dashboard = () => {
                 have been rewritten a thousand times and everything that was left from its origin would be the word
                 "and" and the Little Blind Text should turn around and return to its own, safe country.
               </p>
-              <a href="/signin" className="btn btn-primary py-2 px-4 mt-2">
+              <a href="/signin" className="btn btn-warning py-2 px-4 mt-2">
                 Search Vehicle
               </a>
             </div>
@@ -288,7 +288,7 @@ const Dashboard = () => {
                     <div className="d-flex justify-content-center gap-2 mt-auto">
                       <Link
                         to={`/signin`}
-                        className="btn btn-sm btn-outline-primary"
+                        className="btn btn-sm btn-warning"
                       >
                         Details
                       </Link>
@@ -335,8 +335,8 @@ const Dashboard = () => {
       <div className="container" >
         <div className="row justify-content-center mb-5">
           <div className="col-md-7 text-center">
-            <span className="text-uppercase text-muted">Testimonial</span>
-            <h2 className="fw-bold">Happy Clients</h2>
+          <span className="text-uppercase text-warning">Testimonial</span>
+          <h2 className="fw-bold">Happy Clients</h2>
           </div>
         </div>
 
