@@ -51,7 +51,7 @@ const Dashboard = () => {
           <div
             className="col-md-6 d-flex justify-content-center align-items-center"
             style={{
-              backgroundImage: `url('src/assets/react.svg)`,
+              backgroundImage: `url('https://media.istockphoto.com/id/507754074/photo/creative-brainstorming.jpg?s=612x612&w=0&k=20&c=ajUUKu6_FjL6ZsD-J1D626vU2N2u9jVRIwSrJmzU7u8=')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               minHeight: '400px',

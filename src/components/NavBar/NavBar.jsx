@@ -16,10 +16,10 @@ const NavBar = ({ handleSignout }) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
+//navbar-transparent
   return (
     <motion.nav
-      className={`navbar fixed-top ${scrolled ? "navbar-dark bg-dark shadow-sm" : "navbar-transparent"}`}
+      className={`navbar fixed-top ${scrolled ? "navbar-dark bg-dark shadow-sm" : "bg-dark"}`}
       initial={{ y: 0 }}
       animate={{ y: 0, transition: { type: "spring", stiffness: 100, damping: 20 } }}
       style={{ zIndex: 999 }}
