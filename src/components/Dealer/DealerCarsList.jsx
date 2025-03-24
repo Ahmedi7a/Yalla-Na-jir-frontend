@@ -26,7 +26,7 @@ function DealerCarsList() {
 
     if (user?.role === 'dealer') {
       fetchDealerCars();
-      const interval = setInterval(fetchDealerCars, 5000);
+      const interval = setInterval(fetchDealerCars, 2000);
       return () => clearInterval(interval);
     }
   }, [user]);
