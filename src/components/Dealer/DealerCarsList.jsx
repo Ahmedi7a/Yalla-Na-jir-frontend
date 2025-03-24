@@ -6,6 +6,7 @@ import * as carService from '../../services/carService';
 function DealerCarsList() {
   const user = useContext(AuthedUserContext);
   const [cars, setCars] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchDealerCars = async () => {
@@ -17,6 +18,8 @@ function DealerCarsList() {
         setCars(dealerCars);
       } catch (error) {
         console.error('Error fetching dealer cars:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -38,7 +41,13 @@ function DealerCarsList() {
         <h3 className="fw-semibold">My Cars</h3>
       </div>
 
-      {cars.length === 0 ? (
+      {loading ? (
+        <div className="text-center my-5">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      ) : cars.length === 0 ? (
         <div className="alert alert-info">You haven't listed any cars yet.</div>
       ) : (
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">

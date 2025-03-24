@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function RentRequests() {
   const [rentals, setRentals] = useState([]);
   const [statusFilter, setStatusFilter] = useState('all');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchDealerRentals = async () => {
@@ -14,6 +15,8 @@ function RentRequests() {
         setRentals(data);
       } catch (error) {
         console.error('Error fetching dealer rentals:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -79,7 +82,13 @@ function RentRequests() {
         </div>
       </div>
 
-      {filteredRentals.length ? (
+      {loading ? (
+        <div className="text-center my-5">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      ) : filteredRentals.length ? (
         <div className="table-responsive">
           <table className="table table-bordered table-hover align-middle shadow-sm">
             <thead className="table-light">
@@ -96,7 +105,7 @@ function RentRequests() {
             <tbody>
               {filteredRentals.map((rental) => (
                 <tr key={rental._id}>
-                  <td>{rental.userId?.username || rental.userId}</td>
+                  <td>{rental.userId?.username}</td>
                   <td>{rental.carId?.brand} {rental.carId?.model}</td>
                   <td>{new Date(rental.startDate).toLocaleDateString()}</td>
                   <td>{new Date(rental.endDate).toLocaleDateString()}</td>
@@ -121,17 +130,13 @@ function RentRequests() {
                       <div className="d-flex gap-2 justify-content-center flex-wrap">
                         <button
                           className="btn btn-sm btn-success rounded-pill"
-                          onClick={() =>
-                            handleUpdateStatus(rental._id, 'approved', rental.carId?._id)
-                          }
+                          onClick={() => handleUpdateStatus(rental._id, 'approved', rental.carId?._id)}
                         >
                           Approve
                         </button>
                         <button
                           className="btn btn-sm btn-danger rounded-pill"
-                          onClick={() =>
-                            handleUpdateStatus(rental._id, 'rejected', rental.carId?._id)
-                          }
+                          onClick={() => handleUpdateStatus(rental._id, 'rejected', rental.carId?._id)}
                         >
                           Reject
                         </button>
@@ -153,9 +158,7 @@ function RentRequests() {
           </table>
         </div>
       ) : (
-        <div className="alert alert-info text-center">
-          No rental requests found.
-        </div>
+        <div className="alert alert-info text-center">No rental requests found.</div>
       )}
     </div>
   );
