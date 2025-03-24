@@ -33,12 +33,7 @@ const CarDetails = () => {
       const start = new Date(rentalData.startDate);
       const end = new Date(rentalData.endDate);
       const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-
-      if (days > 0) {
-        setTotalPrice(days * car.pricePerDay);
-      } else {
-        setTotalPrice(null);
-      }
+      setTotalPrice(days > 0 ? days * car.pricePerDay : null);
     } else {
       setTotalPrice(null);
     }
@@ -50,23 +45,21 @@ const CarDetails = () => {
 
   const handleRent = async (e) => {
     e.preventDefault();
-  
+
     if (car.availability !== 'available') {
       toast.error('This car is not available for rental.');
       return;
     }
-  
+
     try {
       await rentalService.createRentalRequest(carId, rentalData);
       toast.success('Rental request submitted successfully!');
-      
       setRentalData({ startDate: '', endDate: '' });
-      setTotalPrice(null);  
+      setTotalPrice(null);
 
-      
+      // Refresh car info
       const updatedCar = await carService.show(carId);
       setCar(updatedCar);
-  
     } catch (err) {
       console.error(err);
       toast.error('Error submitting rental request.');
@@ -79,20 +72,17 @@ const CarDetails = () => {
         comment: reviewData.comment,
         rating: reviewData.rating,
       });
-  
+
       if (!updatedCar || updatedCar.error) {
         throw new Error('Failed to post review');
       }
-  
+
       setCar(updatedCar);
     } catch (err) {
       console.error('Error adding review:', err);
       toast.error('Failed to submit review');
     }
   };
-  
-
-  
 
   const today = new Date().toISOString().split('T')[0];
 
@@ -100,6 +90,19 @@ const CarDetails = () => {
 
   return (
     <div>
+      {car.image?.url && (
+        <img
+          src={car.image.url}
+          alt={`${car.brand} ${car.model}`}
+          style={{
+            width: '300px',
+            height: 'auto',
+            borderRadius: '10px',
+            marginBottom: '20px',
+          }}
+        />
+      )}
+
       <h2>{car.brand} {car.model}</h2>
       <p>Year: {car.year}</p>
       <p>Location: {car.location}</p>
@@ -130,30 +133,35 @@ const CarDetails = () => {
           />
         </div>
 
-        {totalPrice !== null && (
-          <p>Total Price: ${totalPrice}</p>
-        )}
+        {totalPrice !== null && <p>Total Price: ${totalPrice}</p>}
 
         <button type="submit">Rent Car</button>
       </form>
+
+      <hr />
+
       <ReviewForm handleAddReview={handleAddReview} />
+
       {car.reviews && car.reviews.length > 0 && (
         <div>
-  <h3>Reviews</h3>
-  <ul>
-    {car.reviews.map((review) => (
-      <li key={review._id}>
-        <p><strong>{review.userId.username || 'Anonymous'}</strong> - {new Date(review.createdAt).toLocaleDateString()}</p>
-        <p><strong>Rating:</strong> {review.rating}/5</p>
-        <p>{review.comment}</p>
-        <hr />
-      </li>
-    ))}
-  </ul>
-</div>
-
-)}
-
+          <h3>Reviews</h3>
+          <ul>
+            {car.reviews.map((review) => (
+              <li key={review._id}>
+                <p>
+                  <strong>{review.userId?.username || 'Anonymous'}</strong> -{' '}
+                  {review.createdAt
+                    ? new Date(review.createdAt).toLocaleDateString()
+                    : 'just now'}
+                </p>
+                <p><strong>Rating:</strong> {review.rating}/5</p>
+                <p>{review.comment}</p>
+                <hr />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <ToastContainer />
     </div>
