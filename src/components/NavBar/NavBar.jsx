@@ -43,13 +43,13 @@ const NavBar = ({ user, handleSignout }) => {
           <ul className="navbar-nav">
             {!user && (
               <>
-                <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
-                <li className="nav-item"><Link className="nav-link" to="/about">About</Link></li>
+                {/* <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li> */}
+                {/* <li className="nav-item"><Link className="nav-link" to="/about">About</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/services">Services</Link></li>
-                <li className="nav-item"><Link className="nav-link" to="/pricing">Pricing</Link></li>
-                <li className="nav-item"><Link className="nav-link" to="/cars">Cars</Link></li>
-                <li className="nav-item"><Link className="nav-link" to="/blog">Blog</Link></li>
-                <li className="nav-item"><Link className="nav-link" to="/contact">Contact</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/pricing">Pricing</Link></li> */}
+                {/* <li className="nav-item"><Link className="nav-link" to="/cars">Cars</Link></li> */}
+                {/* <li className="nav-item"><Link className="nav-link" to="/blog">Blog</Link></li> */}
+                {/* <li className="nav-item"><Link className="nav-link" to="/contact">Contact</Link></li> */}
               </>
             )}
             {user?.role === "admin" && (
@@ -78,7 +78,11 @@ const NavBar = ({ user, handleSignout }) => {
         </div>
         <ul className="navbar-nav ml-auto d-flex align-items-center">
           {!user ? (
+            <>
+            <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/signin">Sign In</Link></li>
+            <li className="nav-item"><Link className="nav-link" to="/signup">Sign Up</Link></li>
+            </>
           ) : (
             <li className="nav-item"><button onClick={handleSignout} className="btn btn-link nav-link">Sign Out</button></li>
           )}
