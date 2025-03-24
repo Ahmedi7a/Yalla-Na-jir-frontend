@@ -7,14 +7,14 @@ const Footer = () => {
         <div className="row">
 
           <div className="col-md-4 mb-4">
-            <h5 className="mb-3">About Vera</h5>
+            <h5 className="mb-3 text-warning">About Vera</h5>
             <p>
               Vera is a forward-thinking software solutions company committed to delivering custom digital experiences that empower businesses to grow and thrive. Our team specializes in innovative, scalable, and user-centric products tailored to your goals.
             </p>
           </div>
 
           <div className="col-md-4 mb-4">
-            <h5 className="mb-3">Quick Links</h5>
+            <h5 className="mb-3 text-warning">Quick Links</h5>
             <ul className="list-unstyled">
               <li className="mb-2">
                 <strong>Important:</strong>{' '}
@@ -38,7 +38,7 @@ const Footer = () => {
           </div>
 
           <div className="col-md-4 mb-4">
-            <h5 className="mb-3">Get in Touch</h5>
+            <h5 className="mb-3 text-warning">Get in Touch</h5>
             <div className="mb-3">
               <a href="#" className="text-white me-3">
                 <i className="fab fa-facebook fa-lg"></i>
@@ -60,7 +60,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="text-center pt-4 border-top mt-4 pb-3" style={{ fontSize: '0.9rem' }}>
+        <div className="text-center pt-4 border-top mt-4 pb-3 text-warning" style={{ fontSize: '0.9rem' }}>
           &copy; {new Date().getFullYear()} Vera Software Solutions. All rights reserved.
         </div>
       </div>
