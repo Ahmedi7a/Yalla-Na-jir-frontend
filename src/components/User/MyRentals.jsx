@@ -28,13 +28,21 @@ const MyRentals = () => {
 
   return (
     <div className="container my-5">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="mb-0">My Rentals</h2>
-        <div className="form-inline">
-          <label htmlFor="statusFilter" className="me-2">Filter by Status:</label>
+      <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
+        {/* Title */}
+        <h2 className="fw-bold text-dark mb-3 mb-md-0" style={{ fontSize: '2rem' }}>
+          My Rentals
+        </h2>
+
+        {/* Filter */}
+        <div className="d-flex align-items-center">
+          <label htmlFor="statusFilter" className="me-2 fw-semibold text-secondary">
+            Filter by Status:
+          </label>
           <select
             id="statusFilter"
-            className="form-select"
+            className="form-select shadow-sm px-3 py-2 rounded-pill border border-secondary"
+            style={{ minWidth: '180px' }}
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
           >
@@ -47,6 +55,7 @@ const MyRentals = () => {
         </div>
       </div>
 
+      {/* Rental Cards */}
       {filteredRentals.length === 0 ? (
         <div className="alert alert-info">No rentals match the selected status.</div>
       ) : (

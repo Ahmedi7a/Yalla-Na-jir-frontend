@@ -42,6 +42,7 @@ const CarList = () => {
 
   return (
     <div>
+      {/* Hero Section */}
       <div className="container">
         <div className="row py-lg-5 justify-content-center text-center">
           <div className="col-lg-8 col-md-10">
@@ -49,26 +50,33 @@ const CarList = () => {
             <p className="lead text-body-secondary">
               Explore a wide selection of high-quality cars available for rent. Whether you're planning a road trip or need a temporary ride, we've got a vehicle to fit your style and budget.
             </p>
-            <p>
-              <Link to="/my-rentals" className="btn btn-primary my-2">Your Rentals</Link>
-              <a href="#contact" className="btn btn-secondary my-2">Contact</a>
-            </p>
+
+            {/* Top Buttons with fixed spacing */}
+            <div className="d-flex justify-content-center gap-3 mt-2 mb-3 flex-wrap">
+              <Link to="/my-rentals" className="btn btn-primary px-4 py-2 rounded-pill shadow-sm">
+                Your Rentals
+              </Link>
+              <a href="#contact" className="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm">
+                Contact
+              </a>
+            </div>
           </div>
         </div>
       </div>
 
+      {/* Search & Sort */}
       <div className="container mb-4">
-        <div className="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mb-3">
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
           <input
             type="text"
-            className="form-control flex-grow-1"
+            className="form-control shadow-sm rounded-pill px-4 py-2"
             style={{ maxWidth: '400px' }}
-            placeholder="Search for car brand or model"
+            placeholder="🔍 Search for car brand or model"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
           <select
-            className="form-select form-select-sm"
+            className="form-select shadow-sm rounded-pill px-4 py-2"
             style={{ width: '200px' }}
             value={sorting}
             onChange={(e) => setSorting(e.target.value)}
@@ -78,7 +86,10 @@ const CarList = () => {
             <option value="highToLow">High to Low</option>
           </select>
         </div>
+      </div>
 
+      {/* Cars List */}
+      <div className="container mb-4">
         {loading ? (
           <div className="text-center my-5">
             <div className="spinner-border text-primary" role="status">
@@ -116,7 +127,9 @@ const CarList = () => {
                       <strong>Status:</strong> {car.availability}
                     </p>
                     <div className="d-flex justify-content-between align-items-center mt-auto">
-                      <Link to={`/cars/${car._id}`} className="btn btn-sm btn-outline-primary">View Details</Link>
+                      <Link to={`/cars/${car._id}`} className="btn btn-sm btn-outline-primary">
+                        View Details
+                      </Link>
                       <small className="text-muted">Updated recently</small>
                     </div>
                   </div>
