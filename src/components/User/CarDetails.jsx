@@ -76,11 +76,24 @@ const CarDetails = () => {
       if (!updatedCar || updatedCar.error) {
         throw new Error('Failed to post review');
       }
-
-      setCar(updatedCar);
+      const updatedCar2 = await carService.show(carId);
+      setCar(updatedCar2);
     } catch (err) {
       console.error('Error adding review:', err);
       toast.error('Failed to submit review');
+    }
+  };
+
+  const handleDeleteReview = async (reviewId) => {
+    try {
+      await carService.deleteReview(carId, reviewId);
+      toast.success('Review deleted successfully.');
+  
+      const updatedCar2 = await carService.show(carId);
+      setCar(updatedCar2);
+    } catch (err) {
+      console.error('Error deleting review:', err);
+      toast.error('Failed to delete review.');
     }
   };
 
@@ -142,26 +155,27 @@ const CarDetails = () => {
 
       <ReviewForm handleAddReview={handleAddReview} />
 
-      {car.reviews && car.reviews.length > 0 && (
-        <div>
-          <h3>Reviews</h3>
-          <ul>
-            {car.reviews.map((review) => (
-              <li key={review._id}>
-                <p>
-                  <strong>{review.userId?.username || 'Anonymous'}</strong> -{' '}
-                  {review.createdAt
-                    ? new Date(review.createdAt).toLocaleDateString()
-                    : 'just now'}
-                </p>
-                <p><strong>Rating:</strong> {review.rating}/5</p>
-                <p>{review.comment}</p>
-                <hr />
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {car.reviews.map((review) => (
+  <li key={review._id}>
+    <p>
+      <strong>{review.userId?.username || 'Anonymous'}</strong> -{' '}
+      {review.createdAt
+        ? new Date(review.createdAt).toLocaleDateString()
+        : 'just now'}
+    </p>
+    <p><strong>Rating:</strong> {review.rating}/5</p>
+    <p>{review.comment}</p>
+
+
+    {(user && (user._id === review.userId?._id || user.role === 'admin')) && (
+      <button onClick={() => handleDeleteReview(review._id)}>
+        Delete Review
+      </button>
+    )}
+
+    <hr />
+  </li>
+))}
 
       <ToastContainer />
     </div>

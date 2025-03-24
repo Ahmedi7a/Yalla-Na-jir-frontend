@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const ReviewForm = ({ handleAddReview }) => {
-  const [formData, setFormData] = useState({ text: '' });
+  const [formData, setFormData] = useState({ comment:"", rating:"" });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -10,7 +10,7 @@ const ReviewForm = ({ handleAddReview }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleAddReview(formData); 
-    setFormData({ text: '' }); 
+    setFormData({ comment:"", rating:"" }); 
   };
 
   return (
