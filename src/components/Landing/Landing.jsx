@@ -265,7 +265,7 @@ const Dashboard = () => {
         ) : (
           <p className="text-center text-muted">Loading featured vehicles...</p>
         )}
-
+{/* 
 <section className="py-5">
   <div className="container text-center">
     <h1 className="mb-5 fw-bold" style={{marginTop: 50}}>Our Team</h1>
@@ -291,7 +291,7 @@ const Dashboard = () => {
 
     </div>
   </div>
-</section>
+</section> */}
 
 
 

@@ -4,6 +4,7 @@ import NavBar from './components/NavBar/NavBar';
 import Landing from './components/Landing/Landing';
 import SignupForm from './components/SignupForm/SignupForm';
 import SigninForm from './components/SigninForm/SigninForm';
+import About from './components/About/About';
 // ==========================
 import * as authService from '../src/services/authService'; // import the authservice
 import * as carService from  '../src/services/carService';
@@ -95,6 +96,7 @@ const App = () => {
       <NavBar user={user} handleSignout={handleSignout} />
 
       <Routes>
+      <Route path='/About' element={<About/>}/>
         {!user && (
           <>
             <Route path="/" element={<Landing />} />

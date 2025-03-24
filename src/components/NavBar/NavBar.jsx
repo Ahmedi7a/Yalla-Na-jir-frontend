@@ -54,13 +54,14 @@ const NavBar = ({ user, handleSignout }) => {
             )}
             {user?.role === "admin" && (
               <>
-                <li className="nav-item"><Link className="nav-link" to="/">Dashboard</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/admin/rentals">Rental List</Link></li>
               </>
             )}
             {user?.role === "dealer" && (
               <>
-                <li className="nav-item"><Link className="nav-link" to="/">Dashboard</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/About">About</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/dealer/cars/rentals">My Cars & Rentals</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/dealer/cars/new">Add Car</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/dealer/requests">Rental Requests</Link></li>
@@ -68,7 +69,8 @@ const NavBar = ({ user, handleSignout }) => {
             )}
             {user?.role === "user" && (
               <>
-                <li className="nav-item"><Link className="nav-link" to="/">Dashboard</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/About">About</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/cars">Cars</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/my-rentals">My Rentals</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/become-dealer">Become a Dealer</Link></li>
@@ -80,6 +82,7 @@ const NavBar = ({ user, handleSignout }) => {
           {!user ? (
             <>
             <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
+            <li className="nav-item"><Link className="nav-link" to="/About">About</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/signin">Sign In</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/signup">Sign Up</Link></li>
             </>

@@ -280,7 +280,7 @@ const Dashboard = () => {
                     </p>
 
                     <p className="fw-bold">
-                      ${car.pricePerDay} <span className="text-muted">/ day</span>
+                      BHD {car.pricePerDay} <span className="text-muted">/ day</span>
                     </p>
 
                     <div className="d-flex justify-content-center gap-2 mt-auto">
@@ -300,7 +300,7 @@ const Dashboard = () => {
           <p className="text-center text-muted">Loading featured vehicles...</p>
         )}
 
-<section className="py-5">
+{/* <section className="py-5">
   <div className="container text-center">
     <h1 className="mb-5 fw-bold" style={{marginTop: 50}}>Our Team</h1>
     <div className="row justify-content-center g-4">
@@ -325,7 +325,7 @@ const Dashboard = () => {
 
     </div>
   </div>
-</section>
+</section> */}
 
 
 
