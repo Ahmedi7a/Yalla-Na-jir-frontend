@@ -1,25 +1,32 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { AuthedUserContext } from "../../App";
 import "./NavBar.css";
 
 const NavBar = ({ handleSignout }) => {
   const user = useContext(AuthedUserContext);
   const [scrolled, setScrolled] = useState(false);
+  const controls = useAnimation();
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const isScrolled = window.scrollY > 20;
+      setScrolled(isScrolled);
+
+      controls.start({
+        y: isScrolled ? 0 : -100, // only animate position
+        transition: { type: "spring", stiffness: 100, damping: 20 }
+      });
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
+  }, [controls]);
+//navbar-transparent
   return (
     <motion.nav
-      className={`navbar fixed-top ${scrolled ? "navbar-dark bg-dark shadow-sm" : "navbar-transparent"}`}
+      className={`navbar fixed-top ${scrolled ? "navbar-dark bg-dark shadow-sm" : "bg-dark"}`}
       initial={{ y: 0 }}
       animate={{ y: 0, transition: { type: "spring", stiffness: 100, damping: 20 } }}
       style={{ zIndex: 999 }}

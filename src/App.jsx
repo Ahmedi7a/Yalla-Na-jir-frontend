@@ -56,6 +56,7 @@ const App = () => {
   const handleSignout = () => {
     authService.signout();
     setUser(null);
+    nav('/');
   };
 
 
