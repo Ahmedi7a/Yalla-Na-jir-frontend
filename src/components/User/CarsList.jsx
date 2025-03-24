@@ -6,6 +6,7 @@ const CarList = () => {
   const [cars, setCars] = useState([]);
   const [sorting, setSorting] = useState('all');
   const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -14,6 +15,8 @@ const CarList = () => {
         setCars(allCars);
       } catch (error) {
         console.error('Error fetching cars:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -76,7 +79,13 @@ const CarList = () => {
           </select>
         </div>
 
-        {sortedCars.length === 0 ? (
+        {loading ? (
+          <div className="text-center my-5">
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        ) : sortedCars.length === 0 ? (
           <div className="alert alert-warning">No cars match your search.</div>
         ) : (
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
