@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthedUserContext } from '../../App';
 import * as carService from '../../services/carService';
+import { motion } from 'framer-motion';
 
 function DealerCarsList() {
   const user = useContext(AuthedUserContext);
@@ -32,15 +33,20 @@ function DealerCarsList() {
 
   return (
     <div className="container my-5">
+      {/* Header */}
       <div className="text-center mb-5">
-        <h1 className="fw-bold">Dealer Vehicles</h1>
-        <p className="text-muted fs-5">Welcome, {user?.username}. Manage your listed vehicles below.</p>
+        <h1 className="fw-bold">Your Listed Vehicles</h1>
+        <p className="text-muted fs-5">
+          Welcome, <strong>{user?.username}</strong>. Below are the cars you've listed for rent.
+        </p>
       </div>
 
+      {/* My Cars Heading */}
       <div className="mb-4">
         <h3 className="fw-semibold">My Cars</h3>
       </div>
 
+      {/* Loading */}
       {loading ? (
         <div className="text-center my-5">
           <div className="spinner-border text-primary" role="status">
@@ -53,7 +59,13 @@ function DealerCarsList() {
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
           {cars.map((car) => (
             <div className="col" key={car._id}>
-              <div className="card h-100 shadow-sm">
+              <motion.div
+                className="card h-100 shadow-sm"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                whileHover={{ scale: 1.03 }}
+              >
                 {car.image?.url ? (
                   <img
                     src={car.image.url}
@@ -69,20 +81,53 @@ function DealerCarsList() {
                     No Image Available
                   </div>
                 )}
-                <div className="card-body d-flex flex-column">
-                  <h5 className="card-title">{car.brand} {car.model}</h5>
+
+                <motion.div
+                  className="card-body d-flex flex-column"
+                  variants={{
+                    hover: { y: -5 },
+                    rest: { y: 0 }
+                  }}
+                  initial="rest"
+                  whileHover="hover"
+                  animate="rest"
+                >
+                  <h5 className="card-title fw-bold">
+                    {car.brand} {car.model}
+                  </h5>
+
                   <p className="card-text mb-2">
-                    <strong>Price per day:</strong> ${car.pricePerDay}<br />
-                    <strong>Status:</strong> {car.availability}
+                      BHD<strong> {car.pricePerDay} </strong> / Day
                   </p>
-                  <div className="d-flex justify-content-between align-items-center mt-auto">
-                    <Link to={`/dealer/cars/${car._id}`} className="btn btn-sm btn-outline-primary">
+
+                  <small
+                    className={`mb-2 ${
+                      car.availability === 'available'
+                        ? 'text-success'
+                        : car.availability === 'unavailable'
+                        ? 'text-danger'
+                        : car.availability === 'rented'
+                        ? 'text-secondary'
+                        : 'text-muted'
+                    }`}
+                  >
+                     {car.availability}
+                  </small>
+
+                  <motion.div
+                    className="d-flex justify-content-end mt-auto"
+                    variants={{
+                      hover: { opacity: 1, height: "auto" },
+                      rest: { opacity: 0, height: 0 }
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Link to={`/dealer/cars/${car._id}`} className="btn btn-sm btn-secondary">
                       View Details
                     </Link>
-                    <small className="text-muted">Updated recently</small>
-                  </div>
-                </div>
-              </div>
+                  </motion.div>
+                </motion.div>
+              </motion.div>
             </div>
           ))}
         </div>
