@@ -34,28 +34,27 @@ const DealerRequest = () => {
       <div className="container">
         <div className="row align-items-center g-5">
           <div className="col-md-6">
-            <h2 className="fw-bold text-dark mb-3">Become a Dealer</h2>
+            <h2 className="fw-bold text-dark mb-3">Become a Dealer with Yalla Na'jir</h2>
             <hr className="mb-4" style={{ width: '60px', border: '2px solid rgb(203, 193, 0)' }} />
-            <p className="text-muted fs-5">
-              Join Vera and unlock exclusive tools and support to boost your business. Our dealer program is built to empower partners with powerful digital solutions and personalized service.
-            </p>
+            <p className="text-muted fs-5" style={{textAlign:"justify"}}>
+            Join the Yalla Na’jir dealer network and grow your business with powerful tools, priority support, and seamless platform integration. We’re here to help you reach more customers and manage your fleet with ease.            </p>
             <ul className="list-unstyled mt-4">
               <li className="d-flex mb-3">
-                <i className="fas fa-check-circle text-primary me-3 mt-1"></i>
-                <div>
-                  <strong>Tailored Solutions:</strong> Custom tools to help you streamline operations and scale faster.
+                <i className="fas fa-check-circle text-warning me-3 mt-1"></i>
+                <div style={{textAlign:"justify"}}>
+                  <strong>Tailored Solutions:</strong> Get access to a custom dashboard built to simplify your operations and help you scale faster.
                 </div>
               </li>
               <li className="d-flex mb-3">
-                <i className="fas fa-check-circle text-primary me-3 mt-1"></i>
-                <div>
-                  <strong>Dedicated Support:</strong> Get priority technical support and personalized assistance.
+                <i className="fas fa-check-circle text-warning me-3 mt-1"></i>
+                <div style={{textAlign:"justify"}}>
+                  <strong>Dedicated Support:</strong> Enjoy dedicated support with faster response times and personalized assistance whenever you need it.
                 </div>
               </li>
               <li className="d-flex">
-                <i className="fas fa-check-circle text-primary me-3 mt-1"></i>
-                <div>
-                  <strong>Seamless Integration:</strong> Easily connect our platform to your current systems.
+                <i className="fas fa-check-circle text-warning me-3 mt-1"></i>
+                <div style={{textAlign:"justify"}}>
+                  <strong>Seamless Integration:</strong> Easily connect your existing systems with our platform — no complex setup required.
                 </div>
               </li>
             </ul>

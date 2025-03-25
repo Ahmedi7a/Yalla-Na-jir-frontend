@@ -29,7 +29,7 @@ const teamMembers = [
 
 const About = () => {
   return (
-    <section className="py-5">
+    <section className="py-1" style={{marginBottom:40}}>
       <div className="container text-center">
         <h1 className="mb-5 fw-bold" style={{ marginTop: 50 }}>Our Team</h1>
         <div className="row justify-content-center g-4">
