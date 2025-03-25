@@ -8,9 +8,11 @@ const Footer = () => {
 
           <div className="col-md-4 mb-4">
             <h5 className="mb-3 text-warning">About Vera</h5>
-            <p>
-              Vera is a forward-thinking software solutions company committed to delivering custom digital experiences that empower businesses to grow and thrive. Our team specializes in innovative, scalable, and user-centric products tailored to your goals.
-            </p>
+            <p style={{textAlign:"justify"}}>
+            Carbook is created by a team of four passionate developers committed to revolutionizing car rentals. 
+            We aim to provide a seamless, secure, and user-friendly platform that connects car owners with renters effortlessly. 
+            With a focus on convenience, trust, and accessibility, we make finding and listing cars easier than ever. 
+            Your perfect ride is just a few clicks away!            </p>
           </div>
 
           <div className="col-md-4 mb-4">
@@ -55,7 +57,7 @@ const Footer = () => {
             </div>
             <p className="mb-0">
               We'd love to hear from you:<br />
-              <a href="mailto:contact@site.com" className="text-white fw-semibold">contact@site.com</a>
+              <a href="mailto:ga.rent.project@gmail.com" className="text-white fw-semibold">ga.rent.project@gmail.com</a>
             </p>
           </div>
         </div>
