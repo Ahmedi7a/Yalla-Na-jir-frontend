@@ -1,26 +1,26 @@
-import { useParams } from 'react-router-dom';
-import { useEffect, useState, useContext } from 'react';
-import * as carService from '../../services/carService';
-import * as rentalService from '../../services/rentalService';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import ReviewForm from './ReviewForm';
-import { AuthedUserContext } from '../../App';
-import { useLoadScript } from '@react-google-maps/api';
-import { useMemo } from 'react';
-
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState, useContext, useMemo } from "react";
+import * as carService from "../../services/carService";
+import * as rentalService from "../../services/rentalService";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ReviewForm from "./ReviewForm";
+import { AuthedUserContext } from "../../App";
+import { useLoadScript } from "@react-google-maps/api";
+import { motion } from "framer-motion";
 
 const CarDetails = () => {
-  const GAPI = import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY;
   const { carId } = useParams();
-  const [car, setCar] = useState(null);
-  const [rentalData, setRentalData] = useState({ startDate: '', endDate: '' });
-  const [totalPrice, setTotalPrice] = useState(null);
-
-
-
-
+  const nav = useNavigate();
   const user = useContext(AuthedUserContext);
+  const GAPI = import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY;
+
+  const [car, setCar] = useState(null);
+  const [rentalData, setRentalData] = useState({ startDate: "", endDate: "" });
+  const [totalPrice, setTotalPrice] = useState(null);
+  const today = new Date().toISOString().split("T")[0];
+
+  const { isLoaded } = useLoadScript({ googleMapsApiKey: GAPI });
 
   useEffect(() => {
     const fetchCar = async () => {
@@ -28,10 +28,9 @@ const CarDetails = () => {
         const data = await carService.show(carId);
         setCar(data);
       } catch (err) {
-        console.error('Error loading car details:', err);
+        console.error("Error loading car details:", err);
       }
     };
-
     fetchCar();
   }, [carId]);
 
@@ -40,12 +39,7 @@ const CarDetails = () => {
       const start = new Date(rentalData.startDate);
       const end = new Date(rentalData.endDate);
       const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-
-      if (days > 0) {
-        setTotalPrice(days * car.pricePerDay);
-      } else {
-        setTotalPrice(null);
-      }
+      setTotalPrice(days > 0 ? days * car.pricePerDay : null);
     } else {
       setTotalPrice(null);
     }
@@ -57,178 +51,205 @@ const CarDetails = () => {
 
   const handleRent = async (e) => {
     e.preventDefault();
-
-    if (car.availability !== 'available') {
-      toast.error('This car is not available for rental.');
+    if (car.availability !== "available") {
+      toast.error("This car is not available for rental.");
       return;
     }
-
     try {
       await rentalService.createRentalRequest(carId, rentalData);
-      toast.success('Rental request submitted successfully!');
-
-      setRentalData({ startDate: '', endDate: '' });
+      toast.success("Rental request submitted!");
+      setRentalData({ startDate: "", endDate: "" });
       setTotalPrice(null);
-
-
       const updatedCar = await carService.show(carId);
       setCar(updatedCar);
-
+      setTimeout(() => nav("/my-rentals"), 1500);
     } catch (err) {
-      console.error(err);
-      toast.error('Error submitting rental request.');
+      toast.error("Error submitting rental request.");
     }
   };
 
   const handleAddReview = async (reviewData) => {
     try {
-      const updatedCar = await carService.createReview(carId, {
-        comment: reviewData.comment,
-        rating: reviewData.rating,
-      });
-
-      if (!updatedCar || updatedCar.error) {
-        throw new Error('Failed to post review');
-      }
-
+      const updatedCar = await carService.createReview(carId, reviewData);
+      if (!updatedCar || updatedCar.error)
+        throw new Error("Failed to post review");
       setCar(updatedCar);
     } catch (err) {
-      console.error('Error adding review:', err);
-      toast.error('Failed to submit review');
+      toast.error("Failed to submit review");
     }
   };
 
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: GAPI,
-  });
-  
-  if (!isLoaded) return <div>Loading map...</div>;
-
-
-
-  const today = new Date().toISOString().split('T')[0];
-
-  if (!car) return <p>Loading car details...</p>;
-  
-
-  
-
-  return (
-    <div>
-<h2>{car.brand} {car.model}</h2>
-
-{car.image?.url ? (
-                    <img
-                      src={car.image.url}
-                      className="card-img-top img-fluid"
-                      style={{ height: '225px', objectFit: 'cover' }}
-                      alt={`${car.brand} ${car.model}`}
-                    />
-                  ) : (
-                    <div
-                      className="card-img-top d-flex align-items-center justify-content-center bg-secondary text-white"
-                      style={{ height: '225px' }}
-                    >
-                      No Image Available
-                    </div>
-                  )}
-
-
-
-      <p>Year: {car.year}</p>
-
-      {(() => {
-  let lat = 26.2235;
-  let lng = 50.5876;
-
-  if (car?.location) {
-    const coords = car.location.split(',').map(c => parseFloat(c.trim()));
-    if (!isNaN(coords[0]) && !isNaN(coords[1])) {
-      lat = coords[0];
-      lng = coords[1];
+  const coordinates = useMemo(() => {
+    let lat = 26.2235,
+      lng = 50.5876;
+    if (car?.location) {
+      const parts = car.location.split(",").map(Number);
+      if (!isNaN(parts[0]) && !isNaN(parts[1])) [lat, lng] = parts;
     }
-  }
+    return { lat, lng };
+  }, [car]);
 
-  const mapUrl = `https://www.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
+  if (!isLoaded || !car)
+    return <div className="text-center mt-5">Loading...</div>;
 
   return (
-    <div style={{ height: '300px', margin: '20px 0' }}>
-      <h4>Car Location:</h4>
-      <iframe
-        title="Car Location"
-        src={mapUrl}
-        width="100%"
-        height="100%"
-        style={{ border: 0, borderRadius: '8px' }}
-        allowFullScreen
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-      ></iframe>
-    </div>
-  );
-})()}
-
-
-<br />
-<br />
-<br />
-<br />
-
-
-      <p>Price per day: ${car.pricePerDay}</p>
-      <p>Status: {car.availability}</p>
-
-      <form onSubmit={handleRent}>
-        <div>
-          <label>Start Date:</label>
-          <input
-            type="date"
-            name="startDate"
-            value={rentalData.startDate}
-            onChange={handleChange}
-            min={today}
-            required
-          />
+    <motion.div
+      className="container my-5"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+    >
+      <div className="row g-5">
+        {/* Car Image & Info */}
+        <div className="col-md-6">
+          <div className="card shadow rounded-4 overflow-hidden">
+            {car.image?.url ? (
+              <img
+                src={car.image.url}
+                className="w-100"
+                style={{ height: "300px", objectFit: "cover" }}
+                alt={`${car.brand} ${car.model}`}
+              />
+            ) : (
+              <div
+                className="d-flex justify-content-center align-items-center bg-secondary text-white"
+                style={{ height: "300px" }}
+              >
+                No Image Available
+              </div>
+            )}
+            <div className="card-body">
+              <h3 className="fw-bold">
+                {car.brand} {car.model}
+              </h3>
+              <p>
+                <strong>Year:</strong> {car.year}
+              </p>
+              <p>
+                <strong>Status:</strong>{" "}
+                <span
+                  className={`badge bg-${
+                    car.availability === "available" ? "success" : "secondary"
+                  }`}
+                >
+                  {car.availability}
+                </span>
+              </p>
+              <p>
+                <strong>Price per day:</strong> BHD {car.pricePerDay}
+              </p>
+              {totalPrice !== null && (
+                <p className="mt-2">
+                  <strong>Total Price:</strong> BHD {totalPrice}
+                </p>
+              )}
+            </div>
+          </div>
         </div>
-        <div>
-          <label>End Date:</label>
-          <input
-            type="date"
-            name="endDate"
-            value={rentalData.endDate}
-            onChange={handleChange}
-            min={rentalData.startDate || today}
-            required
-          />
-        </div>
 
-        {totalPrice !== null && (
-          <p>Total Price: ${totalPrice}</p>
+        {/* Rent Form + Map */}
+        <div className="col-md-6">
+          <motion.div
+            className="card shadow p-4 mb-4 rounded-4"
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.1 }}
+          >
+            <h5 className="fw-bold mb-3">Rent this Car</h5>
+            <form onSubmit={handleRent}>
+              <div className="mb-3">
+                <label className="form-label">Start Date</label>
+                <input
+                  type="date"
+                  className="form-control"
+                  name="startDate"
+                  value={rentalData.startDate}
+                  min={today}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">End Date</label>
+                <input
+                  type="date"
+                  className="form-control"
+                  name="endDate"
+                  value={rentalData.endDate}
+                  min={rentalData.startDate || today}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <button
+                className="btn btn-warning w-100 fw-semibold"
+                type="submit"
+              >
+                Rent Now
+              </button>
+            </form>
+          </motion.div>
+
+          {/* Map */}
+          <motion.div
+            className="rounded overflow-hidden shadow"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            <iframe
+              title="Car Location"
+              src={`https://www.google.com/maps?q=${coordinates.lat},${coordinates.lng}&z=15&output=embed`}
+              width="100%"
+              height="250"
+              style={{ border: 0 }}
+              loading="lazy"
+              allowFullScreen
+            ></iframe>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Reviews */}
+      <motion.div
+        className="mt-5"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6 }}
+      >
+        <ReviewForm handleAddReview={handleAddReview} />
+        {car.reviews && car.reviews.length > 0 && (
+          <div className="mt-4">
+            <h4 className="mb-3">Customer Reviews</h4>
+            <div
+              className="list-group border rounded"
+              style={{
+                maxHeight: "400px",
+                overflowY: "auto",
+              }}
+            >
+              {/* error here  anonymous user comment*/}
+              {car.reviews.map((review) => (
+                <div key={review._id} className="list-group-item">
+                  <div className="d-flex justify-content-between" >
+                    <strong>{review.userId?.username || "Anonymous"}</strong>
+                    <small>
+                      {new Date(review.createdAt).toLocaleDateString()}
+                    </small>
+                  </div>
+                  <p className="mb-1">
+                    <strong>Rating:</strong> {review.rating}/5
+                  </p>
+                  <p>{review.comment}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         )}
-
-        <button type="submit">Rent Car</button>
-      </form>
-      <ReviewForm handleAddReview={handleAddReview} />
-      {car.reviews && car.reviews.length > 0 && (
-        <div>
-          <h3>Reviews</h3>
-          <ul>
-            {car.reviews.map((review) => (
-              <li key={review._id}>
-                <p><strong>{review.userId.username || 'Anonymous'}</strong> - {new Date(review.createdAt).toLocaleDateString()}</p>
-                <p><strong>Rating:</strong> {review.rating}/5</p>
-                <p>{review.comment}</p>
-                <hr />
-              </li>
-            ))}
-          </ul>
-        </div>
-
-      )}
-
+      </motion.div>
 
       <ToastContainer />
-    </div>
+    </motion.div>
   );
 };
 
