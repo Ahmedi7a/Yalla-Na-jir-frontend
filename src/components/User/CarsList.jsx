@@ -105,7 +105,7 @@ const CarList = () => {
                 <div className="card h-100 shadow-sm">
                   {car.image?.url ? (
                     <img
-                      src={car.image.url}
+                  src={car.image.url}
                       className="card-img-top img-fluid"
                       style={{ height: '225px', objectFit: 'cover' }}
                       alt={`${car.brand} ${car.model}`}

@@ -6,7 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ReviewForm from './ReviewForm';
 import { AuthedUserContext } from '../../App';
-import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+import { useLoadScript } from '@react-google-maps/api';
 import { useMemo } from 'react';
 
 
@@ -101,14 +101,6 @@ const CarDetails = () => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: GAPI,
   });
-
-  const markerIcon = useMemo(() => {
-    if (!window.google) return null;
-    return {
-      url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
-      scaledSize: new window.google.maps.Size(40, 40),
-    };
-  }, [isLoaded]);
   
   if (!isLoaded) return <div>Loading map...</div>;
 
@@ -123,47 +115,59 @@ const CarDetails = () => {
 
   return (
     <div>
-      <h2>{car.brand} {car.model}</h2>
+<h2>{car.brand} {car.model}</h2>
+
+{car.image?.url ? (
+                    <img
+                      src={car.image.url}
+                      className="card-img-top img-fluid"
+                      style={{ height: '225px', objectFit: 'cover' }}
+                      alt={`${car.brand} ${car.model}`}
+                    />
+                  ) : (
+                    <div
+                      className="card-img-top d-flex align-items-center justify-content-center bg-secondary text-white"
+                      style={{ height: '225px' }}
+                    >
+                      No Image Available
+                    </div>
+                  )}
+
+
+
       <p>Year: {car.year}</p>
 
-     {(() => {
+      {(() => {
   let lat = 26.2235;
   let lng = 50.5876;
-  let isValid = false;
 
   if (car?.location) {
     const coords = car.location.split(',').map(c => parseFloat(c.trim()));
     if (!isNaN(coords[0]) && !isNaN(coords[1])) {
       lat = coords[0];
       lng = coords[1];
-      isValid = true;
     }
   }
 
-  console.log("lat:", lat, "lng:", lng, "isValid:", isValid);
+  const mapUrl = `https://www.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
 
   return (
     <div style={{ height: '300px', margin: '20px 0' }}>
       <h4>Car Location:</h4>
-      <GoogleMap
-        mapContainerStyle={{ width: '100%', height: '100%' }}
-        zoom={13}
-        center={{ lat, lng }}
-      >
-        <Marker
-          position={{ lat, lng }}
-          icon={{
-            url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
-            scaledSize: new window.google.maps.Size(40, 40),
-          }}
-          onLoad={() => console.log("MARKER LOADED")}
-          onClick={() => alert("You clicked the marker!")}
-          title="Car Location"
-        />
-      </GoogleMap>
+      <iframe
+        title="Car Location"
+        src={mapUrl}
+        width="100%"
+        height="100%"
+        style={{ border: 0, borderRadius: '8px' }}
+        allowFullScreen
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+      ></iframe>
     </div>
   );
 })()}
+
 
 <br />
 <br />
