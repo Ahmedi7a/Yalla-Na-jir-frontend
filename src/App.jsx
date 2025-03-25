@@ -31,6 +31,8 @@ import RentRequest from './components/Dealer/RentRequest';
 // ===================================
 //admin
 import RentalList from './components/Admin/RentalList';
+import DealerCarList from './components/Admin/DealerCarList';
+
 
 
 //====================================
@@ -112,6 +114,8 @@ const App = () => {
               <>
                 <Route path="/" element={<AdminDashboard user={user} cars={cars} />} />
                 <Route path="/admin/rentals" element={<RentalList />} />
+                <Route path="/admin/cars" element={<DealerCarList />} />
+
               </>
             )}
   

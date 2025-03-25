@@ -56,6 +56,7 @@ const NavBar = ({ user, handleSignout }) => {
               <>
                 <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/admin/rentals">Rental List</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/admin/cars">Car List</Link></li>
               </>
             )}
             {user?.role === "dealer" && (
