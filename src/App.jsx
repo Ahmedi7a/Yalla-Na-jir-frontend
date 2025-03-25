@@ -117,7 +117,7 @@ const App = () => {
   
             {user && user.role === "dealer" && (
               <>
-                <Route path="/" element={<DealerDashboard user={user} cars={cars} />} />
+                <Route path="/" element={<DealerCarsList user={user} cars={cars} />} />
                 <Route path="/dealer/cars/rentals" element={<DealerCarsList user={user} cars={cars} />} />
                 <Route path="/dealer/cars/new" element={<CarCreate handleAddCar={handleAddCar} />} />
                 <Route path="/dealer/cars/:carId/edit" element={<CarCreate handleUpdateCar={handleUpdateCar} />} />
