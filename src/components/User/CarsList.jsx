@@ -140,7 +140,7 @@ const CarList = () => {
                     </h5>
 
                     <p className="card-text mb-2">
-                      <strong>Price per day:</strong> BHD {car.pricePerDay}
+                      BHD<strong> {car.pricePerDay} </strong> / Day
                     </p>
 
                     <small

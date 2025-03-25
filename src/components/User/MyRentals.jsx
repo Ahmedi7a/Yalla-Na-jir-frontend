@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as rentalService from '../../services/rentalService';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { motion } from 'framer-motion';
 
 const MyRentals = () => {
   const [rentals, setRentals] = useState([]);
@@ -28,19 +29,18 @@ const MyRentals = () => {
     ? rentals
     : rentals.filter((rental) => rental.status === filter);
 
-    const handleCancelRental = async (rentalId) => {
-      try {
-        const updated = await rentalService.cancelRental(rentalId);
-        if (updated?.rental) {
-          setRentals((prev) =>
-            prev.map((r) => r._id === rentalId ? updated.rental : r)
-          );
-        }
-      } catch (err) {
-        console.error('Failed to cancel rental:', err);
+  const handleCancelRental = async (rentalId) => {
+    try {
+      const updated = await rentalService.cancelRental(rentalId);
+      if (updated?.rental) {
+        setRentals((prev) =>
+          prev.map((r) => r._id === rentalId ? updated.rental : r)
+        );
       }
-    };
-    
+    } catch (err) {
+      console.error('Failed to cancel rental:', err);
+    }
+  };
 
   return (
     <div className="container my-5">
@@ -77,9 +77,15 @@ const MyRentals = () => {
       ) : (
         <div className="row">
           {filteredRentals.length > 0 ? (
-            filteredRentals.map((rental) => (
+            filteredRentals.map((rental, index) => (
               <div className="col-md-6 col-lg-4 mb-4" key={rental._id}>
-                <div className="card h-100 shadow-sm">
+                <motion.div
+                  className="card h-100 shadow-sm"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.02 }}
+                >
                   {rental.carId?.image?.url ? (
                     <img
                       src={rental.carId.image.url}
@@ -92,11 +98,17 @@ const MyRentals = () => {
                       <span className="text-muted">No image available</span>
                     </div>
                   )}
-                  <div className="card-body">
+
+                  <motion.div
+                    className="card-body d-flex flex-column"
+                    variants={{ hover: {}, rest: {} }}
+                    initial="rest"
+                    whileHover="hover"
+                    animate="rest"
+                  >
                     <h5 className="card-title">{rental.carId?.brand} {rental.carId?.model}</h5>
-                    <p className="card-text">
-                      <strong>From:</strong> {new Date(rental.startDate).toLocaleDateString()}<br />
-                      <strong>To:</strong> {new Date(rental.endDate).toLocaleDateString()}<br />
+
+                    <p className="card-text mb-2">
                       <strong>Status:</strong>{' '}
                       <span className={`badge bg-${
                         rental.status === 'approved'
@@ -110,20 +122,42 @@ const MyRentals = () => {
                           : 'secondary'
                       }`}>
                         {rental.status}
-                      </span><br />
-                      <strong>Total Price:</strong> ${rental.totalPrice}
+                      </span>
+                      <br />
+                      <strong>Total Price:</strong> BHD {rental.totalPrice}
                     </p>
-                    {(rental.status === 'pending' || rental.status === 'approved') && (
-  <button
-    className="btn btn-outline-danger w-100 rounded-pill mt-2"
-    onClick={() => handleCancelRental(rental._id)}
-  >
-    Cancel Rental
-  </button>
-)}
 
-                  </div>
-                </div>
+                    <motion.div
+                      className="card-text small mb-2"
+                      variants={{
+                        hover: { opacity: 1, height: 'auto' },
+                        rest: { opacity: 0, height: 0 }
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <strong>From:</strong> {new Date(rental.startDate).toLocaleDateString()}<br />
+                      <strong>To:</strong> {new Date(rental.endDate).toLocaleDateString()}
+                    </motion.div>
+
+                    {(rental.status === 'pending' || rental.status === 'approved') && (
+                      <motion.div
+                        className="mt-auto"
+                        variants={{
+                          hover: { opacity: 1, height: 'auto' },
+                          rest: { opacity: 0, height: 0 }
+                        }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <button
+                          className="btn btn-outline-danger w-100 rounded-pill mt-2"
+                          onClick={() => handleCancelRental(rental._id)}
+                        >
+                          Cancel Rental
+                        </button>
+                      </motion.div>
+                    )}
+                  </motion.div>
+                </motion.div>
               </div>
             ))
           ) : (
