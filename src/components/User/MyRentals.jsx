@@ -65,6 +65,7 @@ const MyRentals = () => {
             <option value="approved">Approved</option>
             <option value="rejected">Rejected</option>
             <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
           </select>
         </div>
       </div>

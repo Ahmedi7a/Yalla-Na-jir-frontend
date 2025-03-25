@@ -2,8 +2,8 @@ import '../Admin/AdminStyles.css';
 
 const AcceptRequest = ({ requests, onApprove, onReject }) => {
   // Filter out requests from users who are already dealers
-  const filteredRequests = requests.filter(request => 
-    request.userId?.role !== 'dealer'
+  const filteredRequests = requests.filter(
+    (request) => request.userId?.role !== 'dealer'
   );
 
   return (
@@ -13,8 +13,15 @@ const AcceptRequest = ({ requests, onApprove, onReject }) => {
       ) : (
         filteredRequests.map((req) => (
           <div key={req._id} className="admin-item">
-            <span>{req.userId?.username || 'Unknown User'}</span>
-            <div className="admin-buttons">
+            <div className="admin-info">
+              <strong>User:</strong> {req.userId?.username || 'Unknown User'} <br />
+              <strong>Phone:</strong> {req.phone || 'N/A'} <br />
+              <strong>Description:</strong>{' '}
+              <span style={{ whiteSpace: 'pre-wrap' }}>
+                {req.description || 'No reason provided.'}
+              </span>
+            </div>
+            <div className="admin-buttons mt-2">
               <button onClick={() => onApprove(req._id)}>Approve</button>
               <button className="danger" onClick={() => onReject(req._id)}>
                 Reject
