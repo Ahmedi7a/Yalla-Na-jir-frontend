@@ -3,7 +3,7 @@
 const BASE_URL = `${import.meta.env.VITE_EXPRESS_BACKEND_URL}/approval`;
 
 
-const requestDealer = async () => {
+const requestDealer = async (formData) => {
   try {
     const res = await fetch(`${BASE_URL}/request-dealer`, {
       method: 'POST',
@@ -11,12 +11,14 @@ const requestDealer = async () => {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(formData),
     });
     return res.json();
   } catch (error) {
     console.log(error);
   }
 };
+
 
 const updateApprovalStatus = async (approvalId, status) => {
   try {
