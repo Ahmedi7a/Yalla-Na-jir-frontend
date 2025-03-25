@@ -48,10 +48,10 @@ const DealerRequest = () => {
       <div className="container">
         <div className="row align-items-center g-5">
           <div className="col-md-6">
-            <h2 className="fw-bold text-dark mb-3">Become a Dealer with Yalla Na'jir</h2>
+            <h2 className="fw-bold text-dark mb-3">Become a Dealer with Rent<span className='text-warning'>X</span>press</h2>
             <hr className="mb-4" style={{ width: '60px', border: '2px solid rgb(203, 193, 0)' }} />
             <p className="text-muted fs-5" style={{ textAlign: "justify" }}>
-              Join the Yalla Na’jir dealer network and grow your business with powerful tools, priority support, and seamless platform integration. We’re here to help you reach more customers and manage your fleet with ease.            </p>
+              Join the <strong>Rent<span className='text-warning'>X</span>press </strong>dealer network and grow your business with powerful tools, priority support, and seamless platform integration. We’re here to help you reach more customers and manage your fleet with ease.            </p>
             <ul className="list-unstyled mt-4">
               <li className="d-flex mb-3">
                 <i className="fas fa-check-circle text-warning me-3 mt-1"></i>

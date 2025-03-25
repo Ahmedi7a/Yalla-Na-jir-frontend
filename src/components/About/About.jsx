@@ -16,13 +16,13 @@ const teamMembers = [
   {
     name: "Mahmood Almajed",
     role: "Software Developer",
-    image: "./enhanced-image.png",
+    image: "./out.png",
     linkedin: "https://www.linkedin.com/in/mahmood-almajed"
   },
   {
     name: "Abbas Hussain",
     role: "Software Developer",
-    image: "./abbas.png",
+    image: "./enhanced-image.png",
     linkedin: "https://www.linkedin.com/in/abbashussainj"
   },
 ];
