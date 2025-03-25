@@ -28,6 +28,20 @@ const MyRentals = () => {
     ? rentals
     : rentals.filter((rental) => rental.status === filter);
 
+    const handleCancelRental = async (rentalId) => {
+      try {
+        const updated = await rentalService.cancelRental(rentalId);
+        if (updated?.rental) {
+          setRentals((prev) =>
+            prev.map((r) => r._id === rentalId ? updated.rental : r)
+          );
+        }
+      } catch (err) {
+        console.error('Failed to cancel rental:', err);
+      }
+    };
+    
+
   return (
     <div className="container my-5">
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
@@ -99,6 +113,15 @@ const MyRentals = () => {
                       </span><br />
                       <strong>Total Price:</strong> ${rental.totalPrice}
                     </p>
+                    {(rental.status === 'pending' || rental.status === 'approved') && (
+  <button
+    className="btn btn-outline-danger w-100 rounded-pill mt-2"
+    onClick={() => handleCancelRental(rental._id)}
+  >
+    Cancel Rental
+  </button>
+)}
+
                   </div>
                 </div>
               </div>

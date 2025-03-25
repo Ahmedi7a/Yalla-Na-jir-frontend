@@ -96,6 +96,21 @@ const getAllRentals = async () => {
   }
 }
 
+const cancelRental = async (rentalId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${rentalId}/cancel`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 export {
   createRentalRequest,
   getUserRentals,
@@ -103,4 +118,5 @@ export {
   updateRentalStatus,
   deleteRental,
   getAllRentals,
+  cancelRental
 };
