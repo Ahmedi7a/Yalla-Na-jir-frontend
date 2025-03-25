@@ -34,6 +34,15 @@ const CarDetails = () => {
     fetchCar();
   }, [carId]);
 
+  // ✅ Refetch car when number of reviews changes
+  useEffect(() => {
+    const refetchCar = async () => {
+      const updated = await carService.show(carId);
+      setCar(updated);
+    };
+    refetchCar();
+  }, [car?.reviews?.length]);
+
   useEffect(() => {
     if (rentalData.startDate && rentalData.endDate && car) {
       const start = new Date(rentalData.startDate);
@@ -128,9 +137,8 @@ const CarDetails = () => {
               <p>
                 <strong>Status:</strong>{" "}
                 <span
-                  className={`badge bg-${
-                    car.availability === "available" ? "success" : "secondary"
-                  }`}
+                  className={`badge bg-${car.availability === "available" ? "success" : "secondary"
+                    }`}
                 >
                   {car.availability}
                 </span>
@@ -210,7 +218,7 @@ const CarDetails = () => {
         </div>
       </div>
 
-      {/* Reviews */}
+      {/* Reviews Section */}
       <motion.div
         className="mt-5"
         initial={{ opacity: 0 }}
@@ -223,20 +231,37 @@ const CarDetails = () => {
             <h4 className="mb-3">Customer Reviews</h4>
             <div
               className="list-group border rounded"
-              style={{
-                maxHeight: "400px",
-                overflowY: "auto",
-              }}
+              style={{ maxHeight: "400px", overflowY: "auto" }}
             >
-              {/* error here  anonymous user comment*/}
               {car.reviews.map((review) => (
                 <div key={review._id} className="list-group-item">
-                  <div className="d-flex justify-content-between" >
-                    <strong>{review.userId?.username || "Anonymous"}</strong>
-                    <small>
-                      {new Date(review.createdAt).toLocaleDateString()}
-                    </small>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <div>
+                      <strong>{review.userId?.username || "Anonymous"}</strong>
+                      <small className="d-block">
+                        {new Date(review.createdAt).toLocaleDateString()}
+                      </small>
+                    </div>
+
+                    {user?._id === review.userId?._id && (
+                      <button
+                        className="btn btn-sm btn-outline-danger"
+                        onClick={async () => {
+                          try {
+                            await carService.deleteReview(carId, review._id);
+                            const updated = await carService.show(carId);
+                            setCar(updated);
+                            toast.success("Review deleted.");
+                          } catch (err) {
+                            toast.error("Error deleting review.");
+                          }
+                        }}
+                      >
+                        Delete
+                      </button>
+                    )}
                   </div>
+
                   <p className="mb-1">
                     <strong>Rating:</strong> {review.rating}/5
                   </p>
