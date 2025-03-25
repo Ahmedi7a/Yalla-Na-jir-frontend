@@ -39,7 +39,7 @@ const RentalList = ({ rentals: propRentals }) => {
       case 'completed':
         return 'secondary';
       default:
-        return 'light';
+        return 'dark';
     }
   };
 
@@ -63,7 +63,9 @@ const RentalList = ({ rentals: propRentals }) => {
           <option value="approved">Approved</option>
           <option value="rejected">Rejected</option>
           <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
         </select>
+
       </div>
 
       {/* Loading */}

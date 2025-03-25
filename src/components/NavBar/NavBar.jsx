@@ -60,7 +60,7 @@ const NavBar = ({ user, handleSignout }) => {
             )}
             {user?.role === "dealer" && (
               <>
-                <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
+                {/* <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li> */}
                 <li className="nav-item"><Link className="nav-link" to="/About">About</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/dealer/cars/rentals">My Cars & Rentals</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/dealer/cars/new">Add Car</Link></li>
