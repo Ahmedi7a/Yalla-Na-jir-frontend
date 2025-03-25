@@ -46,17 +46,17 @@ const CarList = () => {
       <div className="container">
         <div className="row py-lg-5 justify-content-center text-center">
           <div className="col-lg-8 col-md-10">
-            <h1 className="fw-light">Find Your Perfect Ride</h1>
+            <h1 className="fw-bold">Find Your Perfect Ride</h1>
             <p className="lead text-body-secondary">
               Explore a wide selection of high-quality cars available for rent. Whether you're planning a road trip or need a temporary ride, we've got a vehicle to fit your style and budget.
             </p>
 
             {/* Top Buttons with fixed spacing */}
             <div className="d-flex justify-content-center gap-3 mt-2 mb-3 flex-wrap">
-              <Link to="/my-rentals" className="btn btn-primary px-4 py-2 rounded-pill shadow-sm">
+              <Link to="/my-rentals" className="btn btn-warning px-4 py-2 rounded-pill shadow-sm">
                 Your Rentals
               </Link>
-              <a href="#contact" className="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm">
+              <a href="mailto:ga.rent.project@gmail.com" className="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm">
                 Contact
               </a>
             </div>
@@ -121,17 +121,16 @@ const CarList = () => {
                   <div className="card-body d-flex flex-column">
                     <h5 className="card-title">{car.brand} {car.model}</h5>
                     <p className="card-text mb-2">
-                      <strong>Year:</strong> {car.year}<br />
+                      {/* <strong>Year:</strong> {car.year}<br /> */}
                       <strong>Dealer:</strong> {car.dealerId?.username || 'Unknown'}<br />
                       <strong>Price per day:</strong> ${car.pricePerDay}<br />
-                      <strong>Status:</strong> {car.availability}
+                      {/* <strong>Status:</strong> {car.availability} */}
                     </p>
                     <div className="d-flex justify-content-between align-items-center mt-auto">
                       <Link to={`/cars/${car._id}`} className="btn btn-sm btn-outline-primary">
                         View Details
                       </Link>
-                      <small className="text-muted">Updated recently</small>
-                    </div>
+                      <small className={car.availability === 'available' ? 'text-success' : 'text-danger'}>{car.availability}</small>                    </div>
                   </div>
                 </div>
               </div>

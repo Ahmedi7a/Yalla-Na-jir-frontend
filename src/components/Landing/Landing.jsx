@@ -156,7 +156,7 @@ const Dashboard = () => {
     <div className="d-flex justify-content-between align-items-center mb-4">
       <h2 className="fw-bold">Explore Our Premium Brands</h2>
       <span className="text-primary" style={{ cursor: "pointer" }}>
-      <a href="/cars" className="btn btn-warning" style={{textDecoration: "none"}}>Show All Brands  ↗</a> 
+      <a href="/signin" className="btn btn-warning" style={{textDecoration: "none"}}>Show All Brands  ↗</a> 
       </span>
     </div>
     <div className="row g-4">
