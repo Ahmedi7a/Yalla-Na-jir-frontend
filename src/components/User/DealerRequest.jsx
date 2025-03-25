@@ -40,19 +40,19 @@ const DealerRequest = () => {
             Join the Yalla Na’jir dealer network and grow your business with powerful tools, priority support, and seamless platform integration. We’re here to help you reach more customers and manage your fleet with ease.            </p>
             <ul className="list-unstyled mt-4">
               <li className="d-flex mb-3">
-                <i className="fas fa-check-circle text-primary me-3 mt-1"></i>
+                <i className="fas fa-check-circle text-warning me-3 mt-1"></i>
                 <div style={{textAlign:"justify"}}>
                   <strong>Tailored Solutions:</strong> Get access to a custom dashboard built to simplify your operations and help you scale faster.
                 </div>
               </li>
               <li className="d-flex mb-3">
-                <i className="fas fa-check-circle text-primary me-3 mt-1"></i>
+                <i className="fas fa-check-circle text-warning me-3 mt-1"></i>
                 <div style={{textAlign:"justify"}}>
                   <strong>Dedicated Support:</strong> Enjoy dedicated support with faster response times and personalized assistance whenever you need it.
                 </div>
               </li>
               <li className="d-flex">
-                <i className="fas fa-check-circle text-primary me-3 mt-1"></i>
+                <i className="fas fa-check-circle text-warning me-3 mt-1"></i>
                 <div style={{textAlign:"justify"}}>
                   <strong>Seamless Integration:</strong> Easily connect your existing systems with our platform — no complex setup required.
                 </div>
