@@ -137,8 +137,18 @@ const Dashboard = () => {
     Your browser does not support the video tag.
   </video>
   <div className="hero-overlay-content">
-    <h1 className="display-4 fw-bold text-warning">Find Your Perfect Car</h1>
-    <p className="lead text-white">Cars for rent near you</p>
+  {/* <h1 className="display-4 fw-bold text-warning">Find Your Perfect Car</h1> */}
+
+<motion.h1
+  className="display-4 fw-bold text-light"
+  initial={{ scale: 0.8, letterSpacing: '-1px' }}
+  animate={{ scale: 1, letterSpacing: '2px' }}
+  transition={{ duration: 0.6, ease: 'easeOut' }}
+  style={{fontSize: 80}}
+>
+  Rent<span className="text-warning">X</span>press
+</motion.h1>
+  <p className="lead text-white">Find Your Perfect Car</p>
   </div>
 </motion.div>
 
