@@ -7,8 +7,8 @@ const Footer = () => {
         <div className="row">
 
           <div className="col-md-4 mb-4">
-            <h5 className="mb-3 text-warning">About Vera</h5>
-            <p style={{textAlign:"justify"}}>
+            <h5 className="mb-3 text-warning">About Yalla Na'jir</h5>
+            <p>
             Carbook is created by a team of four passionate developers committed to revolutionizing car rentals. 
             We aim to provide a seamless, secure, and user-friendly platform that connects car owners with renters effortlessly. 
             With a focus on convenience, trust, and accessibility, we make finding and listing cars easier than ever. 
