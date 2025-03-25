@@ -141,7 +141,7 @@ const Dashboard = () => {
   </video>
   <div className="hero-overlay-content">
   <h1 className="display-4 fw-bold text-warning">Find Your Perfect Car</h1>
-  <p className="lead text-white">Cars for sale and rent near you</p>
+  <p className="lead text-white">Cars for rent near you</p>
   </div>
 </motion.div>
 
@@ -210,16 +210,16 @@ const Dashboard = () => {
               borderBottomRightRadius: "20px",}}>
             <div className="p-md-5 px-4 py-5">
               <span className="text-uppercase text-warning fw-semibold">About us</span>
-              <h2 className="mb-4 mt-2 ">Welcome to Carbook</h2>
+              <h2 className="mb-4 mt-2 ">Welcome to Rent<span className="text-warning">X</span>press</h2>
 
               <p>
-                A small river named Duden flows by their place and supplies it with the necessary regelialia.
-                It is a paradisematic country, in which roasted parts of sentences fly into your mouth.
+              RentXpress is created by a team of four passionate developers committed to revolutionizing car rentals.
               </p>
-              <p>
-                On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would
-                have been rewritten a thousand times and everything that was left from its origin would be the word
-                "and" and the Little Blind Text should turn around and return to its own, safe country.
+              <p >
+              
+                 We aim to provide a seamless, secure, and user-friendly platform that connects car owners with renters effortlessly.
+                  With a focus on convenience, trust, and accessibility, we make finding and listing cars easier than ever. 
+                  Your perfect ride is just a few clicks away!
               </p>
               <a href="/cars" className="btn btn-warning py-2 px-4 mt-2">
                 Search Vehicle
@@ -306,7 +306,7 @@ const Dashboard = () => {
                       {car.brand} {car.model}
                     </h5>
 
-                    <p
+                    {/* <p
                       className="text-muted mb-1"
                       style={{
                         height: "20px",
@@ -316,7 +316,7 @@ const Dashboard = () => {
                       }}
                     >
                       {car.location}
-                    </p>
+                    </p> */}
 
                     <p className="fw-bold">
                       BHD {car.pricePerDay} <span className="text-muted">/ day</span>

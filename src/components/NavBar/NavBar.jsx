@@ -23,7 +23,7 @@ const NavBar = ({ user, handleSignout }) => {
     >
       <div className="container d-flex justify-content-between align-items-center">
         <Link className="navbar-brand fw-bold" to="/">
-          Yalla<span className="text-warning fw-bold">Na'jir</span>
+          Rent<span className="text-warning fw-bold">X</span>press
         </Link>
         <button
           className="navbar-toggler collapsed"

@@ -152,7 +152,7 @@ const CreateCar = (props) => {
               </div>
 
               <div className="col-md-8">
-                <label htmlFor="pricePerDay" className="form-label">Price Per Day ($)</label>
+                <label htmlFor="pricePerDay" className="form-label">Price Per Day (BHD)</label>
                 <input
                   type="number"
                   className="form-control"

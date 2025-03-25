@@ -7,9 +7,9 @@ const Footer = () => {
         <div className="row">
 
           <div className="col-md-4 mb-4">
-            <h5 className="mb-3 text-warning">About Yalla Na'jir</h5>
+            <h5 className="mb-3 text-warning">About RentXpress</h5>
             <p>
-            Carbook is created by a team of four passionate developers committed to revolutionizing car rentals. 
+            RentXpress is created by a team of four passionate developers committed to revolutionizing car rentals. 
             We aim to provide a seamless, secure, and user-friendly platform that connects car owners with renters effortlessly. 
             With a focus on convenience, trust, and accessibility, we make finding and listing cars easier than ever. 
             Your perfect ride is just a few clicks away!            </p>
@@ -21,20 +21,20 @@ const Footer = () => {
               <li className="mb-2">
                 <strong>Important:</strong>{' '}
                 <a href="#" className="text-white text-decoration-underline">Terms &amp; Conditions</a>,{' '}
-                <a href="privacy.html" className="text-white text-decoration-underline">Privacy Policy</a>
+                <a href="#" className="text-white text-decoration-underline">Privacy Policy</a>
               </li>
               <li className="mb-2">
                 <strong>Resources:</strong>{' '}
-                <a href="index.html#expertise" className="text-white text-decoration-underline">Expertise</a>,{' '}
-                <a href="index.html#pricing" className="text-white text-decoration-underline">Pricing</a>,{' '}
-                <a href="index.html#newsletter" className="text-white text-decoration-underline">Newsletter</a>
+                <a href="#" className="text-white text-decoration-underline">Expertise</a>,{' '}
+                <a href="#" className="text-white text-decoration-underline">Pricing</a>,{' '}
+                <a href="#" className="text-white text-decoration-underline">Newsletter</a>
               </li>
               <li>
                 <strong>Navigation:</strong>{' '}
-                <a href="index.html" className="text-white text-decoration-underline">Home</a>,{' '}
-                <a href="index.html#details" className="text-white text-decoration-underline">Details</a>,{' '}
-                <a href="index.html#solutions" className="text-white text-decoration-underline">Solutions</a>,{' '}
-                <a href="index.html#projects" className="text-white text-decoration-underline">Projects</a>
+                <a href="#" className="text-white text-decoration-underline">Home</a>,{' '}
+                <a href="#" className="text-white text-decoration-underline">Details</a>,{' '}
+                <a href="#" className="text-white text-decoration-underline">Solutions</a>,{' '}
+                <a href="#" className="text-white text-decoration-underline">Projects</a>
               </li>
             </ul>
           </div>
@@ -63,7 +63,7 @@ const Footer = () => {
         </div>
 
         <div className="text-center pt-4 border-top mt-4 pb-3 text-warning" style={{ fontSize: '0.9rem' }}>
-          &copy; {new Date().getFullYear()} Vera Software Solutions. All rights reserved.
+          &copy; {new Date().getFullYear()} RentXpress. All rights reserved.
         </div>
       </div>
     </footer>

@@ -99,8 +99,14 @@ const CarDetails = () => {
   }, [car]);
 
   if (!isLoaded || !car)
-    return <div className="text-center mt-5">Loading...</div>;
-
+    return (
+      <div className="d-flex justify-content-center align-items-center mt-5" style={{ minHeight: '200px' }}>
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+    
   return (
     <motion.div
       className="container my-5"
@@ -136,12 +142,17 @@ const CarDetails = () => {
               </p>
               <p>
                 <strong>Status:</strong>{" "}
-                <span
-                  className={`badge bg-${car.availability === "available" ? "success" : "secondary"
-                    }`}
-                >
-                  {car.availability}
-                </span>
+                <span className={`fw-semibold ${
+    car.availability === 'available'
+      ? 'text-success'
+      : car.availability === 'unavailable'
+      ? 'text-danger'
+      : car.availability === 'rented'
+      ? 'text-secondary'
+      : 'text-muted'
+  }`}>
+                {car.availability}
+              </span>
               </p>
               <p>
                 <strong>Price per day:</strong> BHD {car.pricePerDay}
