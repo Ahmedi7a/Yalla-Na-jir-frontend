@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as carService from '../../services/carService';
+import { motion } from 'framer-motion';
 
 const CarList = () => {
   const [cars, setCars] = useState([]);
@@ -51,7 +52,6 @@ const CarList = () => {
               Explore a wide selection of high-quality cars available for rent. Whether you're planning a road trip or need a temporary ride, we've got a vehicle to fit your style and budget.
             </p>
 
-            {/* Top Buttons with fixed spacing */}
             <div className="d-flex justify-content-center gap-3 mt-2 mb-3 flex-wrap">
               <Link to="/my-rentals" className="btn btn-warning px-4 py-2 rounded-pill shadow-sm">
                 Your Rentals
@@ -102,10 +102,16 @@ const CarList = () => {
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
             {sortedCars.map((car) => (
               <div className="col" key={car._id}>
-                <div className="card h-100 shadow-sm">
+                <motion.div
+                  className="card h-100 shadow-sm"
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  whileHover={{ scale: 1.03 }}
+                >
                   {car.image?.url ? (
                     <img
-                  src={car.image.url}
+                      src={car.image.url}
                       className="card-img-top img-fluid"
                       style={{ height: '225px', objectFit: 'cover' }}
                       alt={`${car.brand} ${car.model}`}
@@ -118,21 +124,64 @@ const CarList = () => {
                       No Image Available
                     </div>
                   )}
-                  <div className="card-body d-flex flex-column">
-                    <h5 className="card-title">{car.brand} {car.model}</h5>
+
+                  <motion.div
+                    className="card-body d-flex flex-column"
+                    variants={{
+                      hover: { y: -5 },
+                      rest: { y: 0 }
+                    }}
+                    initial="rest"
+                    whileHover="hover"
+                    animate="rest"
+                  >
+                    <h5 className="card-title">
+                      <strong>{car.brand} {car.model}</strong>
+                    </h5>
+
                     <p className="card-text mb-2">
-                      {/* <strong>Year:</strong> {car.year}<br /> */}
-                      <strong>Dealer:</strong> {car.dealerId?.username || 'Unknown'}<br />
-                      <strong>Price per day:</strong> ${car.pricePerDay}<br />
-                      {/* <strong>Status:</strong> {car.availability} */}
+                      <strong>Price per day:</strong> BHD {car.pricePerDay}
                     </p>
-                    <div className="d-flex justify-content-between align-items-center mt-auto">
-                      <Link to={`/cars/${car._id}`} className="btn btn-sm btn-outline-primary">
+
+                    <small
+                      className={`mb-2 ${
+                        car.availability === 'available'
+                          ? 'text-success'
+                          : car.availability === 'unavailable'
+                          ? 'text-danger'
+                          : car.availability === 'rented'
+                          ? 'text-secondary'
+                          : 'text-muted'
+                      }`}
+                    >
+                      {car.availability}
+                    </small>
+
+                    <motion.div
+                      className="card-text small mb-2"
+                      variants={{
+                        hover: { opacity: 1, height: "auto" },
+                        rest: { opacity: 0, height: 0 }
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <strong>Dealer:</strong> {car.dealerId?.username || 'Unknown'}
+                    </motion.div>
+
+                    <motion.div
+                      className="d-flex justify-content-end mt-auto"
+                      variants={{
+                        hover: { opacity: 1, height: "auto" },
+                        rest: { opacity: 0, height: 0 }
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Link to={`/cars/${car._id}`} className="btn btn-sm btn-secondary">
                         View Details
                       </Link>
-                      <small className={car.availability === 'available' ? 'text-success' : 'text-danger'}>{car.availability}</small>                    </div>
-                  </div>
-                </div>
+                    </motion.div>
+                  </motion.div>
+                </motion.div>
               </div>
             ))}
           </div>
