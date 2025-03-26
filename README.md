@@ -1,96 +1,45 @@
-# REACT JWT STARTER
+# RentXpress
 
-## Cloning the Auth boilerplate
+## Screenshot/Logo: 
 
-This lecture uses the [React JWT Auth Template](https://github.com/SEB-4-Bahrain/react-jwt-auth-template) as starter code. The template includes code to authenticate users in React using JWT tokens generated from an existing Express backend API.
 
-Navigate to the `React JWT Auth Template` and clone the repository to your machine:
 
-```bash
-git clone https://github.com/SEB-4-Bahrain/react-jwt-auth-template.git <YOUR_APP_NAME> 
-```
+## Description: 
+The ***RentXpress*** is a web-based platform that streamlines car rentals by allowing users to browse, filter, and book vehicles. All registered users start as regular users, while individuals or dealers seeking to list cars must submit a request for admin approval. Approved dealers can manage their listings with full CRUD functionality and track user bookings for their vehicles. Users can view, manage, and cancel their bookings while leaving reviews for cars and dealers. The platform ensures an efficient and user-friendly experience. Built with **HTML, CSS, JavaScript, MongoDB, Bootstrap, React and Express.js which is fully MERN stack**.
 
-Next, `cd` into your renamed directory:xq
+## Getting started: 
 
-```bash
-cd <YOUR_APP_NAME>
-```
+#### Trello planning link: https://trello.com/b/cp7klQHP
+#### Link to my website: 
 
-Finally, remove the existing `.git` information from this template:
+***How to use:***
 
-```bash
-rm -rf .git
-```
+1. **Browse Listings** – View available items and services posted by other users.  
+2. **Post an Item or Service** – Create a listing by providing details such as title, description, price, and images.  
+3. **Edit or Delete Listings** – Manage your posts by updating details or removing them when no longer available.  
+4. **Ask Questions** – Use the comment section under a listing to inquire about products or services.  
+5. **Connect with Sellers** – Engage with sellers through comments to get more details before making a decision.  
+            
+#### List of the technologies used:
 
-> Removing the `.git` info is important as this is just a starter template provided by GA. You do not need the existing git history for this project.
+##### Front End
+* JavaScript
+* HTML
+* CSS
+* Bootstrap
+* React js
+* Vercel
 
-## GitHub setup
+##### Back End
+* Express js
+* Node js
+* MongoDB
+* Heroku
 
-To add this project to GitHub, initialize a new Git repository:
 
-```bash
-git init
-git add .
-git commit -m "init commit"
-```
-
-Make a new repository on [GitHub](https://github.com/) named `<YOUR_APP_NAME>`. 
-
-Link your local project to your remote GitHub repo:
-
-```bash
-git remote add origin https://github.com/<github-username>/<YOUR_APP_NAME>.git
-git push origin main
-```
-
-> 🚨 Do not copy the above command. It will not work. Your GitHub username will replace `<github-username>` and `<YOUR_APP_NAME>` (including the `<` and `>`) in the URL above.
-
-Open the project's folder in your code editor:
-
-```bash
-code .
-```
-
-## Install dependencies
-
-Next, you will want to install all of the packages listed in `package.json`
-
-```bash
-npm i
-```
-
-## Create a `.env`
-
-Run the following command in your terminal:
-
-```bash
-touch .env
-```
-
-Lastly, we want to include a `VITE_EXPRESS_BACKEND_URL`.
-
-Add the following secret key to your `.env`:
-
-```text
-VITE_EXPRESS_BACKEND_URL="http://localhost:3000"
-```
-
-## Update the `.gitignore`
-
-Add `package-lock.json` and `.env` to the `.gitignore` file.  
-
-```text
-node_modules
-package-lock.json
-.env
-```
-
-## Start your application
-
-Start the application with the following command:
-
-```bash
-npm run dev
-```
-
-Happy Coding!
+## Next steps: 
+- **Messaging System** – Add direct messaging between buyers and sellers for better communication.  
+- **Payment Integration** – Enable secure online transactions for a seamless buying experience.  
+- **Rating & Reviews** – Allow users to rate sellers and leave feedback on transactions.  
+- **Wishlist & Favorites** – Let users save items they are interested in for later.  
+- **User Upload Image** – Allow user to upload the image using cloudinary of the product rather than the image address.  
