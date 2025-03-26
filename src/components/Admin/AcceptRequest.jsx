@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import '../Admin/AdminStyles.css';
 
-const MAX_LENGTH = 100; // character limit before showing "Show more"
+const MAX_LENGTH = 100; 
 
 const AcceptRequest = ({ requests, onApprove, onReject }) => {
   const [expanded, setExpanded] = useState({});

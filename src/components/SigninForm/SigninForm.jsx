@@ -52,7 +52,6 @@ const SigninForm = (props) => {
                   </div>
                 </div>
 
-                {/* Form Side */}
                 <div className="col-lg-7 bg-white d-flex align-items-center">
                   <div className="p-4 p-md-5 w-100">
                     <h4 className="mb-4 text-center fw-bold">Sign In</h4>

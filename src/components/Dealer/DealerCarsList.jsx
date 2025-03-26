@@ -33,7 +33,7 @@ function DealerCarsList() {
 
   return (
     <div className="container my-5">
-      {/* Header */}
+
       <div className="text-center mb-5">
         <h1 className="fw-bold">Your Listed Vehicles</h1>
         <p className="text-muted fs-5">
@@ -41,12 +41,12 @@ function DealerCarsList() {
         </p>
       </div>
 
-      {/* My Cars Heading */}
+
       <div className="mb-4">
         <h3 className="fw-semibold">My Cars</h3>
       </div>
 
-      {/* Loading */}
+
       {loading ? (
         <div className="text-center my-5">
           <div className="spinner-border text-primary" role="status">

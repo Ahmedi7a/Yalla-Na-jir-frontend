@@ -73,7 +73,7 @@ const CarList = () => {
         <p className="text-muted">Manage all cars listed by dealers on the platform.</p>
       </div>
 
-      {/* Dealer filter dropdown */}
+
       <div className="d-flex justify-content-end align-items-center mb-4">
         <label htmlFor="dealerFilter" className="me-2 fw-medium text-dark">Filter by Dealer:</label>
         <select

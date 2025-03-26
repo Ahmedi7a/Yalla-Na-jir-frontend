@@ -54,13 +54,13 @@ const AdminDashboard = ({ user }) => {
 
   return (
     <div className="container py-5">
-      {/* Greeting */}
+
       <div className="text-center mb-5">
         <h1 className="fw-bold">Admin Dashboard</h1>
         <p className="text-muted">Welcome, <strong>{user?.username}</strong>. Here's your system overview.</p>
       </div>
 
-      {/* Dashboard Stats */}
+
       <div className="row g-4 mb-5">
         <div className="col-md-3">
           <div className="card text-white bg-primary shadow-sm rounded-4">
@@ -108,7 +108,7 @@ const AdminDashboard = ({ user }) => {
         </div>
       </div>
 
-      {/* Sections */}
+
       <section className="mb-5">
         <h3 className="fw-semibold mb-3">Pending Dealer Requests</h3>
         <AcceptRequest requests={requests} onApprove={handleApprove} onReject={handleReject} />

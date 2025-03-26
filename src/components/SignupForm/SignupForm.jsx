@@ -44,7 +44,6 @@ const SignupForm = (props) => {
             <div className="card shadow border-0 rounded-4 overflow-hidden">
               <div className="row g-0">
                 
-                {/* Image Side */}
                 <div className="col-lg-5 d-none d-lg-block bg-dark" style={{ height: '100%' }}>
                   <img 
                     src="https://images.pexels.com/photos/3786092/pexels-photo-3786092.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=2" 
@@ -54,7 +53,6 @@ const SignupForm = (props) => {
                   />
                 </div>
 
-                {/* Form Side */}
                 <div className="col-lg-7 bg-white d-flex align-items-center">
                   <div className="p-4 p-md-5 w-100">
                     <h4 className="mb-4 text-center fw-bold">Create an Account</h4>

@@ -137,7 +137,6 @@ const Dashboard = () => {
     Your browser does not support the video tag.
   </video>
   <div className="hero-overlay-content">
-  {/* <h1 className="display-4 fw-bold text-warning">Find Your Perfect Car</h1> */}
 
 <motion.h1
   className="display-4 fw-bold text-light"
@@ -198,7 +197,6 @@ const Dashboard = () => {
   <section className="ftco-section ftco-about py-5">
       <div className="container" style={{width:1300}}>
         <div className="row g-0">
-          {/* Left Image Column */}
           <div
             className="col-md-6 d-flex justify-content-center align-items-center"
             style={{
@@ -211,7 +209,6 @@ const Dashboard = () => {
               }}
           ></div>
 
-          {/* Right Text Column */}
           <div className="col-md-6 bg-dark text-white d-flex align-items-center" style={{              
             borderTopRightRadius: "20px",
               borderBottomRightRadius: "20px",}}>
@@ -278,18 +275,7 @@ const Dashboard = () => {
                     <h5 className="card-title">
                       {car.brand} {car.model}
                     </h5>
-{/* 
-                    <p
-                      className="text-muted mb-1"
-                      style={{
-                        height: "20px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      {car.location}
-                    </p> */}
+
 
                     <p className="fw-bold">
                       BHD {car.pricePerDay} <span className="text-muted">/ day</span>
@@ -311,33 +297,7 @@ const Dashboard = () => {
         ) : (
           <p className="text-center text-muted">Loading featured vehicles...</p>
         )}
-{/* 
-<section className="py-5">
-  <div className="container text-center">
-    <h1 className="mb-5 fw-bold" style={{marginTop: 50}}>Our Team</h1>
-    <div className="row justify-content-center g-4">
-    {teamMembers.map((member, index) => (
-  <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={index}>
-    <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="team-card-link">
-      <div className="team-card shadow-sm">
-        <img 
-          src={member.image} 
-          alt={member.name} 
-          className="w-100"
-        />
-        <div className="team-info">
-          <h5>{member.name}</h5>
-          <p>{member.role}</p>
-          <i className="bi bi-linkedin"></i>
-        </div>
-      </div>
-    </a>
-  </div>
-))}
 
-    </div>
-  </div>
-</section> */}
 
 
 <br />

@@ -10,5 +10,5 @@
 }
 
 .navbar-dark.bg-dark {
-  transition: none !important; /* disables smooth fade for background */
+  transition: none !important; 
 }

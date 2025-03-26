@@ -34,7 +34,6 @@ const CarDetails = () => {
     fetchCar();
   }, [carId]);
 
-  // ✅ Refetch car when number of reviews changes
   useEffect(() => {
     const refetchCar = async () => {
       const updated = await carService.show(carId);
@@ -115,7 +114,7 @@ const CarDetails = () => {
       transition={{ duration: 0.4 }}
     >
       <div className="row g-5">
-        {/* Car Image & Info */}
+
         <div className="col-md-6">
           <div className="card shadow rounded-4 overflow-hidden">
             {car.image?.url ? (
@@ -166,7 +165,6 @@ const CarDetails = () => {
           </div>
         </div>
 
-        {/* Rent Form + Map */}
         <div className="col-md-6">
           <motion.div
             className="card shadow p-4 mb-4 rounded-4"
@@ -209,7 +207,6 @@ const CarDetails = () => {
             </form>
           </motion.div>
 
-          {/* Map */}
           <motion.div
             className="rounded overflow-hidden shadow"
             initial={{ opacity: 0 }}
@@ -229,7 +226,6 @@ const CarDetails = () => {
         </div>
       </div>
 
-      {/* Reviews Section */}
       <motion.div
         className="mt-5"
         initial={{ opacity: 0 }}

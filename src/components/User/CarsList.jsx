@@ -43,7 +43,6 @@ const CarList = () => {
 
   return (
     <div>
-      {/* Hero Section */}
       <div className="container">
         <div className="row py-lg-5 justify-content-center text-center">
           <div className="col-lg-8 col-md-10">
@@ -64,7 +63,6 @@ const CarList = () => {
         </div>
       </div>
 
-      {/* Search & Sort */}
       <div className="container mb-4">
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
           <input
@@ -88,7 +86,6 @@ const CarList = () => {
         </div>
       </div>
 
-      {/* Cars List */}
       <div className="container mb-4">
         {loading ? (
           <div className="text-center my-5">
