@@ -1,0 +1,14 @@
+.navbar-transparent {
+  background-color: transparent !important;
+}
+
+.navbar-dark .nav-link,
+.navbar-dark .navbar-brand,
+.navbar-transparent .nav-link,
+.navbar-transparent .navbar-brand {
+  color: white !important;
+}
+
+.navbar-dark.bg-dark {
+  transition: none !important; 
+}
