@@ -109,7 +109,7 @@ function RentRequests() {
                   <td>{rental.carId?.brand} {rental.carId?.model}</td>
                   <td>{new Date(rental.startDate).toLocaleDateString()}</td>
                   <td>{new Date(rental.endDate).toLocaleDateString()}</td>
-                  <td>${rental.totalPrice}</td>
+                  <td>BHD {rental.totalPrice}</td>
                   <td>
                     <span className={`badge text-bg-${
                       rental.status === 'approved'
