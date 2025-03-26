@@ -53,20 +53,33 @@ https://rentxpress.vercel.app/
 
 # Dealer interface:
 
+### Dealer listed cars:
+![dealer cars](https://github.com/user-attachments/assets/2eca5c09-c530-490c-9805-3cd803603ef8)
+
+### Dealer requests page:
+![dealer rent requests](https://github.com/user-attachments/assets/18262e25-f418-4c77-bb90-1e82a4e39151)
+
+### Dealer car detail :
+![dealer detail car](https://github.com/user-attachments/assets/83fb689b-d2a0-464e-9d9f-90db64dbe324)
+
+### Dealer Add car page:
+![add car](https://github.com/user-attachments/assets/9d694c35-6a22-4c98-92d0-cdd5d57580ce)
+
+# Admin interface:
+
+### Admin dashboard:
+![admin dashboard](https://github.com/user-attachments/assets/935f8f14-d508-4d49-b566-a82a2508c216)
+
+### Admin view all cars page:
+![admin view cars](https://github.com/user-attachments/assets/93c5a756-5032-4154-8f0f-17ff13491579)
+
+### Admin view all rentals page:
+![admin view rentals](https://github.com/user-attachments/assets/ea610cd0-3dd4-438b-b54e-327be4752fe7)
 
 
 
+# 🔮 Future Work
 
-
-
-
-
-
-
-
-
-
-
-## Next steps: 
-- **Messaging System** – Add direct messaging between buyers and sellers for better communication.  
-- **Payment Integration** – Enable secure online transactions for a seamless buying experience.  
+- 🤖 **AI-Powered Chatbot** – Integrate a chatbot to help users find the most suitable car based on their preferences, budget, and location.
+- 🧠 **AI Recommendations** – Use machine learning to suggest cars to users based on their rental history and user behavior.
+- 📈 **Analytics Dashboard** – Implement advanced analytics for dealers and admins to track performance, user engagement, and rental trends. 
