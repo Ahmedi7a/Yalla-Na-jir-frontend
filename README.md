@@ -1,4 +1,4 @@
-# Rent<span style="color:gold">X</span>press
+# RentXpress
 
 ## Screenshot/Logo: 
 
