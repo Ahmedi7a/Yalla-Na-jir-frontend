@@ -1,0 +1,70 @@
+.admin-dashboard {
+  padding: 2rem;
+  max-width: 1100px;
+  margin: auto;
+  background: linear-gradient(135deg, #f3f4f6, #ffffff);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.admin-dashboard h1 {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.admin-section {
+  margin-bottom: 3rem;
+}
+
+.admin-section h2 {
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #34495e;
+  font-weight: 600;
+}
+
+.admin-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.admin-buttons button {
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.admin-buttons button:hover {
+  transform: scale(1.05);
+}
+
+.admin-buttons button.danger {
+  background-color: #e74c3c;
+}
+
+.admin-buttons button.warning {
+  background-color: #f32812;
+}
