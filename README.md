@@ -1,96 +1,85 @@
-# REACT JWT STARTER
+# RentXpress (Car Rental Platform)
 
-## Cloning the Auth boilerplate
+## Description: 
+The ***RentXpress*** is a web-based platform that streamlines car rentals by allowing users to browse, filter, and book vehicles. All registered users start as regular users, while individuals or dealers seeking to list cars must submit a request for admin approval. Approved dealers can manage their listings with full CRUD functionality and track user bookings for their vehicles. Users can view, manage, and cancel their bookings while leaving reviews for cars and dealers. The platform ensures an efficient and user-friendly experience. Built with **HTML, CSS, JavaScript, MongoDB, Bootstrap, React and Express.js which is fully MERN stack**.
 
-This lecture uses the [React JWT Auth Template](https://github.com/SEB-4-Bahrain/react-jwt-auth-template) as starter code. The template includes code to authenticate users in React using JWT tokens generated from an existing Express backend API.
+## Project planning :
+https://trello.com/b/cp7klQHP
 
-Navigate to the `React JWT Auth Template` and clone the repository to your machine:
+## Try the website:
+https://rentxpress.vercel.app/
 
-```bash
-git clone https://github.com/SEB-4-Bahrain/react-jwt-auth-template.git <YOUR_APP_NAME> 
-```
+### 🚀 Features:
 
-Next, `cd` into your renamed directory:xq
+- 🔐 **Authentication with JWT** – Secure login/signup using JSON Web Tokens.
+- 🧑‍🤝‍🧑 **Role-Based Access Control** – Supports three roles:  
+  - **User** – Can view cars, request rentals, and leave reviews.  
+  - **Dealer** – Can create and manage their own car listings.  
+  - **Admin** – Can approve dealer requests, manage users, and oversee rentals.
+- 📍 **Google Maps API Integration** – Car locations are displayed and picked using Google Maps.
+- ☁️ **Cloudinary Integration** – Dealers can upload and manage car images via Cloudinary.
+- 🚘 **Car Listings** – View, filter, search, and sort all available cars.
+- 📦 **Rental Management System** – Users can create rental requests and track statuses (pending, approved, completed, etc.).
+- 🎯 **Dealer Request System** – Users can request to become dealers; admins review and approve.
+- 📊 **Admin Dashboard** – Admins can manage users, dealers, rental history, and approve/reject requests.
+- 🌈 **Responsive Design** – Fully mobile-friendly UI using Bootstrap 5.
+- 🔄 **Live Updates** – Real-time car/rental status updates via polling.
+            
+### Technologies Used:
 
-```bash
-cd <YOUR_APP_NAME>
-```
+* Frontend: React.js, JavaScript, Bootstrap
+* Backend: Node.js, Express.js
+* Database: MongoDB
 
-Finally, remove the existing `.git` information from this template:
+# User Interface:
 
-```bash
-rm -rf .git
-```
+### Guest Home Page:
+![guest Home page](https://github.com/user-attachments/assets/55217ceb-6df6-4f99-868b-402a3c976e6a)
 
-> Removing the `.git` info is important as this is just a starter template provided by GA. You do not need the existing git history for this project.
+### Our Team:
+![our Team](https://github.com/user-attachments/assets/0cd6eec2-a55a-4575-87e9-4d5a8a077f70)
 
-## GitHub setup
+### Car list:
+![main car list](https://github.com/user-attachments/assets/b8e27d8e-f434-415a-8582-08aa3440e1d0)
 
-To add this project to GitHub, initialize a new Git repository:
+### Car Detail:
+![user car details](https://github.com/user-attachments/assets/2ab6ac4a-ed3b-4940-8983-3c83d3208127)
 
-```bash
-git init
-git add .
-git commit -m "init commit"
-```
+### User Rentals:
+![user rentals](https://github.com/user-attachments/assets/f01bc5fa-e469-4bb7-b3d2-a6fd1f08f9c1)
 
-Make a new repository on [GitHub](https://github.com/) named `<YOUR_APP_NAME>`. 
+### User Request to become dealer:
+![user rquest to become Dealer](https://github.com/user-attachments/assets/8eb0f55f-b692-45cc-aae7-7991ff9430d8)
 
-Link your local project to your remote GitHub repo:
+# Dealer interface:
 
-```bash
-git remote add origin https://github.com/<github-username>/<YOUR_APP_NAME>.git
-git push origin main
-```
+### Dealer listed cars:
+![dealer cars](https://github.com/user-attachments/assets/2eca5c09-c530-490c-9805-3cd803603ef8)
 
-> 🚨 Do not copy the above command. It will not work. Your GitHub username will replace `<github-username>` and `<YOUR_APP_NAME>` (including the `<` and `>`) in the URL above.
+### Dealer requests page:
+![dealer rent requests](https://github.com/user-attachments/assets/18262e25-f418-4c77-bb90-1e82a4e39151)
 
-Open the project's folder in your code editor:
+### Dealer car detail :
+![dealer detail car](https://github.com/user-attachments/assets/83fb689b-d2a0-464e-9d9f-90db64dbe324)
 
-```bash
-code .
-```
+### Dealer Add car page:
+![add car](https://github.com/user-attachments/assets/9d694c35-6a22-4c98-92d0-cdd5d57580ce)
 
-## Install dependencies
+# Admin interface:
 
-Next, you will want to install all of the packages listed in `package.json`
+### Admin dashboard:
+![admin dashboard](https://github.com/user-attachments/assets/935f8f14-d508-4d49-b566-a82a2508c216)
 
-```bash
-npm i
-```
+### Admin view all cars page:
+![admin view cars](https://github.com/user-attachments/assets/93c5a756-5032-4154-8f0f-17ff13491579)
 
-## Create a `.env`
+### Admin view all rentals page:
+![admin view rentals](https://github.com/user-attachments/assets/ea610cd0-3dd4-438b-b54e-327be4752fe7)
 
-Run the following command in your terminal:
 
-```bash
-touch .env
-```
 
-Lastly, we want to include a `VITE_EXPRESS_BACKEND_URL`.
+# 🔮 Future Work
 
-Add the following secret key to your `.env`:
-
-```text
-VITE_EXPRESS_BACKEND_URL="http://localhost:3000"
-```
-
-## Update the `.gitignore`
-
-Add `package-lock.json` and `.env` to the `.gitignore` file.  
-
-```text
-node_modules
-package-lock.json
-.env
-```
-
-## Start your application
-
-Start the application with the following command:
-
-```bash
-npm run dev
-```
-
-Happy Coding!
+- 🤖 **AI-Powered Chatbot** – Integrate a chatbot to help users find the most suitable car based on their preferences, budget, and location.
+- 🧠 **AI Recommendations** – Use machine learning to suggest cars to users based on their rental history and user behavior.
+- 📈 **Analytics Dashboard** – Implement advanced analytics for dealers and admins to track performance, user engagement, and rental trends. 
