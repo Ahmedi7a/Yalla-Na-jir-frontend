@@ -81,4 +81,44 @@
     text-align: center;
     padding: 10px;
   }
+  /* ========== */
+
+@media (max-width: 768px) {
+  .hero-overlay-content h1 {
+    font-size: 2.5rem !important;
+  }
+
+  .hero-overlay-content p {
+    font-size: 1rem;
+  }
+
+  .brand-card {
+    padding: 1rem !important;
+  }
+
+  .ftco-section .container {
+    width: 100% !important;
+    padding: 0 1rem;
+  }
+
+  .card-body h5 {
+    font-size: 1rem;
+  }
+
+  .card-body p {
+    font-size: 0.9rem;
+  }
+
+  .testimony-wrap {
+    padding: 1rem !important;
+  }
+
+  .testimony-wrap p {
+    font-size: 0.9rem;
+  }
+
+  .testimony-wrap h6 {
+    font-size: 1rem;
+  }
+}
   

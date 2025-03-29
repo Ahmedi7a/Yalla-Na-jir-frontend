@@ -111,17 +111,16 @@ function RentRequests() {
                   <td>{new Date(rental.endDate).toLocaleDateString()}</td>
                   <td>BHD {rental.totalPrice}</td>
                   <td>
-                    <span className={`badge text-bg-${
-                      rental.status === 'approved'
-                        ? 'success'
-                        : rental.status === 'pending'
+                    <span className={`badge text-bg-${rental.status === 'approved'
+                      ? 'success'
+                      : rental.status === 'pending'
                         ? 'warning'
                         : rental.status === 'rejected'
-                        ? 'danger'
-                        : rental.status === 'completed'
-                        ? 'secondary'
-                        : 'light'
-                    } text-capitalize`}>
+                          ? 'danger'
+                          : rental.status === 'completed'
+                            ? 'secondary'
+                            : 'light'
+                      } text-capitalize`}>
                       {rental.status}
                     </span>
                   </td>

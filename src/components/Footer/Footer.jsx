@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Footer = () => {
-  return ( 
+  return (
     <footer className="bg-dark text-white pt-5 border-top">
       <div className="container">
         <div className="row">
@@ -9,10 +9,10 @@ const Footer = () => {
           <div className="col-md-4 mb-4">
             <h5 className="mb-3 text-warning">About RentXpress</h5>
             <p>
-            RentXpress is created by a team of four passionate developers committed to revolutionizing car rentals. 
-            We aim to provide a seamless, secure, and user-friendly platform that connects car owners with renters effortlessly. 
-            With a focus on convenience, trust, and accessibility, we make finding and listing cars easier than ever. 
-            Your perfect ride is just a few clicks away!            </p>
+              RentXpress is created by a team of four passionate developers committed to revolutionizing car rentals.
+              We aim to provide a seamless, secure, and user-friendly platform that connects car owners with renters effortlessly.
+              With a focus on convenience, trust, and accessibility, we make finding and listing cars easier than ever.
+              Your perfect ride is just a few clicks away!            </p>
           </div>
 
           <div className="col-md-4 mb-4">

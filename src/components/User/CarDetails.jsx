@@ -105,7 +105,7 @@ const CarDetails = () => {
         </div>
       </div>
     );
-    
+
   return (
     <motion.div
       className="container my-5"
@@ -141,17 +141,16 @@ const CarDetails = () => {
               </p>
               <p>
                 <strong>Status:</strong>{" "}
-                <span className={`fw-semibold ${
-    car.availability === 'available'
-      ? 'text-success'
-      : car.availability === 'unavailable'
-      ? 'text-danger'
-      : car.availability === 'rented'
-      ? 'text-secondary'
-      : 'text-muted'
-  }`}>
-                {car.availability}
-              </span>
+                <span className={`fw-semibold ${car.availability === 'available'
+                    ? 'text-success'
+                    : car.availability === 'unavailable'
+                      ? 'text-danger'
+                      : car.availability === 'rented'
+                        ? 'text-secondary'
+                        : 'text-muted'
+                  }`}>
+                  {car.availability}
+                </span>
               </p>
               <p>
                 <strong>Price per day:</strong> BHD {car.pricePerDay}

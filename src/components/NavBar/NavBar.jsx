@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./NavBar.css"; 
+import "./NavBar.css";
 
 const NavBar = ({ user, handleSignout }) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -16,9 +16,8 @@ const NavBar = ({ user, handleSignout }) => {
 
   return (
     <nav
-      className={`navbar navbar-expand-lg navbar-dark bg-dark fixed-top ftco_navbar ftco-navbar-light ${
-        isCollapsed ? "" : "scrolled awake"
-      }`}
+      className={`navbar navbar-expand-lg navbar-dark bg-dark fixed-top ftco_navbar ftco-navbar-light ${isCollapsed ? "" : "scrolled awake"
+        }`}
       id="ftco-navbar"
     >
       <div className="container d-flex justify-content-between align-items-center">
@@ -75,10 +74,10 @@ const NavBar = ({ user, handleSignout }) => {
         <ul className="navbar-nav ml-auto d-flex align-items-center">
           {!user ? (
             <>
-            <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/About">About</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/signin">Sign In</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/signup">Sign Up</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/About">About</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/signin">Sign In</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/signup">Sign Up</Link></li>
             </>
           ) : (
             <li className="nav-item"><button onClick={handleSignout} className="btn btn-link nav-link">Sign Out</button></li>

@@ -43,11 +43,11 @@ const SignupForm = (props) => {
           <div className="col-md-10 col-lg-10">
             <div className="card shadow border-0 rounded-4 overflow-hidden">
               <div className="row g-0">
-                
+
                 <div className="col-lg-5 d-none d-lg-block bg-dark" style={{ height: '100%' }}>
-                  <img 
-                    src="https://images.pexels.com/photos/3786092/pexels-photo-3786092.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=2" 
-                    alt="Signup" 
+                  <img
+                    src="https://images.pexels.com/photos/3786092/pexels-photo-3786092.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=2"
+                    alt="Signup"
                     className="w-100 h-100"
                     style={{ objectFit: 'cover' }}
                   />
@@ -56,7 +56,7 @@ const SignupForm = (props) => {
                 <div className="col-lg-7 bg-white d-flex align-items-center">
                   <div className="p-4 p-md-5 w-100">
                     <h4 className="mb-4 text-center fw-bold">Create an Account</h4>
-                    
+
                     <p className="text-danger text-center">{message}</p>
 
                     <form onSubmit={handleSubmit}>

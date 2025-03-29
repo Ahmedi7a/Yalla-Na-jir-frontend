@@ -91,7 +91,7 @@ const Dashboard = () => {
       linkedin: "https://www.linkedin.com/in/abbashussainj"
     },
   ];
-  
+
   const brands = [
     {
       name: "Audi",
@@ -121,122 +121,123 @@ const Dashboard = () => {
 
   return (
     <><motion.div
-  className="hero-video-wrapper"
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 3 }}
-  transition={{ duration: 2 }}
->
-  <video
-    className="hero-video"
-    autoPlay
-    muted
-    loop
-    playsInline
-  >
-    <source src="./CINEMATIC.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
-  <div className="hero-overlay-content">
+      className="hero-video-wrapper"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 3 }}
+      transition={{ duration: 2 }}
+    >
+      <video
+        className="hero-video"
+        autoPlay
+        muted
+        loop
+        playsInline
+      >
+        <source src="./CINEMATIC.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div className="hero-overlay-content">
 
-<motion.h1
-  className="display-4 fw-bold text-light"
-  initial={{ scale: 0.8, letterSpacing: '-1px' }}
-  animate={{ scale: 1, letterSpacing: '2px' }}
-  transition={{ duration: 0.6, ease: 'easeOut' }}
-  style={{fontSize: 80}}
->
-  Rent<span className="text-warning">X</span>press
-</motion.h1>
-  <p className="lead text-white">Find Your Perfect Car</p>
-  </div>
-</motion.div>
+        <motion.h1
+          className="display-4 fw-bold text-light"
+          initial={{ scale: 0.8, letterSpacing: '-1px' }}
+          animate={{ scale: 1, letterSpacing: '2px' }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          style={{ fontSize: 80 }}
+        >
+          Rent<span className="text-warning">X</span>press
+        </motion.h1>
+        <p className="lead text-white">Find Your Perfect Car</p>
+      </div>
+    </motion.div>
 
 
-  
-  <main className="container" style={{ marginTop: 100, marginBottom: 50 }}>
 
-  <motion.section
-  className="py-5"
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  transition={{ duration: 1 }}
->
-  <div className="container">
-    <div className="d-flex justify-content-between align-items-center mb-4">
-      <h2 className="fw-bold">Explore Our Premium Brands</h2>
-      <span className="text-primary" style={{ cursor: "pointer" }}>
-      <a href="/signin" className="btn btn-warning" style={{textDecoration: "none"}}>Show All Brands  ↗</a> 
-      </span>
-    </div>
-    <div className="row g-4">
-      {brands.map((brand, idx) => (
-        <motion.div
-          className="col-6 col-sm-4 col-md-3 col-lg-2"
-          key={idx}
+      <main className="container" style={{ marginTop: 100, marginBottom: 50 }}>
+
+        <motion.section
+          className="py-5"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: idx * 0.2 }}
+          transition={{ duration: 1 }}
         >
-          <div className="brand-card text-center p-3 shadow-sm bg-white rounded-4 h-100">
-            <img
-              src={brand.logo}
-              alt={brand.name}
-              className="brand-logo mb-2"
-              style={{ height: 50, objectFit: "contain" }}
-            />
-            <p className="mb-0 fw-medium">{brand.name}</p>
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  </div>
-</motion.section>
-
-    <hr />
-
-  <section className="ftco-section ftco-about py-5">
-      <div className="container" style={{width:1300}}>
-        <div className="row g-0">
-          <div
-            className="col-md-6 d-flex justify-content-center align-items-center"
-            style={{
-              backgroundImage: `url('./enhanced-image.jpg')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              minHeight: '500px',
-              borderTopLeftRadius: "20px",
-              borderBottomLeftRadius: "20px",
-              }}
-          ></div>
-
-          <div className="col-md-6 bg-dark text-white d-flex align-items-center" style={{              
-            borderTopRightRadius: "20px",
-              borderBottomRightRadius: "20px",}}>
-            <div className="p-md-5 px-4 py-5">
-              <span className="text-uppercase text-warning fw-semibold">About us</span>
-              <h2 className="mb-4 mt-2">Welcome to Rent<span className="text-warning fw-bold">X</span>press</h2>
-
-              <p>
-              RentXpress is created by a team of four passionate developers committed to revolutionizing car rentals.
-              </p>
-              <p >
-              
-                 We aim to provide a seamless, secure, and user-friendly platform that connects car owners with renters effortlessly.
-                  With a focus on convenience, trust, and accessibility, we make finding and listing cars easier than ever. 
-                  Your perfect ride is just a few clicks away!
-              </p>
-              <a href="/signin" className="btn btn-warning py-2 px-4 mt-2">
-                Search Vehicle
-              </a>
+          <div className="container">
+            <div className="d-flex justify-content-between align-items-center mb-4">
+              <h2 className="fw-bold">Explore Our Premium Brands</h2>
+              <span className="text-primary" style={{ cursor: "pointer" }}>
+                <a href="/signin" className="btn btn-warning" style={{ textDecoration: "none" }}>Show All Brands  ↗</a>
+              </span>
+            </div>
+            <div className="row g-4">
+              {brands.map((brand, idx) => (
+                <motion.div
+                  className="col-6 col-sm-4 col-md-3 col-lg-2"
+                  key={idx}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: idx * 0.2 }}
+                >
+                  <div className="brand-card text-center p-3 shadow-sm bg-white rounded-4 h-100">
+                    <img
+                      src={brand.logo}
+                      alt={brand.name}
+                      className="brand-logo mb-2"
+                      style={{ height: 50, objectFit: "contain" }}
+                    />
+                    <p className="mb-0 fw-medium">{brand.name}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-   
+        </motion.section>
+
+        <hr />
+
+        <section className="ftco-section ftco-about py-5">
+          <div className="container" style={{ width: 1300 }}>
+            <div className="row g-0">
+              <div
+                className="col-md-6 d-flex justify-content-center align-items-center"
+                style={{
+                  backgroundImage: `url('./enhanced-image.jpg')`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  minHeight: '500px',
+                  borderTopLeftRadius: "20px",
+                  borderBottomLeftRadius: "20px",
+                }}
+              ></div>
+
+              <div className="col-md-6 bg-dark text-white d-flex align-items-center" style={{
+                borderTopRightRadius: "20px",
+                borderBottomRightRadius: "20px",
+              }}>
+                <div className="p-md-5 px-4 py-5">
+                  <span className="text-uppercase text-warning fw-semibold">About us</span>
+                  <h2 className="mb-4 mt-2">Welcome to Rent<span className="text-warning fw-bold">X</span>press</h2>
+
+                  <p>
+                    RentXpress is created by a team of four passionate developers committed to revolutionizing car rentals.
+                  </p>
+                  <p >
+
+                    We aim to provide a seamless, secure, and user-friendly platform that connects car owners with renters effortlessly.
+                    With a focus on convenience, trust, and accessibility, we make finding and listing cars easier than ever.
+                    Your perfect ride is just a few clicks away!
+                  </p>
+                  <a href="/signin" className="btn btn-warning py-2 px-4 mt-2">
+                    Search Vehicle
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
 
         <div className="text-center mb-4">
-          <h3 style={{marginTop: 50}}>Featured Vehicles</h3>
+          <h3 style={{ marginTop: 50 }}>Featured Vehicles</h3>
           <p className="text-muted">
             Explore some of the top listed cars available now.
           </p>
@@ -300,50 +301,50 @@ const Dashboard = () => {
 
 
 
-<br />
-     <section className="py-5">
-      <div className="container" >
-        <div className="row justify-content-center mb-5">
-          <div className="col-md-7 text-center">
-          <span className="text-uppercase text-warning">Testimonial</span>
-          <h2 className="fw-bold">Happy Clients</h2>
-          </div>
-        </div>
-
-        <Swiper
-          modules={[Pagination, Navigation, Autoplay]}
-          spaceBetween={30}
-          slidesPerView={1}
-          // navigation
-          pagination={{ clickable: true }}
-          autoplay={{ delay: 5000 }}
-          breakpoints={{
-            768: { slidesPerView: 2 },
-            992: { slidesPerView: 3 },
-          }}
-        >
-          {testimonials.map((item, index) => (
-            <SwiperSlide key={index}>
-              <div className="testimony-wrap text-center p-4 bg-white rounded-4 shadow-sm h-100 mx-2">
-                <div
-                  className="user-img mb-3 mx-auto rounded-circle"
-                  style={{
-                    width: 100,
-                    height: 100,
-                    backgroundImage: `url(${item.image})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}
-                ></div>
-                <p className="mb-3 fst-italic small px-3">"{item.text}"</p>
-                <h6 className="fw-semibold mb-0">{item.name}</h6>
-                <span className="text-muted small">{item.role}</span>
+        <br />
+        <section className="py-5">
+          <div className="container" >
+            <div className="row justify-content-center mb-5">
+              <div className="col-md-7 text-center">
+                <span className="text-uppercase text-warning">Testimonial</span>
+                <h2 className="fw-bold">Happy Clients</h2>
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-    </section>
+            </div>
+
+            <Swiper
+              modules={[Pagination, Navigation, Autoplay]}
+              spaceBetween={30}
+              slidesPerView={1}
+              // navigation
+              pagination={{ clickable: true }}
+              autoplay={{ delay: 5000 }}
+              breakpoints={{
+                768: { slidesPerView: 2 },
+                992: { slidesPerView: 3 },
+              }}
+            >
+              {testimonials.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <div className="testimony-wrap text-center p-4 bg-white rounded-4 shadow-sm h-100 mx-2">
+                    <div
+                      className="user-img mb-3 mx-auto rounded-circle"
+                      style={{
+                        width: 100,
+                        height: 100,
+                        backgroundImage: `url(${item.image})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    ></div>
+                    <p className="mb-3 fst-italic small px-3">"{item.text}"</p>
+                    <h6 className="fw-semibold mb-0">{item.name}</h6>
+                    <span className="text-muted small">{item.role}</span>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </section>
 
       </main></>
   );

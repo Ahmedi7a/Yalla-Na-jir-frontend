@@ -2,7 +2,7 @@ const BASE_URL = `${import.meta.env.VITE_EXPRESS_BACKEND_URL}/rentals`;
 
 
 // Create a rental request (user only)
- 
+
 const createRentalRequest = async (carId, rentalData) => {
   try {
     const res = await fetch(`${BASE_URL}/${carId}`, {

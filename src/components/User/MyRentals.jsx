@@ -110,17 +110,16 @@ const MyRentals = () => {
 
                     <p className="card-text mb-2">
                       <strong>Status:</strong>{' '}
-                      <span className={`badge bg-${
-                        rental.status === 'approved'
+                      <span className={`badge bg-${rental.status === 'approved'
                           ? 'success'
                           : rental.status === 'pending'
-                          ? 'warning'
-                          : rental.status === 'rejected'
-                          ? 'danger'
-                          : rental.status === 'completed'
-                          ? 'secondary'
-                          : 'secondary'
-                      }`}>
+                            ? 'warning'
+                            : rental.status === 'rejected'
+                              ? 'danger'
+                              : rental.status === 'completed'
+                                ? 'secondary'
+                                : 'secondary'
+                        }`}>
                         {rental.status}
                       </span>
                       <br />

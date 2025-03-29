@@ -27,9 +27,9 @@ const create = async (carFormData) => {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
-        // 🚫 Do NOT set 'Content-Type' here when using FormData
+
       },
-      body: carFormData, // ✅ Send FormData directly
+      body: carFormData,
     });
     return res.json();
   } catch (error) {

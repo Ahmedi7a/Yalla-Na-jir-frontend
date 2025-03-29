@@ -12,3 +12,58 @@
 .navbar-dark.bg-dark {
   transition: none !important; 
 }
+/* ======== */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    background-color: #343a40; 
+    padding: 1rem;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-nav .nav-item {
+    width: 100%;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 0.5rem 1rem;
+    width: 100%;
+    text-align: left;
+  }
+
+  .navbar-brand {
+    font-size: 1.3rem;
+  }
+
+  .navbar-toggler {
+    border: none;
+    outline: none;
+  }
+
+  .navbar-toggler .oi-menu {
+    font-size: 1.4rem;
+    color: white;
+  }
+
+  .ml-auto {
+    margin-left: 0 !important;
+    margin-top: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ml-auto .nav-link,
+  .ml-auto .btn-link {
+    width: 100%;
+    text-align: left;
+    padding-left: 1rem;
+  }
+}
+
+.navbar-collapse.collapse {
+  transition: height 0.3s ease;
+}

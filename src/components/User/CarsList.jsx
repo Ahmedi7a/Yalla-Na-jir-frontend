@@ -141,15 +141,14 @@ const CarList = () => {
                     </p>
 
                     <small
-                      className={`mb-2 ${
-                        car.availability === 'available'
+                      className={`mb-2 ${car.availability === 'available'
                           ? 'text-success'
                           : car.availability === 'unavailable'
-                          ? 'text-danger'
-                          : car.availability === 'rented'
-                          ? 'text-secondary'
-                          : 'text-muted'
-                      }`}
+                            ? 'text-danger'
+                            : car.availability === 'rented'
+                              ? 'text-secondary'
+                              : 'text-muted'
+                        }`}
                     >
                       {car.availability}
                     </small>

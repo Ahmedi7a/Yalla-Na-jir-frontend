@@ -22,7 +22,7 @@ const CarDealerDetails = ({ handleDeleteCar }) => {
       </div>
     </div>
   );
-  
+
 
   return (
     <motion.div
@@ -62,15 +62,14 @@ const CarDealerDetails = ({ handleDeleteCar }) => {
             <p><strong>Price per day:</strong> BHD {car.pricePerDay}</p>
             <p>
               <strong>Status:</strong>{' '}
-              <span className={`fw-semibold ${
-    car.availability === 'available'
-      ? 'text-success'
-      : car.availability === 'unavailable'
-      ? 'text-danger'
-      : car.availability === 'rented'
-      ? 'text-secondary'
-      : 'text-muted'
-  }`}>
+              <span className={`fw-semibold ${car.availability === 'available'
+                  ? 'text-success'
+                  : car.availability === 'unavailable'
+                    ? 'text-danger'
+                    : car.availability === 'rented'
+                      ? 'text-secondary'
+                      : 'text-muted'
+                }`}>
                 {car.availability}
               </span>
             </p>

@@ -1,5 +1,5 @@
 import { useState, createContext, useEffect } from 'react';
-import { Routes, Route ,useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import Landing from './components/Landing/Landing';
 import SignupForm from './components/SignupForm/SignupForm';
@@ -7,9 +7,9 @@ import SigninForm from './components/SigninForm/SigninForm';
 import About from './components/About/About';
 // ==========================
 import * as authService from '../src/services/authService'; // import the authservice
-import * as carService from  '../src/services/carService';
-import * as approvalService from  '../src/services/approvalService';
-import * as rentalService from  '../src/services/rentalService';
+import * as carService from '../src/services/carService';
+import * as approvalService from '../src/services/approvalService';
+import * as rentalService from '../src/services/rentalService';
 import Footer from './components/Footer/Footer';
 // =============================
 import UserDashboard from './components/Dashboard/UserDashboard';
@@ -41,7 +41,7 @@ export const AuthedUserContext = createContext(null);
 const App = () => {
   const [user, setUser] = useState(authService.getUser()); // using the method from authservice
   const [cars, setCars] = useState([]);
-  const nav=useNavigate();
+  const nav = useNavigate();
 
 
   useEffect(() => {
@@ -83,7 +83,7 @@ const App = () => {
 
   const handleDeleteCar = async (carId) => {
     try {
-      const deleteCar=await carService.deleteCar(carId)
+      const deleteCar = await carService.deleteCar(carId)
       setCars(cars.filter((car) => car._id !== deleteCar._id))
       nav('/dealer/cars/rentals')
     } catch (error) {
@@ -97,11 +97,11 @@ const App = () => {
     <AuthedUserContext.Provider value={user}>
       <div className="d-flex flex-column min-vh-100">
         <NavBar user={user} handleSignout={handleSignout} />
-  
+
         <main className="flex-grow-1">
           <Routes>
             <Route path="/about" element={<About />} />
-            
+
             {!user && (
               <>
                 <Route path="/" element={<Landing />} />
@@ -109,7 +109,7 @@ const App = () => {
                 <Route path="/signin" element={<SigninForm setUser={setUser} />} />
               </>
             )}
-  
+
             {user && user.role === "admin" && (
               <>
                 <Route path="/" element={<AdminDashboard user={user} cars={cars} />} />
@@ -118,7 +118,7 @@ const App = () => {
 
               </>
             )}
-  
+
             {user && user.role === "dealer" && (
               <>
                 <Route path="/" element={<DealerCarsList user={user} cars={cars} />} />
@@ -129,7 +129,7 @@ const App = () => {
                 <Route path="/dealer/requests" element={<RentRequest />} />
               </>
             )}
-  
+
             {user && user.role === "user" && (
               <>
                 <Route path="/" element={<UserDashboard user={user} cars={cars} />} />
@@ -141,11 +141,11 @@ const App = () => {
             )}
           </Routes>
         </main>
-  
+
         <Footer />
       </div>
     </AuthedUserContext.Provider>
   );
-  
+
 }
 export default App;
